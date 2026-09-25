@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tuna / Tunasy</title>
-    <!-- Supabase JS Client einbinden -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -35,22 +33,21 @@
         }
         .account-pill {
             background: #121215;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 13px;
             color: #fff;
             cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: 0.2s;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
         .account-pill:hover {
             background: #1a1a20;
-            border-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         #ball-container {
@@ -253,6 +250,8 @@
             border-radius: 12px;
             cursor: pointer;
             transition: 0.2s;
+            width: 100%;
+            margin-top: 5px;
         }
         .auth-btn:hover { opacity: 0.9; }
         .close-modal {
@@ -269,7 +268,7 @@
 </head>
 <body>
 
-    <!-- Oben rechts Account-Status (Direkt sichtbar als Button) -->
+    <!-- Oben rechts Account-Status -->
     <div class="top-bar">
         <div id="auth-status-container">
             <button class="account-pill" onclick="openAuthModal('login')">
@@ -326,7 +325,7 @@
                 <h3>Anmelden</h3>
                 <input type="email" id="login-email" placeholder="E-Mail-Adresse">
                 <input type="password" id="login-password" placeholder="Passwort">
-                <button class="auth-btn" onclick="handleLogin()" style="width: 100%; margin-top: 5px;">Einloggen</button>
+                <button class="auth-btn" onclick="handleLogin()">Einloggen</button>
                 <div class="switch-mode" onclick="switchAuthView('register')">Noch keinen Account? Registrieren</div>
             </div>
 
@@ -336,19 +335,23 @@
                 <input type="text" id="reg-username" placeholder="Benutzername">
                 <input type="email" id="reg-email" placeholder="E-Mail-Adresse">
                 <input type="password" id="reg-password" placeholder="Passwort (min. 6 Zeichen)">
-                <button class="auth-btn" onclick="handleRegister()" style="width: 100%; margin-top: 5px;">Registrieren</button>
+                <button class="auth-btn" onclick="handleRegister()">Registrieren</button>
                 <div class="switch-mode" onclick="switchAuthView('login')">Schon einen Account? Anmelden</div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Supabase Verbindung aufbauen
+    <!-- Supabase direkt als Modul laden und Funktionen global verfügbar machen -->
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@+esm';
+
         const SUPABASE_URL = 'https://txawrymkvcmcapokcrwy.supabase.co';
         const SUPABASE_ANON_KEY = 'Sb_publishable_gl4vyHVPC0qoofaxodfcxQ_OaTHcy9k';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Prüfen ob Nutzer eingeloggt ist beim Start
+        // Global machen, damit die HTML-Buttons darauf zugreifen können
+        window.supabaseClient = supabase;
+
         async function checkUserSession() {
             const { data: { session } } = await supabase.auth.getSession();
             const statusContainer = document.getElementById('auth-status-container');
@@ -369,7 +372,9 @@
             }
         }
         checkUserSession();
+    </script>
 
+    <script>
         // Modal Steuerung
         function openAuthModal(mode) {
             document.getElementById('auth-modal').style.display = 'flex';
@@ -388,7 +393,7 @@
             }
         }
 
-        // Registrierung mit Supabase
+        // Registrierung
         async function handleRegister() {
             const username = document.getElementById('reg-username').value;
             const email = document.getElementById('reg-email').value;
@@ -399,7 +404,7 @@
                 return;
             }
 
-            const { data, error } = await supabase.auth.signUp({
+            const { data, error } = await window.supabaseClient.auth.signUp({
                 email: email,
                 password: password,
                 options: {
@@ -410,17 +415,17 @@
             if (error) {
                 alert("Fehler bei der Registrierung: " + error.message);
             } else {
-                alert("Erfolgreich registriert! Bitte schaue in dein E-Mail-Postfach und bestätige den Link.");
+                alert("Erfolgreich registriert! Bitte überprüfe dein E-Mail-Postfach für den Bestätigungslink.");
                 closeAuthModal();
             }
         }
 
-        // Login mit Supabase
+        // Login
         async function handleLogin() {
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
 
-            const { data, error } = await supabase.auth.signInWithPassword({
+            const { data, error } = await window.supabaseClient.auth.signInWithPassword({
                 email: email,
                 password: password
             });
@@ -430,15 +435,15 @@
             } else {
                 alert("Erfolgreich eingeloggt!");
                 closeAuthModal();
-                checkUserSession();
+                location.reload(); // Seite kurz neu laden, damit der Username oben steht
             }
         }
 
         // Logout
         async function handleLogout() {
             if(confirm("Möchtest du dich abmelden?")) {
-                await supabase.auth.signOut();
-                checkUserSession();
+                await window.supabaseClient.auth.signOut();
+                location.reload();
             }
         }
 
