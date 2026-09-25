@@ -23,7 +23,7 @@
             position: relative;
         }
 
-        /* Anime-Kampf Hintergrund-Canvas */
+        /* Anime-Cutscene Hintergrund-Canvas */
         #anime-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -129,7 +129,7 @@
 
         <div class="btn-group">
             <button class="play-btn" onclick="toggleEnergyBalls()">Effekte</button>
-            <button class="play-btn" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);" onclick="toggleAnimeFight()">⚡ Anime Fight</button>
+            <button class="play-btn" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);" onclick="toggleAnimeCutscene()">⚔️ Cutscene</button>
         </div>
 
         <div class="links-list">
@@ -191,23 +191,23 @@
             }
         }
 
-        // --- ANIME FIGHT HINTERGRUND-ANIMATION ---
-        let animeActive = false;
-        let animeInterval = null;
+        // --- ANIME CUTSCENE FIGHT HINTERGRUND ---
+        let cutsceneActive = false;
+        let cutsceneInterval = null;
 
-        function toggleAnimeFight() {
+        function toggleAnimeCutscene() {
             const bg = document.getElementById('anime-bg');
-            animeActive = !animeActive;
-            if (animeActive) {
+            cutsceneActive = !cutsceneActive;
+            if (cutsceneActive) {
                 bg.style.opacity = '1';
-                startAnimeBackground();
+                startAnimeCutscene();
             } else {
                 bg.style.opacity = '0';
-                if (animeInterval) clearInterval(animeInterval);
+                if (cutsceneInterval) clearInterval(cutsceneInterval);
             }
         }
 
-        function startAnimeBackground() {
+        function startAnimeCutscene() {
             const canvas = document.getElementById('anime-bg');
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
@@ -216,49 +216,46 @@
             let step = 0;
             let explosions = [];
 
-            // Augen-Zeichnungs-Funktion (Sharingan / Rinnegan Stil)
+            // Legendäres Anime-Auge (Sharingan/Rinnegan) im Hintergrund
             function drawAnimeEye(x, y, scale, type) {
                 ctx.save();
                 ctx.translate(x, y);
                 ctx.scale(scale, scale);
 
-                // Äußerer Glow
-                ctx.shadowBlur = 20;
+                ctx.shadowBlur = 30;
                 ctx.shadowColor = type === 'red' ? '#ff0000' : '#8a2be2';
 
-                // Augenform (Mandel)
+                // Augenform
                 ctx.beginPath();
-                ctx.moveTo(-40, 0);
-                ctx.quadraticCurveTo(0, -25, 40, 0);
-                ctx.quadraticCurveTo(0, 25, -40, 0);
-                ctx.fillStyle = type === 'red' ? '#cc0000' : '#4b0082';
+                ctx.moveTo(-50, 0);
+                ctx.quadraticCurveTo(0, -32, 50, 0);
+                ctx.quadraticCurveTo(0, 32, -50, 0);
+                ctx.fillStyle = type === 'red' ? 'rgba(180, 0, 0, 0.4)' : 'rgba(75, 0, 130, 0.4)';
                 ctx.fill();
                 ctx.lineWidth = 3;
                 ctx.strokeStyle = '#ffffff';
                 ctx.stroke();
 
-                // Iris & Tomoe / Rinnegan Ringe
+                // Iris
                 ctx.beginPath();
-                ctx.arc(0, 0, 16, 0, Math.PI * 2);
+                ctx.arc(0, 0, 20, 0, Math.PI * 2);
                 ctx.fillStyle = '#000000';
                 ctx.fill();
                 ctx.stroke();
 
                 if (type === 'red') {
-                    // Sharingan Tomoes (schwarze Kommas im Auge)
                     for (let i = 0; i < 3; i++) {
-                        let angle = (step * 0.05) + (i * ((Math.PI * 2) / 3));
-                        let tx = Math.cos(angle) * 9;
-                        let ty = Math.sin(angle) * 9;
+                        let angle = (step * 0.04) + (i * ((Math.PI * 2) / 3));
+                        let tx = Math.cos(angle) * 11;
+                        let ty = Math.sin(angle) * 11;
                         ctx.beginPath();
-                        ctx.arc(tx, ty, 3, 0, Math.PI * 2);
+                        ctx.arc(tx, ty, 3.5, 0, Math.PI * 2);
                         ctx.fillStyle = '#000000';
                         ctx.fill();
                     }
                 } else {
-                    // Rinnegan Kreise
                     ctx.beginPath();
-                    ctx.arc(0, 0, 10, 0, Math.PI * 2);
+                    ctx.arc(0, 0, 13, 0, Math.PI * 2);
                     ctx.strokeStyle = '#00ffff';
                     ctx.lineWidth = 1.5;
                     ctx.stroke();
@@ -266,86 +263,153 @@
 
                 // Pupille
                 ctx.beginPath();
-                ctx.arc(0, 0, 5, 0, Math.PI * 2);
+                ctx.arc(0, 0, 6, 0, Math.PI * 2);
                 ctx.fillStyle = '#ffffff';
                 ctx.fill();
 
                 ctx.restore();
             }
 
-            // Blitz / Dash Linien
-            function drawSlash(x1, y1, x2, y2, color) {
+            // Echte Anime-Charakter-Silhouette (Kopf, Torso, Haare, Arme)
+            function drawAnimeCharacter(x, y, facingRight, color, pose) {
                 ctx.save();
+                ctx.translate(x, y);
+                if (!facingRight) ctx.scale(-1, 1);
+
                 ctx.strokeStyle = color;
-                ctx.lineWidth = 4;
+                ctx.fillStyle = color;
+                ctx.lineWidth = 3.5;
                 ctx.shadowBlur = 15;
                 ctx.shadowColor = color;
+
+                // Haare (typischer Anime-Spiky-Look)
                 ctx.beginPath();
-                ctx.moveTo(x1, y1);
-                ctx.lineTo(x2, y2);
+                ctx.moveTo(-12, -35);
+                ctx.lineTo(-20, -55);
+                ctx.lineTo(-5, -45);
+                ctx.lineTo(5, -60);
+                ctx.lineTo(15, -45);
+                ctx.lineTo(22, -50);
+                ctx.lineTo(12, -32);
+                ctx.fill();
+
+                // Kopf
+                ctx.beginPath();
+                ctx.arc(0, -30, 11, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Oberkörper / Jacke
+                ctx.beginPath();
+                ctx.moveTo(0, -19);
+                ctx.lineTo(-12, 10);
+                ctx.lineTo(12, 10);
+                ctx.closePath();
+                ctx.fill();
+
+                // Arme & Posen (Schlag oder Abwehr)
+                ctx.beginPath();
+                if (pose === 'punch') {
+                    ctx.moveTo(0, -15);
+                    ctx.lineTo(35, -20); // Schlagender Arm nach vorne
+                    ctx.moveTo(0, -15);
+                    ctx.lineTo(-15, 5);
+                } else if (pose === 'charge') {
+                    ctx.moveTo(0, -15);
+                    ctx.lineTo(-20, -30); // Arme angewinkelt beim Aufladen
+                    ctx.moveTo(0, -15);
+                    ctx.lineTo(20, -30);
+                } else {
+                    ctx.moveTo(0, -15);
+                    ctx.lineTo(-18, 0);
+                    ctx.moveTo(0, -15);
+                    ctx.lineTo(18, 0);
+                }
                 ctx.stroke();
+
+                // Beine
+                ctx.beginPath();
+                ctx.moveTo(-8, 10);
+                ctx.lineTo(-15, 45);
+                ctx.moveTo(8, 10);
+                ctx.lineTo(15, 45);
+                ctx.stroke();
+
                 ctx.restore();
             }
 
-            // Explosionen
+            // Fette Explosionen und Chidori/Rasengan-Effekte
             function addExplosion(x, y, color) {
-                explosions.push({ x: x, y: y, radius: 10, maxRadius: 70, alpha: 1, color: color });
+                explosions.push({ x: x, y: y, radius: 10, maxRadius: 80, alpha: 1, color: color });
             }
 
-            if (animeInterval) clearInterval(animeInterval);
+            if (cutsceneInterval) clearInterval(cutsceneInterval);
 
-            animeInterval = setInterval(() => {
+            cutsceneInterval = setInterval(() => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 step++;
 
                 let cx = canvas.width / 2;
                 let cy = canvas.height / 3;
 
-                // 1. Großes Anime-Auge im Hintergrund das den Kampf überwacht
-                let eyePulse = 1 + Math.sin(step * 0.1) * 0.05;
-                drawAnimeEye(cx, cy - 80, eyePulse, step % 200 < 100 ? 'red' : 'purple');
+                // 1. Hintergrund-Auge pulsiert
+                let eyePulse = 1 + Math.sin(step * 0.08) * 0.06;
+                drawAnimeEye(cx, cy - 70, eyePulse, step % 180 < 90 ? 'red' : 'purple');
 
-                // 2. Ultraschnelle Kämpfer-Dashes (Blitze die aufeinander zurasen)
-                let speedFactor = 15;
-                let fighter1X = cx + Math.sin(step * 0.2) * (120 + Math.sin(step * 0.05) * 50);
-                let fighter1Y = cy + 100 + Math.cos(step * 0.3) * 30;
+                // 2. Bewegung der echten Anime-Charaktere im Kampf
+                let phase = step % 160;
+                let char1X, char2X, pose1 = 'normal', pose2 = 'normal';
 
-                let fighter2X = cx - Math.sin(step * 0.2) * (120 + Math.sin(step * 0.05) * 50);
-                let fighter2Y = cy + 100 - Math.cos(step * 0.3) * 30;
-
-                // Dash-Spuren zeichnen
-                drawSlash(fighter1X, fighter1Y, fighter1X - 40, fighter1Y - 20, '#ff0055');
-                drawSlash(fighter2X, fighter2Y, fighter2X + 40, fighter2Y + 20, '#00ffff');
-
-                // Wenn sie sich treffen -> Explosion in der Mitte!
-                if (Math.abs(fighter1X - fighter2X) < 40 && Math.random() < 0.3) {
-                    addExplosion((fighter1X + fighter2X) / 2, (fighter1Y + fighter2Y) / 2, Math.random() > 0.5 ? '#ffaa00' : '#00ffff');
+                if (phase < 50) {
+                    // Aufeinander zurennen
+                    char1X = cx - 120 + phase * 2;
+                    char2X = cx + 120 - phase * 2;
+                    pose1 = 'charge';
+                    pose2 = 'charge';
+                } else if (phase >= 50 && phase < 90) {
+                    // Kollision & Nahkampf-Schläge
+                    char1X = cx - 20 + Math.sin(step * 0.5) * 10;
+                    char2X = cx + 20 + Math.cos(step * 0.5) * 10;
+                    pose1 = 'punch';
+                    pose2 = 'punch';
+                    if (phase === 52) addExplosion(cx, cy + 100, '#00ffff');
+                    if (phase === 72) addExplosion(cx, cy + 100, '#ff0055');
+                } else {
+                    // Wegschießen / Dash
+                    let d = (phase - 90);
+                    char1X = cx - 40 - d * 2;
+                    char2X = cx + 40 + d * 2;
                 }
 
-                // Explosionen updaten und rendern
+                let charY = cy + 100;
+
+                // Charaktere zeichnen (Blau vs Rot/Pink)
+                drawAnimeCharacter(char1X, charY, true, '#00e5ff', pose1);
+                drawAnimeCharacter(char2X, charY, false, '#ff2a6d', pose2);
+
+                // Explosionen rendern
                 for (let i = explosions.length - 1; i >= 0; i--) {
                     let ex = explosions[i];
                     ctx.save();
                     ctx.beginPath();
                     ctx.arc(ex.x, ex.y, ex.radius, 0, Math.PI * 2);
                     ctx.fillStyle = ex.color;
-                    ctx.shadowBlur = 25;
+                    ctx.shadowBlur = 30;
                     ctx.shadowColor = ex.color;
                     ctx.globalAlpha = ex.alpha;
                     ctx.fill();
                     ctx.restore();
 
-                    ex.radius += 8;
-                    ex.alpha -= 0.08;
-                    if (ex.alpha <= 0) explosions.losses?.() || explosions.splice(i, 1);
+                    ex.radius += 10;
+                    ex.alpha -= 0.07;
+                    if (ex.alpha <= 0) explosions.splice(i, 1);
                 }
 
-                // Kleine Aura-Partikel um den Kampf herum
-                for (let i = 0; i < 3; i++) {
-                    let px = cx + (Math.random() - 0.5) * 300;
-                    let py = cy + 100 + (Math.random() - 0.5) * 100;
-                    ctx.fillStyle = Math.random() > 0.5 ? '#ff0055' : '#00ffff';
-                    ctx.fillRect(px, py, 3, 3);
+                // Energie-Funken im Hintergrund
+                for (let i = 0; i < 4; i++) {
+                    let px = cx + (Math.random() - 0.5) * 350;
+                    let py = cy + 70 + (Math.random() - 0.5) * 120;
+                    ctx.fillStyle = Math.random() > 0.5 ? '#00ffff' : '#ff0055';
+                    ctx.fillRect(px, py, 2.5, 2.5);
                 }
 
             }, 1000 / 30);
