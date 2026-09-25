@@ -22,32 +22,6 @@
             overflow-x: hidden;
             position: relative;
         }
-        .top-bar {
-            width: 100%;
-            max-width: 480px;
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 10px;
-            z-index: 20;
-        }
-        .account-pill {
-            background: #121215;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            color: #fff;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
-        .account-pill:hover {
-            background: #1a1a20;
-            border-color: rgba(255, 255, 255, 0.4);
-        }
 
         #ball-container {
             position: fixed;
@@ -69,6 +43,7 @@
             50% { transform: translateY(-40px) translateX(30px) scale(1.1); }
             100% { transform: translateY(30px) translateX(-40px) scale(0.95); }
         }
+
         .container {
             width: 100%;
             max-width: 480px;
@@ -86,15 +61,51 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
         .logo span { color: #ffffff; font-size: 42px; font-weight: bold; line-height: 1; margin-top: -2px; }
-        .title { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+        .title { font-size: 22px; font-weight: 700; margin-bottom: 15px; }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            z-index: 15;
+        }
         .play-btn {
             background: linear-gradient(135deg, #0072ff, #00c6ff);
-            color: white; border: none; padding: 10px 24px;
+            color: white; border: none; padding: 10px 20px;
             font-size: 14px; font-weight: 600; border-radius: 30px;
-            cursor: pointer; margin-bottom: 25px;
+            cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
-            position: relative; z-index: 15;
+            transition: 0.2s;
         }
+        .play-btn:active { transform: scale(0.95); }
+
+        /* Kampf-Arena Overlay */
+        #fight-arena {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        #fight-canvas {
+            background: #0a0a12;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            box-shadow: 0 0 40px rgba(0, 114, 255, 0.3);
+            max-width: 95vw;
+            max-height: 60vh;
+        }
+        .fight-close {
+            margin-top: 20px;
+            background: #ff3b30;
+            color: white; border: none;
+            padding: 10px 25px; border-radius: 20px;
+            font-weight: bold; cursor: pointer;
+        }
+
         .links-list { width: 100%; display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 15; }
         .link-card {
             display: flex; align-items: center;
@@ -120,49 +131,9 @@
         footer { margin-top: 35px; text-align: center; display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 15; }
         .footer-brand { font-size: 13px; color: #77777d; font-weight: 500; }
         .footer-soon { font-size: 11px; color: #55555a; }
-
-        #auth-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); display: none;
-            justify-content: center; align-items: center; z-index: 9999; padding: 16px;
-        }
-        .auth-card {
-            background: #121215; border: 1px solid rgba(255,255,255,0.12);
-            padding: 25px; border-radius: 20px; width: 100%; max-width: 400px;
-            display: flex; flex-direction: column; gap: 14px; position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .auth-card h3 { text-align: center; margin-bottom: 5px; color: #fff; }
-        .auth-card input {
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px 16px; border-radius: 12px; color: white; font-size: 14px;
-            outline: none; width: 100%;
-        }
-        .auth-card input:focus { border-color: #0072ff; }
-        .auth-btn {
-            background: linear-gradient(135deg, #0072ff, #00c6ff);
-            color: white; border: none; padding: 14px; font-weight: 600;
-            border-radius: 12px; cursor: pointer; width: 100%; margin-top: 5px; font-size: 15px;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .auth-btn:active { opacity: 0.8; transform: scale(0.98); }
-        .close-modal {
-            position: absolute; top: 15px; right: 18px;
-            background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer;
-        }
-        .switch-mode { text-align: center; font-size: 13px; color: #8a8a8e; cursor: pointer; margin-top: 5px; padding: 5px; }
-        .switch-mode:hover { color: #fff; }
     </style>
 </head>
 <body>
-
-    <div class="top-bar">
-        <div id="auth-status-container">
-            <button class="account-pill" onclick="openAuthModal('login')">
-                <span>👤</span> Anmelden
-            </button>
-        </div>
-    </div>
 
     <div id="ball-container"></div>
     <div class="container">
@@ -171,7 +142,10 @@
         </div>
         <div class="title">Tuna / Tunasy</div>
 
-        <button class="play-btn" onclick="toggleEnergyBalls()">Animation</button>
+        <div class="btn-group">
+            <button class="play-btn" onclick="toggleEnergyBalls()">Effekte</button>
+            <button class="play-btn" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);" onclick="startFight()">⚔️ Stick Fight</button>
+        </div>
 
         <div class="links-list">
             <a href="https://youtube.com/@tunaodyt?si=8ezmalUUG0jmONQR" class="link-card" target="_blank">
@@ -202,145 +176,22 @@
         </footer>
     </div>
 
-    <!-- Modal -->
-    <div id="auth-modal">
-        <div class="auth-card">
-            <button class="close-modal" onclick="closeAuthModal()">&times;</button>
-            
-            <!-- Login Form -->
-            <div id="form-login">
-                <h3>Anmelden</h3>
-                <input type="email" id="login-email" placeholder="E-Mail-Adresse" style="margin-bottom: 12px;">
-                <input type="password" id="login-password" placeholder="Passwort" style="margin-bottom: 14px;">
-                <button class="auth-btn" onclick="handleLogin()" ontouchend="handleLogin()">Einloggen</button>
-                <div class="switch-mode" onclick="switchAuthView('register')">Noch keinen Account? Registrieren</div>
-            </div>
-
-            <!-- Register Form -->
-            <div id="form-register" style="display: none;">
-                <h3>Account erstellen</h3>
-                <input type="text" id="reg-username" placeholder="Benutzername" style="margin-bottom: 10px;">
-                <input type="email" id="reg-email" placeholder="E-Mail-Adresse" style="margin-bottom: 10px;">
-                <input type="password" id="reg-password" placeholder="Passwort (min. 6 Zeichen)" style="margin-bottom: 14px;">
-                <button class="auth-btn" onclick="handleRegister()" ontouchend="handleRegister()">Registrieren</button>
-                <div class="switch-mode" onclick="switchAuthView('login')">Schon einen Account? Anmelden</div>
-            </div>
-        </div>
+    <!-- Kampf Arena Overlay -->
+    <div id="fight-arena">
+        <canvas id="fight-canvas" width="600" height="350"></canvas>
+        <button class="fight-close" onclick="closeFight()">Schließen</button>
     </div>
 
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@+esm';
-
-        const SUPABASE_URL = 'https://txawrymkvcmcapokcrwy.supabase.co';
-        const SUPABASE_ANON_KEY = 'Sb_publishable_gl4vyHVPC0qoofaxodfcxQ_OaTHcy9k';
-        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        window.supabaseClient = supabase;
-
-        async function checkUserSession() {
-            const { data: { session } } = await supabase.auth.getSession();
-            const statusContainer = document.getElementById('auth-status-container');
-            
-            if (session && session.user) {
-                const username = session.user.user_metadata.username || "Account";
-                statusContainer.innerHTML = `
-                    <button class="account-pill" onclick="handleLogout()" title="Abmelden">
-                        <span>👤</span> ${username} (Logout)
-                    </button>
-                `;
-            } else {
-                statusContainer.innerHTML = `
-                    <button class="account-pill" onclick="openAuthModal('login')">
-                        <span>👤</span> Anmelden
-                    </button>
-                `;
-            }
-        }
-        checkUserSession();
-    </script>
-
     <script>
-        function openAuthModal(mode) {
-            document.getElementById('auth-modal').style.display = 'flex';
-            switchAuthView(mode);
-        }
-        function closeAuthModal() {
-            document.getElementById('auth-modal').style.display = 'none';
-        }
-        function switchAuthView(mode) {
-            document.getElementById('form-login').style.display = (mode === 'login') ? 'block' : 'none';
-            document.getElementById('form-register').style.display = (mode === 'register') ? 'block' : 'none';
-        }
-
-        async function handleRegister() {
-            const username = document.getElementById('reg-username').value.trim();
-            const email = document.getElementById('reg-email').value.trim();
-            const password = document.getElementById('reg-password').value;
-
-            if(!username || !email || !password) {
-                alert("Bitte alle Felder ausfüllen!");
-                return;
-            }
-
-            const { data, error } = await window.supabaseClient.auth.signUp({
-                email: email,
-                password: password,
-                options: {
-                    data: { username: username }
-                }
-            });
-
-            if (error) {
-                alert("Fehler bei der Registrierung: " + error.message);
-            } else {
-                alert("Account erfolgreich erstellt! Bitte schaue in deine E-Mails und klicke auf den Bestätigungslink.");
-                closeAuthModal();
-            }
-        }
-
-        async function handleLogin() {
-            const email = document.getElementById('login-email').value.trim();
-            const password = document.getElementById('login-password').value;
-
-            if(!email || !password) {
-                alert("Bitte E-Mail und Passwort eingeben!");
-                return;
-            }
-
-            const { data, error } = await window.supabaseClient.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
-
-            if (error) {
-                alert("Login fehlgeschlagen: " + error.message);
-            } else {
-                alert("Erfolgreich eingeloggt!");
-                closeAuthModal();
-                location.reload();
-            }
-        }
-
-        async function handleLogout() {
-            if(confirm("Möchtest du dich abmelden?")) {
-                await window.supabaseClient.auth.signOut();
-                location.reload();
-            }
-        }
-
         let ballsActive = false;
         function toggleEnergyBalls() {
             const container = document.getElementById('ball-container');
-            const btn = document.querySelector('.play-btn');
             ballsActive = !ballsActive;
             if (ballsActive) {
                 container.style.opacity = '1';
-                btn.textContent = 'Animation stoppen';
-                btn.style.background = 'linear-gradient(135deg, #ff416c, #ff4b2b)';
                 createEnergyBalls();
             } else {
                 container.style.opacity = '0';
-                btn.textContent = 'Animation';
-                btn.style.background = 'linear-gradient(135deg, #0072ff, #00c6ff)';
                 container.innerHTML = '';
             }
         }
@@ -359,6 +210,131 @@
                 ball.style.animationDelay = `${Math.random() * 3}s`;
                 container.appendChild(ball);
             }
+        }
+
+        // --- STICKMAN FIGHT SCRIPT ---
+        let fightInterval = null;
+        function startFight() {
+            document.getElementById('fight-arena').style.display = 'flex';
+            const canvas = document.getElementById('fight-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let frame = 0;
+            let explosions = [];
+
+            function drawStickman(x, y, color, facingRight, action) {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                
+                // Kopf
+                ctx.arc(x, y - 30, 10, 0, Math.PI * 2);
+                // Körper
+                ctx.moveTo(x, y - 20);
+                ctx.lineTo(x, y + 10);
+                
+                let handOffset = facingRight ? 15 : -15;
+                if (action === 'punch') {
+                    // Schlag-Animation
+                    ctx.moveTo(x, y - 10);
+                    ctx.lineTo(x + handOffset * 2, y - 15);
+                } else if (action === 'kick') {
+                    ctx.moveTo(x, y - 10);
+                    ctx.lineTo(x + handOffset, y);
+                } else {
+                    // Normal
+                    ctx.moveTo(x, y - 10);
+                    ctx.lineTo(x + handOffset, y);
+                    ctx.moveTo(x, y - 10);
+                    ctx.lineTo(x - handOffset, y);
+                }
+
+                // Beine
+                ctx.moveTo(x, y + 10);
+                ctx.lineTo(x - 10, y + 35);
+                ctx.moveTo(x, y + 10);
+                ctx.lineTo(x + 10, y + 35);
+
+                ctx.stroke();
+            }
+
+            function addExplosion(x, y) {
+                explosions.push({ x: x, y: y, radius: 5, alpha: 1 });
+            }
+
+            if(fightInterval) clearInterval(fightInterval);
+
+            fightInterval = setInterval(() => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                frame++;
+
+                // Boden zeichnen
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(0, 280);
+                ctx.lineTo(600, 280);
+                ctx.stroke();
+
+                // Kampf-Logik Schleife (ca. alle 4 Sekunden ein kompletter Kampf-Zyklus)
+                let loopFrame = frame % 240;
+                let p1X = 150;
+                let p2X = 450;
+                let p1Action = 'idle';
+                let p2Action = 'idle';
+                let p1Color = '#00c6ff';
+                let p2Color = '#ff416c';
+
+                if (loopFrame > 60 && loopFrame < 100) {
+                    // P1 läuft vor & schlägt
+                    p1X = 150 + (loopFrame - 60) * 3;
+                    p1Action = 'punch';
+                    if(loopFrame === 85) addExplosion(p1X + 20, 245);
+                } else if (loopFrame >= 100 && loopFrame < 140) {
+                    // P1 weicht zurück, P2 kontert mit Kick
+                    p1X = 270 - (loopFrame - 100) * 2;
+                    p2X = 450 - (loopFrame - 100) * 3;
+                    p2Action = 'kick';
+                    if(loopFrame === 120) addExplosion(p2X - 20, 245);
+                } else if (loopFrame >= 140 && loopFrame < 190) {
+                    // Beide feuern Energie-Kugeln aufeinander
+                    p1X = 190;
+                    p2X = 370;
+                    if(loopFrame === 150) addExplosion(280, 245);
+                } else if (loopFrame >= 190) {
+                    // Epischer Rückzug
+                    p1X = 190 - (loopFrame - 190);
+                    p2X = 370 + (loopFrame - 190);
+                }
+
+                // Explosionen rendern
+                for (let i = explosions.length - 1; i >= 0; i--) {
+                    let ex = explosions[i];
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(ex.x, ex.y, ex.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 165, 0, ${ex.alpha})`;
+                    ctx.fill();
+                    ctx.strokeStyle = `rgba(255, 69, 0, ${ex.alpha})`;
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+                    ctx.restore();
+
+                    ex.radius += 2;
+                    ex.alpha -= 0.05;
+                    if (ex.alpha <= 0) explosions.splice(i, 1);
+                }
+
+                // Stickmen zeichnen
+                drawStickman(p1X, 250, p1Color, true, p1Action);
+                drawStickman(p2X, 250, p2Color, false, p2Action);
+
+            }, 1000 / 30);
+        }
+
+        function closeFight() {
+            document.getElementById('fight-arena').style.display = 'none';
+            if(fightInterval) clearInterval(fightInterval);
         }
     </script>
 </body>
