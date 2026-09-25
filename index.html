@@ -217,7 +217,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 9999;
             padding: 16px;
         }
         .auth-card {
@@ -246,21 +246,24 @@
             color: white;
             font-size: 14px;
             outline: none;
+            width: 100%;
         }
         .auth-card input:focus { border-color: #0072ff; }
         .auth-btn {
             background: linear-gradient(135deg, #0072ff, #00c6ff);
             color: white;
             border: none;
-            padding: 12px;
+            padding: 14px;
             font-weight: 600;
             border-radius: 12px;
             cursor: pointer;
             transition: 0.2s;
             width: 100%;
             margin-top: 5px;
+            font-size: 15px;
+            -webkit-tap-highlight-color: transparent;
         }
-        .auth-btn:hover { opacity: 0.9; }
+        .auth-btn:active { opacity: 0.8; transform: scale(0.98); }
         .close-modal {
             position: absolute;
             top: 15px; right: 18px;
@@ -269,6 +272,7 @@
         }
         .switch-mode {
             text-align: center; font-size: 13px; color: #8a8a8e; cursor: pointer; margin-top: 5px;
+            padding: 5px;
         }
         .switch-mode:hover { color: #fff; }
     </style>
@@ -332,7 +336,7 @@
                 <h3>Anmelden</h3>
                 <input type="email" id="login-email" placeholder="E-Mail-Adresse">
                 <input type="password" id="login-password" placeholder="Passwort">
-                <button class="auth-btn" onclick="handleLogin()">Einloggen</button>
+                <button class="auth-btn" onclick="handleLogin()" ontouchend="handleLogin()">Einloggen</button>
                 <div class="switch-mode" onclick="switchAuthView('register')">Noch keinen Account? Registrieren</div>
             </div>
 
@@ -342,7 +346,7 @@
                 <input type="text" id="reg-username" placeholder="Benutzername">
                 <input type="email" id="reg-email" placeholder="E-Mail-Adresse">
                 <input type="password" id="reg-password" placeholder="Passwort (min. 6 Zeichen)">
-                <button class="auth-btn" onclick="handleRegister()">Registrieren</button>
+                <button class="auth-btn" onclick="handleRegister()" ontouchend="handleRegister()">Registrieren</button>
                 <div class="switch-mode" onclick="switchAuthView('login')">Schon einen Account? Anmelden</div>
             </div>
         </div>
@@ -399,10 +403,10 @@
             }
         }
 
-        // Registrierung mit Bestätigungslink-Hinweis
+        // Registrierung
         async function handleRegister() {
-            const username = document.getElementById('reg-username').value;
-            const email = document.getElementById('reg-email').value;
+            const username = document.getElementById('reg-username').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
             const password = document.getElementById('reg-password').value;
 
             if(!username || !email || !password) {
@@ -429,8 +433,13 @@
 
         // Login
         async function handleLogin() {
-            const email = document.getElementById('login-email').value;
+            const email = document.getElementById('login-email').value.trim();
             const password = document.getElementById('login-password').value;
+
+            if(!email || !password) {
+                alert("Bitte E-Mail und Passwort eingeben!");
+                return;
+            }
 
             const { data, error } = await window.supabaseClient.auth.signInWithPassword({
                 email: email,
