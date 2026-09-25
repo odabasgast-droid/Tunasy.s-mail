@@ -24,33 +24,33 @@
             overflow-x: hidden;
             position: relative;
         }
-        /* Top Bar für Account */
+        /* Top Bar für Account oben rechts */
         .top-bar {
             width: 100%;
             max-width: 480px;
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             z-index: 10;
         }
         .account-pill {
             background: #121215;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 8px 14px;
+            padding: 8px 16px;
             border-radius: 20px;
             font-size: 13px;
-            color: #ccc;
+            color: #fff;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
             transition: 0.2s;
             text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .account-pill:hover {
             background: #1a1a20;
             border-color: rgba(255, 255, 255, 0.2);
-            color: #fff;
         }
 
         #ball-container {
@@ -209,7 +209,7 @@
         #auth-modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             display: none;
             justify-content: center;
             align-items: center;
@@ -232,6 +232,7 @@
         .auth-card h3 {
             text-align: center;
             margin-bottom: 5px;
+            color: #fff;
         }
         .auth-card input {
             background: rgba(255,255,255,0.05);
@@ -258,20 +259,22 @@
             position: absolute;
             top: 15px; right: 18px;
             background: none; border: none;
-            color: #aaa; font-size: 20px; cursor: pointer;
+            color: #aaa; font-size: 22px; cursor: pointer;
         }
         .switch-mode {
-            text-align: center; font-size: 13px; color: #8a8a8e; cursor: pointer;
+            text-align: center; font-size: 13px; color: #8a8a8e; cursor: pointer; margin-top: 5px;
         }
         .switch-mode:hover { color: #fff; }
     </style>
 </head>
 <body>
 
-    <!-- Oben rechts Account-Status -->
+    <!-- Oben rechts Account-Status (Direkt sichtbar als Button) -->
     <div class="top-bar">
         <div id="auth-status-container">
-            <a href="#" class="account-pill" onclick="openAuthModal('login')">Anmelden</a>
+            <button class="account-pill" onclick="openAuthModal('login')">
+                <span>👤</span> Anmelden
+            </button>
         </div>
     </div>
 
@@ -323,7 +326,7 @@
                 <h3>Anmelden</h3>
                 <input type="email" id="login-email" placeholder="E-Mail-Adresse">
                 <input type="password" id="login-password" placeholder="Passwort">
-                <button class="auth-btn" onclick="handleLogin()">Einloggen</button>
+                <button class="auth-btn" onclick="handleLogin()" style="width: 100%; margin-top: 5px;">Einloggen</button>
                 <div class="switch-mode" onclick="switchAuthView('register')">Noch keinen Account? Registrieren</div>
             </div>
 
@@ -333,7 +336,7 @@
                 <input type="text" id="reg-username" placeholder="Benutzername">
                 <input type="email" id="reg-email" placeholder="E-Mail-Adresse">
                 <input type="password" id="reg-password" placeholder="Passwort (min. 6 Zeichen)">
-                <button class="auth-btn" onclick="handleRegister()">Registrieren</button>
+                <button class="auth-btn" onclick="handleRegister()" style="width: 100%; margin-top: 5px;">Registrieren</button>
                 <div class="switch-mode" onclick="switchAuthView('login')">Schon einen Account? Anmelden</div>
             </div>
         </div>
@@ -342,7 +345,7 @@
     <script>
         // Supabase Verbindung aufbauen
         const SUPABASE_URL = 'https://txawrymkvcmcapokcrwy.supabase.co';
-        const SUPABASE_ANON_KEY = 'Sb_publishable_gl4vyHVPC0qoofaxodfcxQ_OaTHcy9k'; // Dein Publishable Key
+        const SUPABASE_ANON_KEY = 'Sb_publishable_gl4vyHVPC0qoofaxodfcxQ_OaTHcy9k';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // Prüfen ob Nutzer eingeloggt ist beim Start
@@ -353,13 +356,15 @@
             if (session && session.user) {
                 const username = session.user.user_metadata.username || "Account";
                 statusContainer.innerHTML = `
-                    <div class="account-pill" onclick="handleLogout()" title="Ausloggen">
-                        👤 ${username} (Abmelden)
-                    </div>
+                    <button class="account-pill" onclick="handleLogout()" title="Abmelden">
+                        <span>👤</span> ${username} (Logout)
+                    </button>
                 `;
             } else {
                 statusContainer.innerHTML = `
-                    <a href="#" class="account-pill" onclick="openAuthModal('login')">Anmelden</a>
+                    <button class="account-pill" onclick="openAuthModal('login')">
+                        <span>👤</span> Anmelden
+                    </button>
                 `;
             }
         }
