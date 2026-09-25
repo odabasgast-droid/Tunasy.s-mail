@@ -22,7 +22,6 @@
             overflow-x: hidden;
             position: relative;
         }
-        /* Top Bar für Account oben rechts */
         .top-bar {
             width: 100%;
             max-width: 480px;
@@ -52,13 +51,9 @@
 
         #ball-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none !important;
-            z-index: 1;
-            opacity: 0;
+            z-index: 1; opacity: 0;
             transition: opacity 1s ease;
         }
         .energy-ball {
@@ -82,204 +77,86 @@
             align-items: center;
             z-index: 10;
         }
-        .logo-wrapper {
-            margin-bottom: 12px;
-        }
+        .logo-wrapper { margin-bottom: 12px; }
         .logo {
-            width: 85px;
-            height: 85px;
-            border: 3px solid #ffffff;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 85px; height: 85px;
+            border: 3px solid #ffffff; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
             background-color: #000000;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
-        .logo span {
-            color: #ffffff;
-            font-size: 42px;
-            font-weight: bold;
-            line-height: 1;
-            margin-top: -2px;
-        }
-        .title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
+        .logo span { color: #ffffff; font-size: 42px; font-weight: bold; line-height: 1; margin-top: -2px; }
+        .title { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
         .play-btn {
             background: linear-gradient(135deg, #0072ff, #00c6ff);
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 30px;
-            cursor: pointer;
-            margin-bottom: 25px;
+            color: white; border: none; padding: 10px 24px;
+            font-size: 14px; font-weight: 600; border-radius: 30px;
+            cursor: pointer; margin-bottom: 25px;
             box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 15;
+            position: relative; z-index: 15;
         }
-        .links-list {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            position: relative;
-            z-index: 15;
-        }
+        .links-list { width: 100%; display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 15; }
         .link-card {
-            display: flex;
-            align-items: center;
-            background: #121215;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 14px 18px;
-            border-radius: 16px;
-            text-decoration: none;
-            color: #ffffff;
-            transition: all 0.25s ease;
+            display: flex; align-items: center;
+            background: #121215; border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 14px 18px; border-radius: 16px;
+            text-decoration: none; color: #ffffff; transition: all 0.25s ease;
         }
-        .link-card:hover {
-            background: #1a1a20;
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
+        .link-card:hover { background: #1a1a20; border-color: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
         .link-icon-box {
-            width: 42px;
-            height: 42px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 14px;
-            flex-shrink: 0;
+            width: 42px; height: 42px; background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px; display: flex; justify-content: center; align-items: center;
+            margin-right: 14px; flex-shrink: 0;
         }
-        .link-icon-box svg {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
-        }
-        .link-info {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            gap: 2px;
-        }
-        .link-title {
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .link-desc {
-            font-size: 12px;
-            color: #8a8a8e;
-        }
+        .link-icon-box svg { width: 22px; height: 22px; fill: currentColor; }
+        .link-info { display: flex; flex-direction: column; flex-grow: 1; gap: 2px; }
+        .link-title { font-size: 15px; font-weight: 600; }
+        .link-desc { font-size: 12px; color: #8a8a8e; }
         .arrow-icon {
-            width: 26px;
-            height: 26px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #a0a0a5;
-            font-size: 13px;
-            flex-shrink: 0;
-            margin-left: 10px;
+            width: 26px; height: 26px; background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            color: #a0a0a5; font-size: 13px; flex-shrink: 0; margin-left: 10px;
         }
-        footer {
-            margin-top: 35px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            position: relative;
-            z-index: 15;
-        }
-        .footer-brand {
-            font-size: 13px;
-            color: #77777d;
-            font-weight: 500;
-        }
-        .footer-soon {
-            font-size: 11px;
-            color: #55555a;
-        }
+        footer { margin-top: 35px; text-align: center; display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 15; }
+        .footer-brand { font-size: 13px; color: #77777d; font-weight: 500; }
+        .footer-soon { font-size: 11px; color: #55555a; }
 
-        /* Modal / Pop-up für Login & Registrierung */
         #auth-modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            padding: 16px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); display: none;
+            justify-content: center; align-items: center; z-index: 9999; padding: 16px;
         }
         .auth-card {
-            background: #121215;
-            border: 1px solid rgba(255,255,255,0.12);
-            padding: 25px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            position: relative;
+            background: #121215; border: 1px solid rgba(255,255,255,0.12);
+            padding: 25px; border-radius: 20px; width: 100%; max-width: 400px;
+            display: flex; flex-direction: column; gap: 14px; position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .auth-card h3 {
-            text-align: center;
-            margin-bottom: 5px;
-            color: #fff;
-        }
+        .auth-card h3 { text-align: center; margin-bottom: 5px; color: #fff; }
+        .auth-card p { font-size: 13px; color: #aaa; text-align: center; line-height: 1.4; }
         .auth-card input {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px 16px;
-            border-radius: 12px;
-            color: white;
-            font-size: 14px;
-            outline: none;
-            width: 100%;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 16px; border-radius: 12px; color: white; font-size: 14px;
+            outline: none; width: 100%; text-align: center; letter-spacing: 2px;
         }
         .auth-card input:focus { border-color: #0072ff; }
         .auth-btn {
             background: linear-gradient(135deg, #0072ff, #00c6ff);
-            color: white;
-            border: none;
-            padding: 14px;
-            font-weight: 600;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-            margin-top: 5px;
-            font-size: 15px;
+            color: white; border: none; padding: 14px; font-weight: 600;
+            border-radius: 12px; cursor: pointer; width: 100%; margin-top: 5px; font-size: 15px;
             -webkit-tap-highlight-color: transparent;
         }
         .auth-btn:active { opacity: 0.8; transform: scale(0.98); }
         .close-modal {
-            position: absolute;
-            top: 15px; right: 18px;
-            background: none; border: none;
-            color: #aaa; font-size: 22px; cursor: pointer;
+            position: absolute; top: 15px; right: 18px;
+            background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer;
         }
-        .switch-mode {
-            text-align: center; font-size: 13px; color: #8a8a8e; cursor: pointer; margin-top: 5px;
-            padding: 5px;
-        }
+        .switch-mode { text-align: center; font-size: 13px; color: #8a8a8e; cursor: pointer; margin-top: 5px; padding: 5px; }
         .switch-mode:hover { color: #fff; }
     </style>
 </head>
 <body>
 
-    <!-- Oben rechts Account-Status -->
     <div class="top-bar">
         <div id="auth-status-container">
             <button class="account-pill" onclick="openAuthModal('login')">
@@ -326,7 +203,7 @@
         </footer>
     </div>
 
-    <!-- Login/Register Pop-up Modal -->
+    <!-- Modal -->
     <div id="auth-modal">
         <div class="auth-card">
             <button class="close-modal" onclick="closeAuthModal()">&times;</button>
@@ -349,18 +226,25 @@
                 <button class="auth-btn" onclick="handleRegister()" ontouchend="handleRegister()">Registrieren</button>
                 <div class="switch-mode" onclick="switchAuthView('login')">Schon einen Account? Anmelden</div>
             </div>
+
+            <!-- Verify Code Form (OTP) -->
+            <div id="form-verify" style="display: none;">
+                <h3>Code eingeben</h3>
+                <p>Wir haben dir einen Verifizierungscode per E-Mail geschickt. Gib ihn hier ein:</p>
+                <input type="text" id="verify-code" placeholder="123456" maxlength="6">
+                <button class="auth-btn" onclick="handleVerifyOtp()" ontouchend="handleVerifyOtp()">Bestätigen</button>
+            </div>
         </div>
     </div>
 
-    <!-- Supabase direkt als Modul laden -->
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@+esm';
 
         const SUPABASE_URL = 'https://txawrymkvcmcapokcrwy.supabase.co';
         const SUPABASE_ANON_KEY = 'Sb_publishable_gl4vyHVPC0qoofaxodfcxQ_OaTHcy9k';
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
         window.supabaseClient = supabase;
+        window.tempRegEmail = "";
 
         async function checkUserSession() {
             const { data: { session } } = await supabase.auth.getSession();
@@ -385,7 +269,6 @@
     </script>
 
     <script>
-        // Modal Steuerung
         function openAuthModal(mode) {
             document.getElementById('auth-modal').style.display = 'flex';
             switchAuthView(mode);
@@ -394,16 +277,11 @@
             document.getElementById('auth-modal').style.display = 'none';
         }
         function switchAuthView(mode) {
-            if(mode === 'login') {
-                document.getElementById('form-login').style.display = 'block';
-                document.getElementById('form-register').style.display = 'none';
-            } else {
-                document.getElementById('form-login').style.display = 'none';
-                document.getElementById('form-register').style.display = 'block';
-            }
+            document.getElementById('form-login').style.display = (mode === 'login') ? 'block' : 'none';
+            document.getElementById('form-register').style.display = (mode === 'register') ? 'block' : 'none';
+            document.getElementById('form-verify').style.display = (mode === 'verify') ? 'block' : 'none';
         }
 
-        // Registrierung
         async function handleRegister() {
             const username = document.getElementById('reg-username').value.trim();
             const email = document.getElementById('reg-email').value.trim();
@@ -414,6 +292,9 @@
                 return;
             }
 
+            window.tempRegEmail = email;
+
+            // Registrierung mit E-Mail-OTP (falls in Supabase als Signup Type so konfiguriert)
             const { data, error } = await window.supabaseClient.auth.signUp({
                 email: email,
                 password: password,
@@ -425,13 +306,36 @@
             if (error) {
                 alert("Fehler bei der Registrierung: " + error.message);
             } else {
-                alert("Registrierung erfolgreich! Wir haben dir einen Bestätigungslink per E-Mail geschickt. Bitte klicke darauf, bevor du dich einloggst.");
-                closeAuthModal();
-                switchAuthView('login');
+                alert("Account erstellt! Bitte prüfe deine E-Mails nach dem Code.");
+                switchAuthView('verify');
             }
         }
 
-        // Login
+        // Code (OTP) direkt auf der Website bestätigen
+        async function handleVerifyOtp() {
+            const token = document.getElementById('verify-code').value.trim();
+            const email = window.tempRegEmail;
+
+            if(!token || token.length < 6) {
+                alert("Bitte den 6-stelligen Code eingeben!");
+                return;
+            }
+
+            const { data, error } = await window.supabaseClient.auth.verifyOtp({
+                email: email,
+                token: token,
+                type: 'signup'
+            });
+
+            if (error) {
+                alert("Ungültiger Code: " + error.message);
+            } else {
+                alert("Erfolgreich verifiziert und eingeloggt!");
+                closeAuthModal();
+                location.reload();
+            }
+        }
+
         async function handleLogin() {
             const email = document.getElementById('login-email').value.trim();
             const password = document.getElementById('login-password').value;
@@ -447,7 +351,7 @@
             });
 
             if (error) {
-                alert("Login fehlgeschlagen: Bitte stelle sicher, dass du deine E-Mail bereits über den Link bestätigt hast! (" + error.message + ")");
+                alert("Login fehlgeschlagen: " + error.message);
             } else {
                 alert("Erfolgreich eingeloggt!");
                 closeAuthModal();
@@ -455,7 +359,6 @@
             }
         }
 
-        // Logout
         async function handleLogout() {
             if(confirm("Möchtest du dich abmelden?")) {
                 await window.supabaseClient.auth.signOut();
@@ -463,7 +366,6 @@
             }
         }
 
-        // Animation Code für die Energiekugeln
         let ballsActive = false;
         function toggleEnergyBalls() {
             const container = document.getElementById('ball-container');
