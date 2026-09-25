@@ -399,7 +399,7 @@
             }
         }
 
-        // Registrierung
+        // Registrierung mit Bestätigungslink-Hinweis
         async function handleRegister() {
             const username = document.getElementById('reg-username').value;
             const email = document.getElementById('reg-email').value;
@@ -421,8 +421,9 @@
             if (error) {
                 alert("Fehler bei der Registrierung: " + error.message);
             } else {
-                alert("Erfolgreich registriert! Bitte überprüfe dein E-Mail-Postfach für den Bestätigungslink.");
+                alert("Registrierung erfolgreich! Wir haben dir einen Bestätigungslink per E-Mail geschickt. Bitte klicke darauf, bevor du dich einloggst.");
                 closeAuthModal();
+                switchAuthView('login');
             }
         }
 
@@ -437,7 +438,7 @@
             });
 
             if (error) {
-                alert("Login fehlgeschlagen: " + error.message);
+                alert("Login fehlgeschlagen: Bitte stelle sicher, dass du deine E-Mail bereits über den Link bestätigt hast! (" + error.message + ")");
             } else {
                 alert("Erfolgreich eingeloggt!");
                 closeAuthModal();
