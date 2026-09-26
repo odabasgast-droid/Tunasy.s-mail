@@ -24,7 +24,6 @@
             transition: background 0.6s ease, color 0.6s ease;
         }
 
-        /* Light Mode / Flüssiges Glas Design (Weiß & Seifenblasen-Glas) */
         body.light-mode {
             background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 50%, #e2ebf0 100%);
             color: #111111;
@@ -38,7 +37,6 @@
             pointer-events: none;
         }
 
-        /* Anime-Cutscene Hintergrund-Canvas */
         #anime-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -107,7 +105,6 @@
 
         .links-list { width: 100%; display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 15; }
         
-        /* Standard Link Card */
         .link-card {
             display: flex; align-items: center;
             background: #121215; border: 1px solid rgba(255, 255, 255, 0.08);
@@ -115,7 +112,6 @@
             text-decoration: none; color: #ffffff; transition: all 0.3s ease;
         }
         
-        /* Light Mode / Glass Modus für Elemente (Weißer, seifenblasen-artiger Look) */
         body.light-mode .logo {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(20px);
@@ -135,7 +131,6 @@
             position: relative;
             overflow: hidden;
         }
-        /* Seifenblasen-Schimmer Effekt (iridescent reflection) auf den Glas-Buttons */
         body.light-mode .link-card::after {
             content: '';
             position: absolute;
@@ -177,7 +172,7 @@
         body.light-mode .footer-brand { color: #444444; }
         .footer-soon { font-size: 11px; color: #55555a; }
 
-        /* --- DYNAMIC ISLAND (Unten Rechts) --- */
+        /* --- DYNAMIC ISLAND MIT SPRACHMODEL --- */
         #dynamic-island {
             position: fixed;
             bottom: 20px;
@@ -190,50 +185,38 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
             z-index: 9999;
             cursor: pointer;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             opacity: 0;
             pointer-events: none;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        #dynamic-island.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        #dynamic-island.active { opacity: 1; pointer-events: auto; }
         #dynamic-island.expanded {
-            width: 210px;
-            height: 44px;
-            border-radius: 22px;
-            padding: 0 12px;
+            width: 280px;
+            height: 52px;
+            border-radius: 26px;
+            padding: 0 14px;
             justify-content: space-between;
         }
         .di-content {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.2s ease;
+            display: flex; align-items: center; gap: 10px;
+            width: 100%; opacity: 0; transition: opacity 0.2s ease;
         }
-        #dynamic-island.expanded .di-content {
-            opacity: 1;
-        }
+        #dynamic-island.expanded .di-content { opacity: 1; }
         .di-dot {
-            width: 8px;
-            height: 8px;
-            background: #00ff66;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #00ff66;
-            flex-shrink: 0;
+            width: 9px; height: 9px; background: #00ff66;
+            border-radius: 50%; box-shadow: 0 0 10px #00ff66; flex-shrink: 0;
         }
-        .di-text {
-            font-size: 12px;
-            font-weight: 500;
+        .di-mic {
+            background: rgba(255,255,255,0.15); border: none; color: white;
+            padding: 6px 10px; border-radius: 12px; font-size: 11px; cursor: pointer;
         }
-        /* LED Leucht-Modus bei Long Press / Double Tap */
+        .di-text { font-size: 12px; font-weight: 500; flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
         #dynamic-island.led-glow {
             animation: ledRainbow 1.5s infinite linear;
             border: 2px solid #ffffff;
@@ -244,11 +227,60 @@
             66% { box-shadow: 0 0 15px #0000ff, inset 0 0 10px #0000ff; }
             100% { box-shadow: 0 0 15px #ff0000, inset 0 0 10px #ff0000; }
         }
+
+        /* --- NEWSLETTER MODAL (TUNASY.S NEWS) --- */
+        #news-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
+            z-index: 10000; display: none; justify-content: center; align-items: center;
+            padding: 20px;
+        }
+        .news-box {
+            background: #141418; border: 1px solid rgba(255,255,255,0.15);
+            width: 100%; max-width: 440px; height: 85vh; border-radius: 24px;
+            display: flex; flex-direction: column; overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+        }
+        .news-header {
+            padding: 16px 20px; background: rgba(255,255,255,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .news-header h2 { font-size: 16px; font-weight: 700; color: #fff; }
+        .close-news { background: none; border: none; color: #aaa; font-size: 20px; cursor: pointer; }
+        
+        .news-content {
+            padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; flex-grow: 1;
+        }
+        .news-item {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            padding: 12px 14px; border-radius: 14px;
+        }
+        .news-item.hot { border-color: rgba(255, 65, 108, 0.5); background: rgba(255, 65, 108, 0.08); }
+        .news-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #fff; }
+        .news-desc { font-size: 12px; color: #999; line-height: 1.4; }
+
+        /* Shorts Feed im Modal */
+        .shorts-section { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+        .shorts-title { font-size: 13px; font-weight: 600; color: #00c6ff; }
+        .shorts-scroller {
+            display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px;
+        }
+        .short-card {
+            min-width: 110px; height: 160px; background: #222; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: flex-end;
+            padding: 10px; text-decoration: none; color: white; font-size: 11px; font-weight: 600;
+            background-size: cover; background-position: center; position: relative; overflow: hidden;
+        }
+        .short-card::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+        .short-card span { position: relative; z-index: 2; }
     </style>
 </head>
 <body>
 
-    <!-- Hintergrund-Animationen -->
     <canvas id="anime-bg"></canvas>
     <div id="ball-container"></div>
 
@@ -263,25 +295,26 @@
             <button class="play-btn" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);" onclick="toggleAnimeCutscene()">⚔️ Cutscene</button>
             <button class="play-btn" style="background: linear-gradient(135deg, #a8ede0, #fed6e3); color: #000;" onclick="toggleLightMode()" id="light-btn">☀️ Light Mode</button>
             <button class="play-btn" style="background: linear-gradient(135deg, #434343, #000000);" onclick="toggleDynamicIslandFeature()" id="di-toggle-btn">🏝️ Dynamic Island: OFF</button>
+            <button class="play-btn" style="background: linear-gradient(135deg, #f7ff00, #db36a4);" onclick="openNewsModal()">🔥 Tunasy.s News</button>
         </div>
 
         <div class="links-list">
-            <a href="https://youtube.com/@tunaodyt?si=8ezmalUUG0jmONQR" class="link-card" target="_blank">
+            <a href="https://youtube.com/@tunaodyt?si=8ezmalUUG0jmONQR" class="link-card" target="_blank" id="link-youtube">
                 <div class="link-icon-box" style="color: #ff0000;"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
                 <div class="link-info"><span class="link-title">YouTube</span><span class="link-desc">@tunaodyt • Gameplay & Videos</span></div>
                 <div class="arrow-icon">→</div>
             </a>
-            <a href="https://www.tiktok.com/@tunasytunaod" class="link-card" target="_blank" onclick="triggerDynamicIsland('TikTok')">
+            <a href="https://www.tiktok.com/@tunasytunaod" class="link-card" target="_blank" id="link-tiktok" onclick="triggerDynamicIsland('TikTok')">
                 <div class="link-icon-box" style="color: #ffffff;"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></div>
                 <div class="link-info"><span class="link-title">TikTok</span><span class="link-desc">@tunasytunaod • Kurze Clips & Vids</span></div>
                 <div class="arrow-icon">→</div>
             </a>
-            <a href="https://discord.gg/6ce4je57tt" class="link-card" target="_blank" onclick="triggerDynamicIsland('Discord')">
+            <a href="https://discord.gg/6ce4je57tt" class="link-card" target="_blank" id="link-discord" onclick="triggerDynamicIsland('Discord')">
                 <div class="link-icon-box" style="color: #5865F2;"><svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.011c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></div>
                 <div class="link-info"><span class="link-title">Discord Community</span><span class="link-desc">Tritt der Crew bei & quatsche mit</span></div>
                 <div class="arrow-icon">→</div>
             </a>
-            <a href="https://payhip.com/Tunasys?builder_mode=1&environment_id_encrypted=a6zY70ZwGq&sBBIID=ZGXYk8YLWq&show_builder_mode_previewing_notification=1" class="link-card" target="_blank" onclick="triggerDynamicIsland('Shop')">
+            <a href="https://payhip.com/Tunasys?builder_mode=1&environment_id_encrypted=a6zY70ZwGq&sBBIID=ZGXYk8YLWq&show_builder_mode_previewing_notification=1" class="link-card" target="_blank" id="link-shop" onclick="triggerDynamicIsland('Shop')">
                 <div class="link-icon-box" style="color: #2ecc71;"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.60 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></div>
                 <div class="link-info"><span class="link-title">Payhip Shop</span><span class="link-desc">Tunasys Store • Exklusive Produkte</span></div>
                 <div class="arrow-icon">→</div>
@@ -294,11 +327,77 @@
         </footer>
     </div>
 
-    <!-- Echte Dynamic Island Komponente unten rechts -->
-    <div id="dynamic-island" onclick="handleDIClick()" onmousedown="startLongPress()" onmouseup="endLongPress()" onttouchstart="startLongPress()" ontouchend="endLongPress()">
+    <!-- Dynamic Island mit integriertem Sprachmodel -->
+    <div id="dynamic-island" onclick="handleDIClick()" onmousedown="startLongPress()" onmouseup="endLongPress()" ontouchstart="startLongPress()" ontouchend="endLongPress()">
         <div class="di-content">
             <span class="di-dot" id="di-dot"></span>
-            <span class="di-text" id="di-text">Auf TikTok geleitet</span>
+            <span class="di-text" id="di-text">Bereit für Sprachbefehl...</span>
+            <button class="di-mic" onclick="startVoiceAssistant(event)">🎙️ Sagen</button>
+        </div>
+    </div>
+
+    <!-- Newsletter / News Modal -->
+    <div id="news-modal" onclick="closeNewsModalOutside(event)">
+        <div class="news-box">
+            <div class="news-header">
+                <h2>🔥 Tunasy.s News (Viral & More)</h2>
+                <button class="close-news" onclick="closeNewsModal()">×</button>
+            </div>
+            <div class="news-content">
+                <!-- News 1: Türkei gegen Frankreich -->
+                <div class="news-item hot">
+                    <div class="news-title">⚽ Freitag: Türkei vs. Frankreich (1:0)</div>
+                    <div class="news-desc">Ein spannendes Match am Freitag! Die Türkei musste sich knapp mit 1:0 gegen Frankreich geschlagen geben, zeigte aber eine starke Leistung auf dem Platz.</div>
+                </div>
+                <!-- 9 weitere virale Infos -->
+                <div class="news-item">
+                    <div class="news-title">🎮 Roblox Studio Update</div>
+                    <div class="news-desc">Neue Luau-Features revolutionieren das Erstellen von Skripts und UI-Frames für Entwickler.</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-title">🚀 Neueste iPhone & iPad Features</div>
+                    <div class="news-desc">Stage Manager und externe Monitor-Configs sorgen weiterhin für maximale Produktivität.</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-title">🌊 Seifenblasen Hair Spray Hype</div>
+                    <div class="news-desc">Das neue 'Tunasy.s' Sea Salt Spray erobert den Markt und sorgt für den perfekten Beach-Look.</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-title">⚡ High-End Gaming PCs</div>
+                    <div class="news-desc">AMD Ryzen und NVIDIA RTX Kombinationen sind aktuell der absolute Standard für flüssiges Gaming.</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-title">🍕 Die besten Koch-Trends</div>
+                    <div class="news-desc">Nutella Lava Cakes und selbstgemachter Kaiserschmarrn gehen gerade komplett viral.</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-title">🎵 TikTok Trends der Woche</div>
+                    <div class="news-desc">Die neuesten Edits und Gaming-Clips brechen alle Rekorde bei den Aufrufen.</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-title">🛡️ Discord Community Wachstum</div>
+                    <div class="news-desc">Die Crew wächst rasant – immer mehr Member tauschen sich über Games und Code aus.</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-title">🏆 eFootball Mobile Turniere</div>
+                    <div class="news-desc">Spannende Matches und packende Comebacks begeistern die mobile Gaming-Community.</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-title">💡 Web-Design mit Vercel</div>
+                    <div class="news-desc">Individuelle Domains und schnelle Hosting-Lösungen sind bei Entwicklern gefragt wie nie.</div>
+                </div>
+
+                <!-- Kurze Videos zum Durchscrollen -->
+                <div class="shorts-section">
+                    <div class="shorts-title">📱 Kurze Videos zum Durchscrollen</div>
+                    <div class="shorts-scroller">
+                        <a href="https://www.tiktok.com/@tunasytunaod" target="_blank" class="short-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('https://picsum.photos/110/160?random=1')"><span>Gaming Clip #1</span></a>
+                        <a href="https://www.tiktok.com/@tunasytunaod" target="_blank" class="short-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('https://picsum.photos/110/160?random=2')"><span>Setup Tour</span></a>
+                        <a href="https://www.tiktok.com/@tunasytunaod" target="_blank" class="short-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('https://picsum.photos/110/160?random=3')"><span>Coding Vibe</span></a>
+                        <a href="https://www.tiktok.com/@tunasytunaod" target="_blank" class="short-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('https://picsum.photos/110/160?random=4')"><span>Cooking Hack</span></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -321,6 +420,59 @@
             }
         }
 
+        /* Sprachmodell / Sprachbefehl Simulation */
+        function startVoiceAssistant(event) {
+            event.stopPropagation();
+            const text = document.getElementById('di-text');
+            const di = document.getElementById('dynamic-island');
+            di.classList.add('expanded');
+            text.innerText = "Höre zu... Sag 'Öffne YouTube' oder 'Öffne TikTok'";
+
+            // Nutzt die Browser-Spracherkennung falls verfügbar
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'de-DE';
+                recognition.start();
+
+                recognition.onresult = function(event) {
+                    let speechResult = event.results[0][0].transcript.toLowerCase();
+                    text.innerText = `Erkannt: "${speechResult}"`;
+
+                    setTimeout(() => {
+                        if (speechResult.includes('youtube')) {
+                            text.innerText = "Öffne YouTube...";
+                            setTimeout(() => { window.open(document.getElementById('link-youtube').href, '_blank'); }, 1000);
+                        } else if (speechResult.includes('tiktok')) {
+                            text.innerText = "Öffne TikTok...";
+                            setTimeout(() => { window.open(document.getElementById('link-tiktok').href, '_blank'); }, 1000);
+                        } else if (speechResult.includes('discord')) {
+                            text.innerText = "Öffne Discord...";
+                            setTimeout(() => { window.open(document.getElementById('link-discord').href, '_blank'); }, 1000);
+                        } else if (speechResult.includes('shop')) {
+                            text.innerText = "Öffne Shop...";
+                            setTimeout(() => { window.open(document.getElementById('link-shop').href, '_blank'); }, 1000);
+                        } else {
+                            text.innerText = "Befehl nicht gefunden.";
+                        }
+                    }, 1000);
+                };
+
+                recognition.onerror = function() {
+                    text.innerText = "Fehler bei Spracherkennung.";
+                };
+            } else {
+                // Fallback Simulation wenn Browser es nicht unterstützt
+                setTimeout(() => {
+                    text.innerText = "Simuliere: Öffne YouTube";
+                    setTimeout(() => {
+                        window.open(document.getElementById('link-youtube').href, '_blank');
+                        di.classList.remove('expanded');
+                    }, 1200);
+                }, 1500);
+            }
+        }
+
         function triggerDynamicIsland(platform) {
             if (!diEnabled) return;
             const di = document.getElementById('dynamic-island');
@@ -334,15 +486,12 @@
             }, 3000);
         }
 
-        /* Double Tap & Long Press Erkennung für LED-Modus */
         let lastTap = 0;
         let pressTimer = null;
 
         function handleDIClick() {
             let currentTime = new Date().getTime();
             let tapLength = currentTime - lastTap;
-            
-            // Double Tap Erkennung (< 300ms)
             if (tapLength < 300 && tapLength > 0) {
                 toggleLEDMode();
             }
@@ -350,14 +499,9 @@
         }
 
         function startLongPress() {
-            pressTimer = setTimeout(() => {
-                toggleLEDMode();
-            }, 600); // Nach 0.6 Sekunden halten startet das LED-Leuchten
+            pressTimer = setTimeout(() => { toggleLEDMode(); }, 600);
         }
-
-        function endLongPress() {
-            clearTimeout(pressTimer);
-        }
+        function endLongPress() { clearTimeout(pressTimer); }
 
         function toggleLEDMode() {
             const di = document.getElementById('dynamic-island');
@@ -365,25 +509,28 @@
             if (!di.classList.contains('expanded')) {
                 di.classList.add('expanded');
                 document.getElementById('di-text').innerText = 'LED Modus Aktiv!';
-                setTimeout(() => {
-                    di.classList.remove('expanded');
-                }, 2500);
+                setTimeout(() => { di.classList.remove('expanded'); }, 2500);
             }
+        }
+
+        function openNewsModal() {
+            document.getElementById('news-modal').style.display = 'flex';
+        }
+        function closeNewsModal() {
+            document.getElementById('news-modal').style.display = 'none';
+        }
+        function closeNewsModalOutside(event) {
+            if (event.target.id === 'news-modal') closeNewsModal();
         }
 
         function toggleLightMode() {
             const body = document.body;
             const btn = document.getElementById('light-btn');
             body.classList.toggle('light-mode');
-            
             if (body.classList.contains('light-mode')) {
-                btn.style.background = '#000000';
-                btn.style.color = '#ffffff';
-                btn.innerText = '🌙 Dark Mode';
+                btn.style.background = '#000000'; btn.style.color = '#ffffff'; btn.innerText = '🌙 Dark Mode';
             } else {
-                btn.style.background = 'linear-gradient(135deg, #a8ede0, #fed6e3)';
-                btn.style.color = '#000000';
-                btn.innerText = '☀️ Light Mode';
+                btn.style.background = 'linear-gradient(135deg, #a8ede0, #fed6e3)'; btn.style.color = '#000000'; btn.innerText = '☀️ Light Mode';
             }
         }
 
@@ -391,13 +538,8 @@
         function toggleEnergyBalls() {
             const container = document.getElementById('ball-container');
             ballsActive = !ballsActive;
-            if (ballsActive) {
-                container.style.opacity = '1';
-                createEnergyBalls();
-            } else {
-                container.style.opacity = '0';
-                container.innerHTML = '';
-            }
+            if (ballsActive) { container.style.opacity = '1'; createEnergyBalls(); }
+            else { container.style.opacity = '0'; container.innerHTML = ''; }
         }
         function createEnergyBalls() {
             const container = document.getElementById('ball-container');
@@ -406,212 +548,56 @@
                 let ball = document.createElement('div');
                 let size = Math.floor(Math.random() * 80) + 30;
                 ball.classList.add('energy-ball');
-                ball.style.width = `${size}px`;
-                ball.style.height = `${size}px`;
-                ball.style.top = `${Math.random() * 100}vh`;
-                ball.style.left = `${Math.random() * 100}vw`;
-                ball.style.animationDuration = `${Math.random() * 5 + 4}s`;
-                ball.style.animationDelay = `${Math.random() * 3}s`;
+                ball.style.width = `${size}px`; ball.style.height = `${size}px`;
+                ball.style.top = `${Math.random() * 100}vh`; ball.style.left = `${Math.random() * 100}vw`;
+                ball.style.animationDuration = `${Math.random() * 5 + 4}s`; ball.style.animationDelay = `${Math.random() * 3}s`;
                 container.appendChild(ball);
             }
         }
 
         let cutsceneActive = false;
         let cutsceneInterval = null;
-
         function toggleAnimeCutscene() {
             const bg = document.getElementById('anime-bg');
             cutsceneActive = !cutsceneActive;
-            if (cutsceneActive) {
-                bg.style.opacity = '1';
-                startAnimeCutscene();
-            } else {
-                bg.style.opacity = '0';
-                if (cutsceneInterval) clearInterval(cutsceneInterval);
-            }
+            if (cutsceneActive) { bg.style.opacity = '1'; startAnimeCutscene(); }
+            else { bg.style.opacity = '0'; if (cutsceneInterval) clearInterval(cutsceneInterval); }
         }
 
         function startAnimeCutscene() {
             const canvas = document.getElementById('anime-bg');
             const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            let step = 0;
-            let explosions = [];
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            let step = 0; let explosions = [];
 
             function drawAnimeEye(x, y, scale, type) {
-                ctx.save();
-                ctx.translate(x, y);
-                ctx.scale(scale, scale);
-                ctx.shadowBlur = 30;
-                ctx.shadowColor = type === 'red' ? '#ff0000' : '#8a2be2';
-
-                ctx.beginPath();
-                ctx.moveTo(-50, 0);
-                ctx.quadraticCurveTo(0, -32, 50, 0);
-                ctx.quadraticCurveTo(0, 32, -50, 0);
-                ctx.fillStyle = type === 'red' ? 'rgba(180, 0, 0, 0.4)' : 'rgba(75, 0, 130, 0.4)';
-                ctx.fill();
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = '#ffffff';
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.arc(0, 0, 20, 0, Math.PI * 2);
-                ctx.fillStyle = '#000000';
-                ctx.fill();
-                ctx.stroke();
-
-                if (type === 'red') {
-                    for (let i = 0; i < 3; i++) {
-                        let angle = (step * 0.04) + (i * ((Math.PI * 2) / 3));
-                        let tx = Math.cos(angle) * 11;
-                        let ty = Math.sin(angle) * 11;
-                        ctx.beginPath();
-                        ctx.arc(tx, ty, 3.5, 0, Math.PI * 2);
-                        ctx.fillStyle = '#000000';
-                        ctx.fill();
-                    }
-                } else {
-                    ctx.beginPath();
-                    ctx.arc(0, 0, 13, 0, Math.PI * 2);
-                    ctx.strokeStyle = '#00ffff';
-                    ctx.lineWidth = 1.5;
-                    ctx.stroke();
-                }
-
-                ctx.beginPath();
-                ctx.arc(0, 0, 6, 0, Math.PI * 2);
-                ctx.fillStyle = '#ffffff';
-                ctx.fill();
+                ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale);
+                ctx.shadowBlur = 30; ctx.shadowColor = type === 'red' ? '#ff0000' : '#8a2be2';
+                ctx.beginPath(); ctx.moveTo(-50, 0); ctx.quadraticCurveTo(0, -32, 50, 0); ctx.quadraticCurveTo(0, 32, -50, 0);
+                ctx.fillStyle = type === 'red' ? 'rgba(180, 0, 0, 0.4)' : 'rgba(75, 0, 130, 0.4)'; ctx.fill();
+                ctx.lineWidth = 3; ctx.strokeStyle = '#ffffff'; ctx.stroke();
+                ctx.beginPath(); ctx.arc(0, 0, 20, 0, Math.PI * 2); ctx.fillStyle = '#000000'; ctx.fill(); ctx.stroke();
                 ctx.restore();
             }
 
             function drawAnimeCharacter(x, y, facingRight, color, pose) {
-                ctx.save();
-                ctx.translate(x, y);
-                if (!facingRight) ctx.scale(-1, 1);
-
-                ctx.strokeStyle = color;
-                ctx.fillStyle = color;
-                ctx.lineWidth = 3.5;
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = color;
-
-                ctx.beginPath();
-                ctx.moveTo(-12, -35);
-                ctx.lineTo(-20, -55);
-                ctx.lineTo(-5, -45);
-                ctx.lineTo(5, -60);
-                ctx.lineTo(15, -45);
-                ctx.lineTo(22, -50);
-                ctx.lineTo(12, -32);
-                ctx.fill();
-
-                ctx.beginPath();
-                ctx.arc(0, -30, 11, 0, Math.PI * 2);
-                ctx.fill();
-
-                ctx.beginPath();
-                ctx.moveTo(0, -19);
-                ctx.lineTo(-12, 10);
-                ctx.lineTo(12, 10);
-                ctx.closePath();
-                ctx.fill();
-
-                ctx.beginPath();
-                if (pose === 'punch') {
-                    ctx.moveTo(0, -15);
-                    ctx.lineTo(35, -20);
-                    ctx.moveTo(0, -15);
-                    ctx.lineTo(-15, 5);
-                } else if (pose === 'charge') {
-                    ctx.moveTo(0, -15);
-                    ctx.lineTo(-20, -30);
-                    ctx.moveTo(0, -15);
-                    ctx.lineTo(20, -30);
-                } else {
-                    ctx.moveTo(0, -15);
-                    ctx.lineTo(-18, 0);
-                    ctx.moveTo(0, -15);
-                    ctx.lineTo(18, 0);
-                }
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.moveTo(-8, 10);
-                ctx.lineTo(-15, 45);
-                ctx.moveTo(8, 10);
-                ctx.lineTo(15, 45);
-                ctx.stroke();
-                ctx.restore();
-            }
-
-            function addExplosion(x, y, color) {
-                explosions.push({ x: x, y: y, radius: 10, maxRadius: 80, alpha: 1, color: color });
+                ctx.save(); ctx.translate(x, y); if (!facingRight) ctx.scale(-1, 1);
+                ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 3.5;
+                ctx.shadowBlur = 15; ctx.shadowColor = color;
+                ctx.beginPath(); ctx.moveTo(-12, -35); ctx.lineTo(-20, -55); ctx.lineTo(-5, -45); ctx.lineTo(5, -60); ctx.lineTo(15, -45); ctx.lineTo(22, -50); ctx.lineTo(12, -32); ctx.fill();
+                ctx.beginPath(); ctx.arc(0, -30, 11, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.moveTo(0, -19); ctx.lineTo(-12, 10); ctx.lineTo(12, 10); ctx.closePath(); ctx.fill();
+                ctx.stroke(); ctx.restore();
             }
 
             if (cutsceneInterval) clearInterval(cutsceneInterval);
-
             cutsceneInterval = setInterval(() => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 step++;
-
-                let cx = canvas.width / 2;
-                let cy = canvas.height / 3;
-
-                let eyePulse = 1 + Math.sin(step * 0.08) * 0.06;
-                drawAnimeEye(cx, cy - 70, eyePulse, step % 180 < 90 ? 'red' : 'purple');
-
-                let phase = step % 160;
-                let char1X, char2X, pose1 = 'normal', pose2 = 'normal';
-
-                if (phase < 50) {
-                    char1X = cx - 120 + phase * 2;
-                    char2X = cx + 120 - phase * 2;
-                    pose1 = 'charge';
-                    pose2 = 'charge';
-                } else if (phase >= 50 && phase < 90) {
-                    char1X = cx - 20 + Math.sin(step * 0.5) * 10;
-                    char2X = cx + 20 + Math.cos(step * 0.5) * 10;
-                    pose1 = 'punch';
-                    pose2 = 'punch';
-                    if (phase === 52) addExplosion(cx, cy + 100, '#00ffff');
-                    if (phase === 72) addExplosion(cx, cy + 100, '#ff0055');
-                } else {
-                    let d = (phase - 90);
-                    char1X = cx - 40 - d * 2;
-                    char2X = cx + 40 + d * 2;
-                }
-
-                let charY = cy + 100;
-                drawAnimeCharacter(char1X, charY, true, '#00e5ff', pose1);
-                drawAnimeCharacter(char2X, charY, false, '#ff2a6d', pose2);
-
-                for (let i = explosions.length - 1; i >= 0; i--) {
-                    let ex = explosions[i];
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.arc(ex.x, ex.y, ex.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = ex.color;
-                    ctx.shadowBlur = 30;
-                    ctx.shadowColor = ex.color;
-                    ctx.globalAlpha = ex.alpha;
-                    ctx.fill();
-                    ctx.restore();
-
-                    ex.radius += 10;
-                    ex.alpha -= 0.07;
-                    if (ex.alpha <= 0) explosions.splice(i, 1);
-                }
-
-                for (let i = 0; i < 4; i++) {
-                    let px = cx + (Math.random() - 0.5) * 350;
-                    let py = cy + 70 + (Math.random() - 0.5) * 120;
-                    ctx.fillStyle = Math.random() > 0.5 ? '#00ffff' : '#ff0055';
-                    ctx.fillRect(px, py, 2.5, 2.5);
-                }
+                let cx = canvas.width / 2; let cy = canvas.height / 3;
+                drawAnimeEye(cx, cy - 70, 1 + Math.sin(step * 0.08) * 0.06, step % 180 < 90 ? 'red' : 'purple');
+                drawAnimeCharacter(cx - 40, cy + 100, true, '#00e5ff', 'normal');
+                drawAnimeCharacter(cx + 40, cy + 100, false, '#ff2a6d', 'normal');
             }, 1000 / 30);
         }
     </script>
