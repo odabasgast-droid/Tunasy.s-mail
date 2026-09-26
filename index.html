@@ -261,7 +261,7 @@
             <span class="ai-close-x" onclick="toggleAIChat()">✕</span>
         </div>
         <div id="ai-chat-output">
-            <div><span style="color: #00c6ff; font-weight: 600;">KI:</span> Hi Tuna! Wie kann ich dir helfen?</div>
+            <div><span style="color: #00c6ff; font-weight: 600;">KI:</span> Moin Tuna! Was kann ich für dich tun?</div>
         </div>
         <div class="ai-input-group">
             <input type="text" id="ai-input" class="ai-input" placeholder="Nachricht..." onkeypress="handleKeyPress(event)">
@@ -365,7 +365,7 @@
             if (!cutsceneActive && cutsceneInterval) clearInterval(cutsceneInterval);
         }
 
-        // KI Anfrage mit eingebautem stabilen Fallback (CORS-frei & fehlerfrei)
+        // KI Anfrage an deinen Cloudflare Worker
         function handleKeyPress(event) {
             if (event.key === 'Enter') askAI();
         }
@@ -380,12 +380,14 @@
             inputField.value = '';
             outputDiv.scrollTop = outputDiv.scrollHeight;
 
-            // Dynamic Island leuchtet auf (Denkt nach...)
+            // Dynamic Island leuchtet während die echte KI nachdenkt
             setIslandState(true, "Denkt nach...");
 
             try {
-                // Nutzung eines stabilen, CORS-freundlichen öffentlichen Endpunkts für den Chat
-                const response = await fetch("https://ka1.deno.dev/", {
+                // TRAGE HIER DEINE CLOUDFLARE WORKER URL EIN (z.B. "https://tunasys-ai.deinname.workers.dev")
+                const workerUrl = "HIER_DEINE_CLOUDFLARE_WORKER_URL_EINTRAGEN";
+
+                const response = await fetch(workerUrl, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ prompt: prompt })
@@ -393,31 +395,16 @@
 
                 if (response.ok) {
                     const data = await response.json();
-                    outputDiv.innerHTML += `<div><span style="color: #00c6ff; font-weight: 600;">KI:</span> ${data.reply || data.message || "Antwort erhalten!"}</div>`;
+                    outputDiv.innerHTML += `<div><span style="color: #00c6ff; font-weight: 600;">KI:</span> ${data.reply || "Antwort erhalten."}</div>`;
                 } else {
-                    // Falls der externe Server kurz hakt, springt unser intelligenter Offline-Modus ein, damit es nie zu Fehlern kommt
-                    getSmartFallback(prompt, outputDiv);
+                    outputDiv.innerHTML += `<div><span style="color: #ff416c;">Fehler bei der Anfrage.</span></div>`;
                 }
             } catch (error) {
-                // Absolut fehlerfreier Fallback für maximale Stabilität im Browser
-                getSmartFallback(prompt, outputDiv);
+                outputDiv.innerHTML += `<div><span style="color: #ff416c;">Verbindungsfehler zum Worker.</span></div>`;
             } finally {
                 setIslandState(false);
                 outputDiv.scrollTop = outputDiv.scrollHeight;
             }
-        }
-
-        function getSmartFallback(prompt, outputDiv) {
-            const lower = prompt.toLowerCase();
-            let reply = "Das ist eine gute Frage! Ich bin dein Tunasys Assistent.";
-            if (lower.includes("hallo") || lower.includes("hi")) {
-                reply = "Moin Tuna! Was läuft auf tunsys.de?";
-            } else if (lower.includes("roblox") || lower.includes("script")) {
-                reply = "Dein Roblox-Studio Projekt sieht echt stark aus!";
-            } else if (lower.includes("youtube") || lower.includes("video")) {
-                reply = "Schau unbedingt auf deinem YouTube-Kanal @tunaodyt vorbei!";
-            }
-            outputDiv.innerHTML += `<div><span style="color: #00c6ff; font-weight: 600;">KI:</span> ${reply}</div>`;
         }
     </script>
 </body>
