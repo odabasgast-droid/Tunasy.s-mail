@@ -21,26 +21,20 @@
             padding: 20px 16px 40px 16px;
             overflow-x: hidden;
             position: relative;
-            transition: background 0.5s ease;
+            transition: background 0.6s ease;
         }
 
-        /* Liquid Glass Hintergrund-Modus */
+        /* Echter iOS Liquid Glass Hintergrund (blau/türkis/grau wie auf dem Bild) */
         body.liquid-glass {
-            background: linear-gradient(135deg, #1a1c29 0%, #0d0e15 50%, #161224 100%);
+            background: linear-gradient(135deg, #2c4c64 0%, #172431 50%, #1c3b44 100%);
         }
         body.liquid-glass::before {
             content: '';
             position: fixed;
             top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(0, 195, 255, 0.15) 0%, rgba(138, 43, 225, 0.1) 40%, transparent 70%);
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15) 0%, rgba(64, 164, 160, 0.2) 40%, transparent 70%);
             z-index: 0;
             pointer-events: none;
-            animation: liquidMove 10s infinite alternate ease-in-out;
-        }
-        @keyframes liquidMove {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(5%, 8%) scale(1.1); }
-            100% { transform: translate(-5%, -5%) scale(0.95); }
         }
 
         /* Anime-Cutscene Hintergrund-Canvas */
@@ -86,12 +80,11 @@
             width: 85px; height: 85px;
             border: 3px solid #ffffff; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
+            background-color: #000000;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transition: all 0.5s ease;
         }
-        .logo span { color: #ffffff; font-size: 42px; font-weight: bold; line-height: 1; margin-top: -2px; }
-        .title { font-size: 22px; font-weight: 700; margin-bottom: 15px; }
+        .title { font-size: 22px; font-weight: 700; margin-bottom: 15px; transition: color 0.5s; }
 
         .btn-group {
             display: flex;
@@ -112,16 +105,50 @@
         .play-btn:active { transform: scale(0.95); }
 
         .links-list { width: 100%; display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 15; }
+        
+        /* Standard Link Card */
         .link-card {
             display: flex; align-items: center;
-            background: rgba(18, 18, 21, 0.75); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #121215; border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 14px 18px; border-radius: 16px;
-            text-decoration: none; color: #ffffff; transition: all 0.25s ease;
+            text-decoration: none; color: #ffffff; transition: all 0.3s ease;
         }
-        .link-card:hover { background: rgba(26, 26, 32, 0.85); border-color: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
+        
+        /* Liquid Glass Modus für Cards & Elemente */
+        body.liquid-glass .logo {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3), 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        body.liquid-glass .link-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.2), 0 8px 32px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        /* Seifenblasen-Schimmer Effekt (iridescent reflection) */
+        body.liquid-glass .link-card::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(120deg, transparent 40%, rgba(255, 255, 255, 0.3) 50%, transparent 60%);
+            transform: rotate(25deg);
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        body.liquid-glass .link-card:hover {
+            background: rgba(255, 255, 255, 0.22);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+            box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.35), 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .link-card:hover { background: #1a1a20; border-color: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
         .link-icon-box {
             width: 42px; height: 42px; background: rgba(255, 255, 255, 0.05);
             border-radius: 12px; display: flex; justify-content: center; align-items: center;
@@ -130,7 +157,9 @@
         .link-icon-box svg { width: 22px; height: 22px; fill: currentColor; }
         .link-info { display: flex; flex-direction: column; flex-grow: 1; gap: 2px; }
         .link-title { font-size: 15px; font-weight: 600; }
-        .link-desc { font-size: 12px; color: #8a8a8e; }
+        .link-desc { font-size: 12px; color: #8a8a8e; transition: color 0.3s; }
+        body.liquid-glass .link-desc { color: rgba(255, 255, 255, 0.7); }
+
         .arrow-icon {
             width: 26px; height: 26px; background: rgba(255, 255, 255, 0.05);
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
@@ -156,7 +185,7 @@
         <div class="btn-group">
             <button class="play-btn" onclick="toggleEnergyBalls()">Effekte</button>
             <button class="play-btn" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);" onclick="toggleAnimeCutscene()">⚔️ Cutscene</button>
-            <button class="play-btn" style="background: linear-gradient(135deg, #7f00ff, #e100ff);" onclick="toggleLiquidGlass()" id="glass-btn">🔮 Liquid Glass</button>
+            <button class="play-btn" style="background: linear-gradient(135deg, #a8ede0, #fed6e3); color: #000;" onclick="toggleLiquidGlass()" id="glass-btn">🫧 Liquid Glass</button>
         </div>
 
         <div class="links-list">
@@ -189,18 +218,19 @@
     </div>
 
     <script>
-        // --- LIQUID GLASS TOGGLE ---
         function toggleLiquidGlass() {
             const body = document.body;
             const btn = document.getElementById('glass-btn');
             body.classList.toggle('liquid-glass');
             
             if (body.classList.contains('liquid-glass')) {
-                btn.style.background = 'linear-gradient(135deg, #00c6ff, #0072ff)';
+                btn.style.background = '#000000';
+                btn.style.color = '#ffffff';
                 btn.innerText = '⬛ Normal Mode';
             } else {
-                btn.style.background = 'linear-gradient(135deg, #7f00ff, #e100ff)';
-                btn.innerText = '🔮 Liquid Glass';
+                btn.style.background = 'linear-gradient(135deg, #a8ede0, #fed6e3)';
+                btn.style.color = '#000000';
+                btn.innerText = '🫧 Liquid Glass';
             }
         }
 
@@ -233,7 +263,6 @@
             }
         }
 
-        // --- ANIME CUTSCENE FIGHT HINTERGRUND ---
         let cutsceneActive = false;
         let cutsceneInterval = null;
 
@@ -262,7 +291,6 @@
                 ctx.save();
                 ctx.translate(x, y);
                 ctx.scale(scale, scale);
-
                 ctx.shadowBlur = 30;
                 ctx.shadowColor = type === 'red' ? '#ff0000' : '#8a2be2';
 
@@ -304,7 +332,6 @@
                 ctx.arc(0, 0, 6, 0, Math.PI * 2);
                 ctx.fillStyle = '#ffffff';
                 ctx.fill();
-
                 ctx.restore();
             }
 
@@ -365,7 +392,6 @@
                 ctx.moveTo(8, 10);
                 ctx.lineTo(15, 45);
                 ctx.stroke();
-
                 ctx.restore();
             }
 
@@ -407,7 +433,6 @@
                 }
 
                 let charY = cy + 100;
-
                 drawAnimeCharacter(char1X, charY, true, '#00e5ff', pose1);
                 drawAnimeCharacter(char2X, charY, false, '#ff2a6d', pose2);
 
@@ -434,7 +459,6 @@
                     ctx.fillStyle = Math.random() > 0.5 ? '#00ffff' : '#ff0055';
                     ctx.fillRect(px, py, 2.5, 2.5);
                 }
-
             }, 1000 / 30);
         }
     </script>
