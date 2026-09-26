@@ -23,83 +23,201 @@
             position: relative;
         }
 
-        /* Anime-Cutscene Hintergrund-Canvas */
-        #anime-bg {
+        /* Dynamic Island oben in der Mitte */
+        .dynamic-island {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none !important;
-            z-index: 1; opacity: 0;
-            transition: opacity 1s ease;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 35px;
+            background: #000000;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            z-index: 100;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
         }
-
-        #ball-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none !important;
-            z-index: 1; opacity: 0;
-            transition: opacity 1s ease;
+        .dynamic-island.active {
+            width: 220px;
+            border-color: #00c6ff;
+            box-shadow: 0 0 20px rgba(0, 198, 255, 0.5);
         }
-        .energy-ball {
-            position: absolute;
+        .island-dot {
+            width: 8px;
+            height: 8px;
+            background: #555;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 195, 255, 0.9) 0%, rgba(0, 110, 255, 0.4) 60%, rgba(0, 50, 200, 0) 100%);
-            box-shadow: 0 0 25px rgba(0, 195, 255, 0.8), inset 0 0 15px rgba(255, 255, 255, 0.8);
-            animation: floatBall 6s infinite ease-in-out alternate;
-            pointer-events: none !important;
+            transition: 0.3s;
         }
-        @keyframes floatBall {
-            0% { transform: translateY(0px) translateX(0px) scale(1); }
-            50% { transform: translateY(-40px) translateX(30px) scale(1.1); }
-            100% { transform: translateY(30px) translateX(-40px) scale(0.95); }
+        .dynamic-island.active .island-dot {
+            background: #00c6ff;
+            box-shadow: 0 0 8px #00c6ff;
+            animation: pulseDot 1.2s infinite alternate;
+        }
+        .island-text {
+            font-size: 11px;
+            color: #888;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .dynamic-island.active .island-text {
+            color: #fff;
+        }
+        @keyframes pulseDot {
+            0% { transform: scale(1); opacity: 0.7; }
+            100% { transform: scale(1.3); opacity: 1; }
         }
 
-        .container {
-            width: 100%;
-            max-width: 480px;
+        /* KI-Symbol Button oben rechts */
+        .ai-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: #121215;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: 0.2s;
+        }
+        .ai-toggle-btn:hover {
+            border-color: #00c6ff;
+            transform: scale(1.05);
+        }
+        .ai-toggle-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #00c6ff;
+        }
+
+        /* Floating KI Chat Popup (Fenster) */
+        .ai-popup-chat {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 320px;
+            max-width: calc(100vw - 40px);
+            height: 400px;
+            background: #121215;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
+            padding: 16px;
+            z-index: 99;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-10px) scale(0.95);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .ai-popup-chat.open {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+        .ai-popup-header {
+            font-size: 14px;
+            font-weight: 600;
+            color: #00c6ff;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            z-index: 10;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding-bottom: 8px;
+        }
+        .ai-close-x {
+            cursor: pointer;
+            color: #888;
+            font-size: 16px;
+        }
+        .ai-close-x:hover { color: #fff; }
+
+        #ai-chat-output {
+            flex: 1;
+            overflow-y: auto;
+            background: #000000;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-bottom: 10px;
+            color: #d1d1d6;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .ai-input-group {
+            display: flex;
+            gap: 6px;
+        }
+        .ai-input {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1a1a20;
+            color: #fff;
+            font-size: 12px;
+            outline: none;
+        }
+        .ai-input:focus { border-color: #00c6ff; }
+        .ai-send-btn {
+            background: linear-gradient(135deg, #0072ff, #00c6ff);
+            color: white;
+            border: none;
+            padding: 0 14px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* Restliches Design (wie gehabt) */
+        #anime-bg, #ball-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none !important; z-index: 1; opacity: 0; transition: opacity 1s ease;
+        }
+        .container {
+            width: 100%; max-width: 480px; display: flex; flex-direction: column; align-items: center; z-index: 10; margin-top: 30px;
         }
         .logo-wrapper { margin-bottom: 12px; }
         .logo {
-            width: 85px; height: 85px;
-            border: 3px solid #ffffff; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            background-color: #000000;
+            width: 85px; height: 85px; border: 3px solid #ffffff; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; background-color: #000000;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
         .logo span { color: #ffffff; font-size: 42px; font-weight: bold; line-height: 1; margin-top: -2px; }
         .title { font-size: 22px; font-weight: 700; margin-bottom: 15px; }
-
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-            z-index: 15;
-        }
+        .btn-group { display: flex; gap: 10px; margin-bottom: 25px; z-index: 15; flex-wrap: wrap; justify-content: center; }
         .play-btn {
-            background: linear-gradient(135deg, #0072ff, #00c6ff);
-            color: white; border: none; padding: 10px 20px;
-            font-size: 14px; font-weight: 600; border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
-            transition: 0.2s;
+            background: linear-gradient(135deg, #0072ff, #00c6ff); color: white; border: none; padding: 10px 18px;
+            font-size: 13px; font-weight: 600; border-radius: 30px; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4); transition: 0.2s;
         }
-        .play-btn:active { transform: scale(0.95); }
-
         .links-list { width: 100%; display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 15; }
         .link-card {
-            display: flex; align-items: center;
-            background: #121215; border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 14px 18px; border-radius: 16px;
-            text-decoration: none; color: #ffffff; transition: all 0.25s ease;
+            display: flex; align-items: center; background: #121215; border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 14px 18px; border-radius: 16px; text-decoration: none; color: #ffffff; transition: all 0.25s ease;
         }
         .link-card:hover { background: #1a1a20; border-color: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
         .link-icon-box {
             width: 42px; height: 42px; background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px; display: flex; justify-content: center; align-items: center;
-            margin-right: 14px; flex-shrink: 0;
+            border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-right: 14px; flex-shrink: 0;
         }
         .link-icon-box svg { width: 22px; height: 22px; fill: currentColor; }
         .link-info { display: flex; flex-direction: column; flex-grow: 1; gap: 2px; }
@@ -117,7 +235,33 @@
 </head>
 <body>
 
-    <!-- Hintergrund-Animationen -->
+    <!-- Dynamic Island oben in der Mitte -->
+    <div id="dynamicIsland" class="dynamic-island">
+        <div class="island-dot"></div>
+        <div id="islandText" class="island-text">Tunasys AI</div>
+    </div>
+
+    <!-- KI Symbol oben rechts -->
+    <div class="ai-toggle-btn" onclick="toggleAIChat()" title="KI öffnen">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 7.54 16.63l1.92 1.92a1 1 0 0 1-1.42 1.42l-1.92-1.92A10 10 0 1 1 12 2m0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16m1 4a1 1 0 0 1 1 1v2h2a1 1 0 1 1 0 2h-2v2a1 1 0 1 1-2 0v-2h-2a1 1 0 1 1 0-2h2V9a1 1 0 0 1 1-1Z"/></svg>
+    </div>
+
+    <!-- Das schwebende KI Chat-Fenster -->
+    <div id="aiPopupChat" class="ai-popup-chat">
+        <div class="ai-popup-header">
+            <span>🤖 Tunasys AI Chat</span>
+            <span class="ai-close-x" onclick="toggleAIChat()">✕</span>
+        </div>
+        <div id="ai-chat-output">
+            <div><span style="color: #00c6ff; font-weight: 600;">KI:</span> Hi Tuna! Was gibt's?</div>
+        </div>
+        <div class="ai-input-group">
+            <input type="text" id="ai-input" class="ai-input" placeholder="Nachricht..." onfocus="setIslandActive(true)" onblur="setIslandActive(false)" onkeypress="handleKeyPress(event)">
+            <button class="ai-send-btn" onclick="askAI()">Senden</button>
+        </div>
+    </div>
+
+    <!-- Hintergrund-Elemente -->
     <canvas id="anime-bg"></canvas>
     <div id="ball-container"></div>
 
@@ -162,257 +306,95 @@
     </div>
 
     <script>
+        // Chat Pop-up umschalten
+        function toggleAIChat() {
+            const popup = document.getElementById('aiPopupChat');
+            popup.classList.toggle('open');
+        }
+
+        // Dynamic Island leuchten lassen, wenn man tippt/schreibt
+        function setIslandActive(active) {
+            const island = document.getElementById('dynamicIsland');
+            const islandText = document.getElementById('islandText');
+            if (active) {
+                island.classList.add('active');
+                islandText.innerText = "KI schreibt...";
+            } else {
+                island.classList.remove('active');
+                islandText.innerText = "Tunasys AI";
+            }
+        }
+
+        // Energie Bälle & Anime Cutscene Skripte (unverändert)
         let ballsActive = false;
         function toggleEnergyBalls() {
             const container = document.getElementById('ball-container');
             ballsActive = !ballsActive;
+            container.style.opacity = ballsActive ? '1' : '0';
             if (ballsActive) {
-                container.style.opacity = '1';
-                createEnergyBalls();
+                container.innerHTML = '';
+                for (let i = 0; i < 15; i++) {
+                    let ball = document.createElement('div');
+                    let size = Math.floor(Math.random() * 80) + 30;
+                    ball.classList.add('energy-ball');
+                    ball.style.width = `${size}px`;
+                    ball.style.height = `${size}px`;
+                    ball.style.top = `${Math.random() * 100}vh`;
+                    ball.style.left = `${Math.random() * 100}vw`;
+                    container.appendChild(ball);
+                }
             } else {
-                container.style.opacity = '0';
                 container.innerHTML = '';
             }
         }
-        function createEnergyBalls() {
-            const container = document.getElementById('ball-container');
-            container.innerHTML = '';
-            for (let i = 0; i < 15; i++) {
-                let ball = document.createElement('div');
-                let size = Math.floor(Math.random() * 80) + 30;
-                ball.classList.add('energy-ball');
-                ball.style.width = `${size}px`;
-                ball.style.height = `${size}px`;
-                ball.style.top = `${Math.random() * 100}vh`;
-                ball.style.left = `${Math.random() * 100}vw`;
-                ball.style.animationDuration = `${Math.random() * 5 + 4}s`;
-                ball.style.animationDelay = `${Math.random() * 3}s`;
-                container.appendChild(ball);
-            }
-        }
 
-        // --- ANIME CUTSCENE FIGHT HINTERGRUND ---
         let cutsceneActive = false;
         let cutsceneInterval = null;
-
         function toggleAnimeCutscene() {
             const bg = document.getElementById('anime-bg');
             cutsceneActive = !cutsceneActive;
-            if (cutsceneActive) {
-                bg.style.opacity = '1';
-                startAnimeCutscene();
-            } else {
-                bg.style.opacity = '0';
-                if (cutsceneInterval) clearInterval(cutsceneInterval);
-            }
+            bg.style.opacity = cutsceneActive ? '1' : '0';
+            if (!cutsceneActive && cutsceneInterval) clearInterval(cutsceneInterval);
         }
 
-        function startAnimeCutscene() {
-            const canvas = document.getElementById('anime-bg');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        // KI Anfrage abschicken
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') askAI();
+        }
 
-            let step = 0;
-            let explosions = [];
+        async function askAI() {
+            const inputField = document.getElementById('ai-input');
+            const outputDiv = document.getElementById('ai-chat-output');
+            const prompt = inputField.value.trim();
+            if (!prompt) return;
 
-            // Legendäres Anime-Auge (Sharingan/Rinnegan) im Hintergrund
-            function drawAnimeEye(x, y, scale, type) {
-                ctx.save();
-                ctx.translate(x, y);
-                ctx.scale(scale, scale);
+            outputDiv.innerHTML += `<div><span style="color: #fff; font-weight: 600;">Du:</span> ${prompt}</div>`;
+            inputField.value = '';
+            outputDiv.scrollTop = outputDiv.scrollHeight;
 
-                ctx.shadowBlur = 30;
-                ctx.shadowColor = type === 'red' ? '#ff0000' : '#8a2be2';
+            setIslandActive(true);
+            document.getElementById('islandText').innerText = "Antwort lädt...";
 
-                // Augenform
-                ctx.beginPath();
-                ctx.moveTo(-50, 0);
-                ctx.quadraticCurveTo(0, -32, 50, 0);
-                ctx.quadraticCurveTo(0, 32, -50, 0);
-                ctx.fillStyle = type === 'red' ? 'rgba(180, 0, 0, 0.4)' : 'rgba(75, 0, 130, 0.4)';
-                ctx.fill();
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = '#ffffff';
-                ctx.stroke();
+            try {
+                // Ersetze hier deinen Gemini API-Key
+                const apiKey = "DEIN_API_KEY_HIER_EINFÜGEN";
+                
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
 
-                // Iris
-                ctx.beginPath();
-                ctx.arc(0, 0, 20, 0, Math.PI * 2);
-                ctx.fillStyle = '#000000';
-                ctx.fill();
-                ctx.stroke();
+                const data = await response.json();
+                const aiReply = data.candidates[0].content.parts[0].text;
 
-                if (type === 'red') {
-                    for (let i = 0; i < 3; i++) {
-                        let angle = (step * 0.04) + (i * ((Math.PI * 2) / 3));
-                        let tx = Math.cos(angle) * 11;
-                        let ty = Math.sin(angle) * 11;
-                        ctx.beginPath();
-                        ctx.arc(tx, ty, 3.5, 0, Math.PI * 2);
-                        ctx.fillStyle = '#000000';
-                        ctx.fill();
-                    }
-                } else {
-                    ctx.beginPath();
-                    ctx.arc(0, 0, 13, 0, Math.PI * 2);
-                    ctx.strokeStyle = '#00ffff';
-                    ctx.lineWidth = 1.5;
-                    ctx.stroke();
-                }
-
-                // Pupille
-                ctx.beginPath();
-                ctx.arc(0, 0, 6, 0, Math.PI * 2);
-                ctx.fillStyle = '#ffffff';
-                ctx.fill();
-
-                ctx.restore();
+                outputDiv.innerHTML += `<div><span style="color: #00c6ff; font-weight: 600;">KI:</span> ${aiReply}</div>`;
+                outputDiv.scrollTop = outputDiv.scrollHeight;
+            } catch (error) {
+                outputDiv.innerHTML += `<div><span style="color: #ff416c;">Fehler bei der Verbindung.</span></div>`;
+            } finally {
+                setIslandActive(false);
             }
-
-            // Echte Anime-Charakter-Silhouette (Kopf, Torso, Haare, Arme)
-            function drawAnimeCharacter(x, y, facingRight, color, pose) {
-                ctx.save();
-                ctx.translate(x, y);
-                if (!facingRight) ctx.scale(-1, 1);
-
-                ctx.strokeStyle = color;
-                ctx.fillStyle = color;
-                ctx.lineWidth = 3.5;
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = color;
-
-                // Haare (typischer Anime-Spiky-Look)
-                ctx.beginPath();
-                ctx.moveTo(-12, -35);
-                ctx.lineTo(-20, -55);
-                ctx.lineTo(-5, -45);
-                ctx.lineTo(5, -60);
-                ctx.lineTo(15, -45);
-                ctx.lineTo(22, -50);
-                ctx.lineTo(12, -32);
-                ctx.fill();
-
-                // Kopf
-                ctx.beginPath();
-                ctx.arc(0, -30, 11, 0, Math.PI * 2);
-                ctx.fill();
-
-                // Oberkörper / Jacke
-                ctx.beginPath();
-                ctx.moveTo(0, -19);
-                ctx.lineTo(-12, 10);
-                ctx.lineTo(12, 10);
-                ctx.closePath();
-                ctx.fill();
-
-                // Arme & Posen (Schlag oder Abwehr)
-                ctx.beginPath();
-                if (pose === 'punch') {
-                    ctx.moveTo(0, -15);
-                    ctx.lineTo(35, -20); // Schlagender Arm nach vorne
-                    ctx.moveTo(0, -15);
-                    ctx.lineTo(-15, 5);
-                } else if (pose === 'charge') {
-                    ctx.moveTo(0, -15);
-                    ctx.lineTo(-20, -30); // Arme angewinkelt beim Aufladen
-                    ctx.moveTo(0, -15);
-                    ctx.lineTo(20, -30);
-                } else {
-                    ctx.moveTo(0, -15);
-                    ctx.lineTo(-18, 0);
-                    ctx.moveTo(0, -15);
-                    ctx.lineTo(18, 0);
-                }
-                ctx.stroke();
-
-                // Beine
-                ctx.beginPath();
-                ctx.moveTo(-8, 10);
-                ctx.lineTo(-15, 45);
-                ctx.moveTo(8, 10);
-                ctx.lineTo(15, 45);
-                ctx.stroke();
-
-                ctx.restore();
-            }
-
-            // Fette Explosionen und Chidori/Rasengan-Effekte
-            function addExplosion(x, y, color) {
-                explosions.push({ x: x, y: y, radius: 10, maxRadius: 80, alpha: 1, color: color });
-            }
-
-            if (cutsceneInterval) clearInterval(cutsceneInterval);
-
-            cutsceneInterval = setInterval(() => {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                step++;
-
-                let cx = canvas.width / 2;
-                let cy = canvas.height / 3;
-
-                // 1. Hintergrund-Auge pulsiert
-                let eyePulse = 1 + Math.sin(step * 0.08) * 0.06;
-                drawAnimeEye(cx, cy - 70, eyePulse, step % 180 < 90 ? 'red' : 'purple');
-
-                // 2. Bewegung der echten Anime-Charaktere im Kampf
-                let phase = step % 160;
-                let char1X, char2X, pose1 = 'normal', pose2 = 'normal';
-
-                if (phase < 50) {
-                    // Aufeinander zurennen
-                    char1X = cx - 120 + phase * 2;
-                    char2X = cx + 120 - phase * 2;
-                    pose1 = 'charge';
-                    pose2 = 'charge';
-                } else if (phase >= 50 && phase < 90) {
-                    // Kollision & Nahkampf-Schläge
-                    char1X = cx - 20 + Math.sin(step * 0.5) * 10;
-                    char2X = cx + 20 + Math.cos(step * 0.5) * 10;
-                    pose1 = 'punch';
-                    pose2 = 'punch';
-                    if (phase === 52) addExplosion(cx, cy + 100, '#00ffff');
-                    if (phase === 72) addExplosion(cx, cy + 100, '#ff0055');
-                } else {
-                    // Wegschießen / Dash
-                    let d = (phase - 90);
-                    char1X = cx - 40 - d * 2;
-                    char2X = cx + 40 + d * 2;
-                }
-
-                let charY = cy + 100;
-
-                // Charaktere zeichnen (Blau vs Rot/Pink)
-                drawAnimeCharacter(char1X, charY, true, '#00e5ff', pose1);
-                drawAnimeCharacter(char2X, charY, false, '#ff2a6d', pose2);
-
-                // Explosionen rendern
-                for (let i = explosions.length - 1; i >= 0; i--) {
-                    let ex = explosions[i];
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.arc(ex.x, ex.y, ex.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = ex.color;
-                    ctx.shadowBlur = 30;
-                    ctx.shadowColor = ex.color;
-                    ctx.globalAlpha = ex.alpha;
-                    ctx.fill();
-                    ctx.restore();
-
-                    ex.radius += 10;
-                    ex.alpha -= 0.07;
-                    if (ex.alpha <= 0) explosions.splice(i, 1);
-                }
-
-                // Energie-Funken im Hintergrund
-                for (let i = 0; i < 4; i++) {
-                    let px = cx + (Math.random() - 0.5) * 350;
-                    let py = cy + 70 + (Math.random() - 0.5) * 120;
-                    ctx.fillStyle = Math.random() > 0.5 ? '#00ffff' : '#ff0055';
-                    ctx.fillRect(px, py, 2.5, 2.5);
-                }
-
-            }, 1000 / 30);
         }
     </script>
 </body>
