@@ -380,12 +380,12 @@
             inputField.value = '';
             outputDiv.scrollTop = outputDiv.scrollHeight;
 
-            // Dynamic Island leuchtet während die echte KI nachdenkt
+            // Dynamic Island leuchtet, während die echte KI arbeitet
             setIslandState(true, "Denkt nach...");
 
             try {
-                // TRAGE HIER DEINE CLOUDFLARE WORKER URL EIN (z.B. "https://tunasys-ai.deinname.workers.dev")
-                const workerUrl = "HIER_DEINE_CLOUDFLARE_WORKER_URL_EINTRAGEN";
+                // Deine feste Cloudflare Worker URL
+                const workerUrl = "https://billowing-truth-ccb0.odabasgast.workers.dev";
 
                 const response = await fetch(workerUrl, {
                     method: "POST",
@@ -397,7 +397,7 @@
                     const data = await response.json();
                     outputDiv.innerHTML += `<div><span style="color: #00c6ff; font-weight: 600;">KI:</span> ${data.reply || "Antwort erhalten."}</div>`;
                 } else {
-                    outputDiv.innerHTML += `<div><span style="color: #ff416c;">Fehler bei der Anfrage.</span></div>`;
+                    outputDiv.innerHTML += `<div><span style="color: #ff416c;">Fehler bei der Abfrage.</span></div>`;
                 }
             } catch (error) {
                 outputDiv.innerHTML += `<div><span style="color: #ff416c;">Verbindungsfehler zum Worker.</span></div>`;
