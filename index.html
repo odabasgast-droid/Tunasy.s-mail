@@ -172,49 +172,21 @@
         body.light-mode .footer-brand { color: #444444; }
         .footer-soon { font-size: 11px; color: #55555a; }
 
-        /* --- DYNAMIC ISLAND MIT SPRACHMODEL --- */
+        /* --- DYNAMIC ISLAND --- */
         #dynamic-island {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 38px;
-            height: 38px;
-            background: #000000;
-            color: #ffffff;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            z-index: 9999;
-            cursor: pointer;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0;
-            pointer-events: none;
-            border: 1px solid rgba(255,255,255,0.2);
+            position: fixed; bottom: 20px; right: 20px; width: 38px; height: 38px;
+            background: #000000; color: #ffffff; border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5); z-index: 9999; cursor: pointer;
+            overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0; pointer-events: none; border: 1px solid rgba(255,255,255,0.2);
         }
         #dynamic-island.active { opacity: 1; pointer-events: auto; }
-        #dynamic-island.expanded {
-            width: 280px;
-            height: 52px;
-            border-radius: 26px;
-            padding: 0 14px;
-            justify-content: space-between;
-        }
-        .di-content {
-            display: flex; align-items: center; gap: 10px;
-            width: 100%; opacity: 0; transition: opacity 0.2s ease;
-        }
+        #dynamic-island.expanded { width: 280px; height: 52px; border-radius: 26px; padding: 0 14px; justify-content: space-between; }
+        .di-content { display: flex; align-items: center; gap: 10px; width: 100%; opacity: 0; transition: opacity 0.2s ease; }
         #dynamic-island.expanded .di-content { opacity: 1; }
-        .di-dot {
-            width: 9px; height: 9px; background: #00ff66;
-            border-radius: 50%; box-shadow: 0 0 10px #00ff66; flex-shrink: 0;
-        }
-        .di-mic {
-            background: rgba(255,255,255,0.15); border: none; color: white;
-            padding: 6px 10px; border-radius: 12px; font-size: 11px; cursor: pointer;
-        }
+        .di-dot { width: 9px; height: 9px; background: #00ff66; border-radius: 50%; box-shadow: 0 0 10px #00ff66; flex-shrink: 0; }
+        .di-mic { background: rgba(255,255,255,0.15); border: none; color: white; padding: 6px 10px; border-radius: 12px; font-size: 11px; cursor: pointer; }
         .di-text { font-size: 12px; font-weight: 500; flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         #dynamic-island.led-glow {
@@ -244,7 +216,7 @@
         .account-title { font-size: 18px; font-weight: 700; text-align: center; }
         .account-input {
             width: 100%; padding: 12px; background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; color: white; font-size: 14px; outline: none;
+            border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; color: white; font-size: 14px; outline: none; text-align: center;
         }
         .account-submit {
             background: linear-gradient(135deg, #0072ff, #00c6ff); color: white;
@@ -252,12 +224,11 @@
         }
         .account-submit:hover { opacity: 0.9; }
 
-        /* --- NEWSLETTER MODAL (TUNASY.S NEWS) --- */
+        /* --- NEWS MODAL --- */
         #news-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
-            z-index: 10000; display: none; justify-content: center; align-items: center;
-            padding: 20px;
+            z-index: 10000; display: none; justify-content: center; align-items: center; padding: 20px;
         }
         .news-box {
             background: #141418; border: 1px solid rgba(255,255,255,0.15);
@@ -268,12 +239,10 @@
         .news-header {
             padding: 16px 20px; background: rgba(255,255,255,0.05);
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            flex-shrink: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
         }
         .news-header h2 { font-size: 16px; font-weight: 700; color: #fff; }
         .close-news { background: none; border: none; color: #aaa; font-size: 20px; cursor: pointer; }
-        
         .news-content {
             padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; flex-grow: 1;
             -webkit-overflow-scrolling: touch;
@@ -285,21 +254,18 @@
         .news-item.hot { border-color: rgba(255, 65, 108, 0.5); background: rgba(255, 65, 108, 0.08); }
         .news-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: #fff; }
         .news-desc { font-size: 12px; color: #bbb; line-height: 1.5; }
-
-        /* Shorts Feed im Modal (Mit echtem Scrollen) */
+        
         .shorts-section { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
         .shorts-title { font-size: 13px; font-weight: 600; color: #00c6ff; }
         .shorts-scroller {
             display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
         }
         .short-card {
             min-width: 120px; height: 180px; background: #222; border-radius: 14px;
             border: 1px solid rgba(255,255,255,0.15); display: flex; flex-direction: column; justify-content: space-between;
-            padding: 10px; text-decoration: none; color: white;
-            background-size: cover; background-position: center; position: relative; overflow: hidden;
-            scroll-snap-align: start; flex-shrink: 0;
+            padding: 10px; text-decoration: none; color: white; background-size: cover; background-position: center;
+            position: relative; overflow: hidden; scroll-snap-align: start; flex-shrink: 0;
         }
         .short-card::after {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -312,7 +278,6 @@
             padding: 5px 8px; border-radius: 8px; font-size: 10px; font-weight: 600; cursor: pointer;
             align-self: flex-start; transition: transform 0.2s;
         }
-        .short-like-btn:active { transform: scale(0.9); }
     </style>
 </head>
 <body>
@@ -332,7 +297,7 @@
             <button class="play-btn" style="background: linear-gradient(135deg, #a8ede0, #fed6e3); color: #000;" onclick="toggleLightMode()" id="light-btn">☀️ Light Mode</button>
             <button class="play-btn" style="background: linear-gradient(135deg, #434343, #000000);" onclick="toggleDynamicIslandFeature()" id="di-toggle-btn">🏝️ Dynamic Island: OFF</button>
             <button class="play-btn" style="background: linear-gradient(135deg, #f7ff00, #db36a4);" onclick="openNewsModal()">🔥 Tunasy.s News</button>
-            <!-- NEUER ANMELDEN / ACCOUNT BUTTON -->
+            <!-- ANMELDEN BUTTON -->
             <button class="play-btn" style="background: linear-gradient(135deg, #00b09b, #96c93d);" onclick="openAccountModal()" id="account-btn">👤 Anmelden</button>
         </div>
 
@@ -365,7 +330,7 @@
         </footer>
     </div>
 
-    <!-- Dynamic Island mit robustem Sprachmodell -->
+    <!-- Dynamic Island -->
     <div id="dynamic-island" onclick="handleDIClick()" onmousedown="startLongPress()" onmouseup="endLongPress()" ontouchstart="startLongPress()" ontouchend="endLongPress()">
         <div class="di-content">
             <span class="di-dot" id="di-dot"></span>
@@ -374,23 +339,30 @@
         </div>
     </div>
 
-    <!-- ACCOUNT / ANMELDEN MODAL -->
+    <!-- ACCOUNT / CODE-VERIFIZIERUNGS MODAL -->
     <div id="account-modal" onclick="closeAccountModalOutside(event)">
         <div class="account-box">
             <button class="account-close" onclick="closeAccountModal()">×</button>
-            <div class="account-title" id="account-modal-title">Account erstellen / Anmelden</div>
+            <div class="account-title" id="account-modal-title">Account erstellen & Verifizieren</div>
             
             <div id="account-form-body" style="display: flex; flex-direction: column; gap: 12px;">
                 <input type="text" id="acc-username" class="account-input" placeholder="Benutzername" value="Tuna">
                 <input type="email" id="acc-email" class="account-input" placeholder="E-Mail (z.B. odabasgast@gmail.com)">
-                <button class="account-submit" onclick="sendVerificationEmail()">Verifizierungs-E-Mail senden</button>
+                <button class="account-submit" onclick="sendCodeEmail()">Verifizierungscode senden</button>
+            </div>
+
+            <!-- Bereich für Code-Eingabe (wird nach E-Mail-Versand eingeblendet) -->
+            <div id="code-verify-box" style="display: none; flex-direction: column; gap: 12px;">
+                <p style="font-size: 13px; color: #ccc; text-align: center;">Wir haben dir einen 6-stelligen Code per E-Mail geschickt.</p>
+                <input type="text" id="entered-code" class="account-input" placeholder="6-stelliger Code" maxlength="6">
+                <button class="account-submit" style="background: linear-gradient(135deg, #4ade80, #00c853);" onclick="verifyCode()">Code bestätigen & Einloggen</button>
             </div>
 
             <div id="account-status-msg" style="font-size: 13px; text-align: center; color: #aaa; margin-top: 5px;"></div>
         </div>
     </div>
 
-    <!-- Newsletter / News Modal mit langen Texten & scrollbaren Videos -->
+    <!-- NEWS MODAL -->
     <div id="news-modal" onclick="closeNewsModalOutside(event)">
         <div class="news-box">
             <div class="news-header">
@@ -400,66 +372,17 @@
             <div class="news-content">
                 <div class="news-item hot">
                     <div class="news-title">⚽ Freitag: Türkei gegen Frankreich (1:0)</div>
-                    <div class="news-desc">Ein absolutes Top-Spiel am Freitagabend! Die türkische Nationalmannschaft lieferte sich ein packendes Duell gegen Frankreich. Am Ende hieß es zwar knapp 1:0 für die Franzosen, doch das Team zeigte über weite Strecken eine leidenschaftliche und kämpferisch herausragende Leistung, die Fans weltweit begeisterte.</div>
+                    <div class="news-desc">Ein absolutes Top-Spiel am Freitagabend! Die türkische Nationalmannschaft lieferte sich ein packendes Duell gegen Frankreich.</div>
                 </div>
                 <div class="news-item">
                     <div class="news-title">🎮 Roblox Studio & Luau Scripting</div>
-                    <div class="news-desc">Die Entwickler-Community feiert aktuell massive Updates in Roblox Studio. Mit neuen fortgeschrittenen Luau-Funktionen lassen sich noch flüssigere Custom-Cutscenes, komplexe 1v1-Arenen und detailgetreue UI-Frames erstellen, die das Gameplay auf ein völlig neues Level heben.</div>
+                    <div class="news-desc">Die Entwickler-Community feiert aktuell massive Updates in Roblox Studio für flüssigere Custom-Cutscenes und UIs.</div>
                 </div>
-                <div class="news-item">
-                    <div class="news-title">🚀 Apple Stage Manager & Hardware</div>
-                    <div class="news-desc">Die Nutzung von iPads und iPhones an externen Monitoren mittels Stage Manager sorgt weiterhin für Gesprächsstoff. Tech-Enthusiasten testen fleißig Capture-Card-Setups und erweiterte Display-Konfigurationen, um maximale Produktivität und Gaming-Leistung mobil herauszuholen.</div>
-                </div>
-                <div class="news-item">
-                    <div class="news-title">🌊 'Tunasy.s' Sea Salt Spray Hype</div>
-                    <div class="news-desc">Das brandneue Sea Salt Hair Spray mit dem einzigartigen Branding erobert rasant den Lifestyle-Markt. Der perfekte, lässige Beach-Look mit natürlicher Textur und starkem Halt wird auf Social Media gefeiert und geht steil nach oben.</div>
-                </div>
-                <div class="news-item">
-                    <div class="news-title">⚡ High-End Gaming PC Setups</div>
-                    <div class="news-desc">Bei den Hardware-Trends dominieren derzeit perfekt abgestimmte Kombinationen aus AMD Ryzen Prozessoren und NVIDIA GeForce Grafikkarten, gepaart mit schicken MSI-Mainboards. Die Community tauscht sich massiv über die besten Budget- und High-End-Builds aus.</div>
-                </div>
-                <div class="news-item">
-                    <div class="news-title">🍕 Food-Trends: Lava Cakes & Kaiserschmarrn</div>
-                    <div class="news-desc">Wer in der Küche gerne experimentiert, feiert aktuell virale Rezepte wie flüssige Nutella Lava Cakes und selbstgemachten Kaiserschmarrn. Die Zubereitungstipps und Tricks zum perfekten Teig und Gelingen dominieren aktuell die Feeds von Food-Liebhabern.</div>
-                </div>
-                <div class="news-item">
-                    <div class="news-title">🎵 TikTok Trends & Gaming Edits</div>
-                    <div class="news-desc">Kurz, knackig und extrem viral: Die neuesten Fortnite- und Roblox-Edits auf TikTok brechen mal wieder alle Rekorde. Creator setzen auf kreative Syncs und cinematische Kamerafahrten, um die Zuschauer in Sekundenschnelle in den Bann zu ziehen.</div>
-                </div>
-                <div class="news-item">
-                    <div class="news-title">🛡️ Discord Community & Networking</div>
-                    <div class="news-desc">Der Treffpunkt für Gamer, Coder und Kreative wächst rasant. Die Community auf dem Discord-Server blüht auf, es werden ständig neue Gaming-Tipps ausgetauscht, gemeinsame Projekte besprochen und neue Freundschaften geknüpft.</div>
-                </div>
-                <div class="news-item">
-                    <div class="news-title">🏆 eFootball Mobile Turniere</div>
-                    <div class="news-desc">Spannende Duelle und packende eSports-Action auf dem Smartphone: Mobile Turniere rund um eFootball begeistern die Fangemeinde mit taktischen Finessen, dramatischen Last-Minute-Toren und spektakulären Online-Ranglisten.</div>
-                </div>
-                <div class="news-item">
-                    <div class="news-title">💡 Webdesign mit Vercel & Strato</div>
-                    <div class="news-desc">Individuelle Webanwendungen, moderne HTML/CSS-Projekte und saubere DNS-Verknüpfungen über Domains wie tunasys.de zeigen, wie professionelles Webhosting heute funktioniert. Schnelle Ladezeiten und stylishes Design stehen dabei an erster Stelle.</div>
-                </div>
-
                 <div class="shorts-section">
-                    <div class="shorts-title">📱 Kurze Videos (Horizontal scrollbar)</div>
+                    <div class="shorts-title">📱 Kurze Videos</div>
                     <div class="shorts-scroller">
                         <div class="short-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('https://picsum.photos/120/180?random=1')">
                             <span>Gaming Clip</span>
-                            <button class="short-like-btn" onclick="openTikTokLink()">❤️ Like / Go</button>
-                        </div>
-                        <div class="short-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('https://picsum.photos/120/180?random=2')">
-                            <span>Setup Tour</span>
-                            <button class="short-like-btn" onclick="openTikTokLink()">❤️ Like / Go</button>
-                        </div>
-                        <div class="short-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('https://picsum.photos/120/180?random=3')">
-                            <span>Coding Vibe</span>
-                            <button class="short-like-btn" onclick="openTikTokLink()">❤️ Like / Go</button>
-                        </div>
-                        <div class="short-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('https://picsum.photos/120/180?random=4')">
-                            <span>Cooking Hack</span>
-                            <button class="short-like-btn" onclick="openTikTokLink()">❤️ Like / Go</button>
-                        </div>
-                        <div class="short-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('https://picsum.photos/120/180?random=5')">
-                            <span>Roblox Dev</span>
                             <button class="short-like-btn" onclick="openTikTokLink()">❤️ Like / Go</button>
                         </div>
                     </div>
@@ -470,31 +393,16 @@
 
     <script>
         let diEnabled = false;
-
-        // Automatische Erkennung, wenn der Nutzer aus der E-Mail zurückkommt
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const verifiedUser = urlParams.get('verify');
-            
-            if (verifiedUser) {
-                document.getElementById('welcome-title').innerText = "Willkommen, " + verifiedUser + "! 🎉";
-                document.getElementById('account-btn').innerText = "✅ " + verifiedUser;
-                document.getElementById('account-btn').style.background = "linear-gradient(135deg, #4ade80, #00c853)";
-                
-                openAccountModal();
-                document.getElementById('account-modal-title').innerText = "Erfolgreich angemeldet!";
-                document.getElementById('account-form-body').innerHTML = '<div style="text-align: center; color: #4ade80; font-weight: bold; padding: 15px; background: rgba(74,222,128,0.1); border-radius: 12px;">🎉 E-Mail erfolgreich verifiziert!<br>Du bist jetzt automatisch angemeldet.</div>';
-                document.getElementById('account-status-msg').innerText = "";
-            }
-        };
+        let generatedCode = "";
+        let pendingUsername = "";
 
         // --- ACCOUNT MODAL STEUERUNG ---
         function openAccountModal() { document.getElementById('account-modal').style.display = 'flex'; }
         function closeAccountModal() { document.getElementById('account-modal').style.display = 'none'; }
         function closeAccountModalOutside(event) { if (event.target.id === 'account-modal') closeAccountModal(); }
 
-        // --- EMAILJS VERIFIZIERUNGS-VERSAND ---
-        function sendVerificationEmail() {
+        // --- 1. CODE GENERIEREN UND PER EMAILJS SENDEN ---
+        function sendCodeEmail() {
             const username = document.getElementById('acc-username').value;
             const email = document.getElementById('acc-email').value;
             const msgBox = document.getElementById('account-status-msg');
@@ -505,22 +413,26 @@
                 return;
             }
 
-            msgBox.style.color = "#fbbf24";
-            msgBox.innerText = "Sende E-Mail an " + email + "...";
+            pendingUsername = username;
+            // Generiere einen zufälligen 6-stelligen Code
+            generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-            const currentUrl = window.location.href.split('?')[0];
-            const verificationLink = currentUrl + "?verify=" + encodeURIComponent(username);
+            msgBox.style.color = "#fbbf24";
+            msgBox.innerText = "Sende Code an " + email + "...";
 
             const templateParams = {
                 to_email: email,
                 to_name: username,
-                verification_link: verificationLink
+                verification_code: generatedCode
             };
 
             emailjs.send("service_12h70yy", "template_oxdtx19", templateParams)
                 .then(function() {
                     msgBox.style.color = "#4ade80";
-                    msgBox.innerHTML = "Warte auf Verifizierung...<br>Wir haben dir eine E-Mail gesendet! Klicke dort auf den Button.";
+                    msgBox.innerText = "E-Mail gesendet! Gib deinen Code ein.";
+                    // Verstecke die Eingabefelder und zeige das Code-Feld
+                    document.getElementById('account-form-body').style.display = 'none';
+                    document.getElementById('code-verify-box').style.display = 'flex';
                 }, function(error) {
                     msgBox.style.color = "#f87171";
                     msgBox.innerText = "Fehler beim Senden. Versuche es später erneut.";
@@ -528,11 +440,31 @@
                 });
         }
 
+        // --- 2. EINGEGEBENEN CODE PRÜFEN ---
+        function verifyCode() {
+            const entered = document.getElementById('entered-code').value;
+            const msgBox = document.getElementById('account-status-msg');
+
+            if (entered === generatedCode) {
+                // Erfolgreich eingeloggt!
+                document.getElementById('welcome-title').innerText = "Willkommen, " + pendingUsername + "! 🎉";
+                document.getElementById('account-btn').innerText = "✅ " + pendingUsername;
+                document.getElementById('account-btn').style.background = "linear-gradient(135deg, #4ade80, #00c853)";
+                
+                document.getElementById('account-modal-title').innerText = "Erfolgreich angemeldet!";
+                document.getElementById('code-verify-box').innerHTML = '<div style="text-align: center; color: #4ade80; font-weight: bold; padding: 15px; background: rgba(74,222,128,0.1); border-radius: 12px;">🎉 Code korrekt!<br>Du bist jetzt eingeloggt.</div>';
+                msgBox.innerText = "";
+            } else {
+                msgBox.style.color = "#f87171";
+                msgBox.innerText = "Falscher Code! Bitte versuche es noch einmal.";
+            }
+        }
+
+        // --- REST DER WEBSITE FUNKTIONEN (Animationen, Dynamic Island, etc.) ---
         function toggleDynamicIslandFeature() {
             diEnabled = !diEnabled;
             const diElement = document.getElementById('dynamic-island');
             const toggleBtn = document.getElementById('di-toggle-btn');
-
             if (diEnabled) {
                 diElement.classList.add('active');
                 toggleBtn.style.background = 'linear-gradient(135deg, #00b09b, #96c93d)';
@@ -544,13 +476,12 @@
             }
         }
 
-        /* Robuste Spracherkennung für einfache Befehle */
         function startVoiceAssistant(event) {
             event.stopPropagation();
             const text = document.getElementById('di-text');
             const di = document.getElementById('dynamic-island');
             di.classList.add('expanded');
-            text.innerText = "Sag einfach: YouTube, TikTok, Discord oder Shop...";
+            text.innerText = "Sag: YouTube, TikTok, Discord oder Shop...";
 
             if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
                 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -560,38 +491,13 @@
 
                 recognition.onresult = function(event) {
                     let speechResult = event.results[0][0].transcript.toLowerCase();
-                    text.innerText = `Erkannt: "${speechResult}"`;
-
                     setTimeout(() => {
-                        if (speechResult.includes('youtube')) {
-                            text.innerText = "Öffne YouTube...";
-                            setTimeout(() => { window.open(document.getElementById('link-youtube').href, '_blank'); }, 800);
-                        } else if (speechResult.includes('tiktok')) {
-                            text.innerText = "Öffne TikTok...";
-                            setTimeout(() => { window.open(document.getElementById('link-tiktok').href, '_blank'); }, 800);
-                        } else if (speechResult.includes('discord')) {
-                            text.innerText = "Öffne Discord...";
-                            setTimeout(() => { window.open(document.getElementById('link-discord').href, '_blank'); }, 800);
-                        } else if (speechResult.includes('shop')) {
-                            text.innerText = "Öffne Shop...";
-                            setTimeout(() => { window.open(document.getElementById('link-shop').href, '_blank'); }, 800);
-                        } else {
-                            text.innerText = "Befehl nicht verstanden. Sag nur den Namen!";
-                        }
+                        if (speechResult.includes('youtube')) { window.open(document.getElementById('link-youtube').href, '_blank'); }
+                        else if (speechResult.includes('tiktok')) { window.open(document.getElementById('link-tiktok').href, '_blank'); }
+                        else if (speechResult.includes('discord')) { window.open(document.getElementById('link-discord').href, '_blank'); }
+                        else if (speechResult.includes('shop')) { window.open(document.getElementById('link-shop').href, '_blank'); }
                     }, 800);
                 };
-
-                recognition.onerror = function() {
-                    text.innerText = "Mikrofon-Fehler. Versuche es erneut.";
-                };
-            } else {
-                setTimeout(() => {
-                    text.innerText = "Simuliere Befehl...";
-                    setTimeout(() => {
-                        window.open(document.getElementById('link-youtube').href, '_blank');
-                        di.classList.remove('expanded');
-                    }, 1000);
-                }, 1000);
             }
         }
 
@@ -599,36 +505,22 @@
             if (!diEnabled) return;
             const di = document.getElementById('dynamic-island');
             const text = document.getElementById('di-text');
-            
             text.innerText = `Zu ${platform} weitergeleitet`;
             di.classList.add('expanded');
-
-            setTimeout(() => {
-                di.classList.remove('expanded');
-            }, 2500);
+            setTimeout(() => { di.classList.remove('expanded'); }, 2500);
         }
 
-        function openTikTokLink() {
-            window.open(document.getElementById('link-tiktok').href, '_blank');
-        }
+        function openTikTokLink() { window.open(document.getElementById('link-tiktok').href, '_blank'); }
 
         let lastTap = 0;
         let pressTimer = null;
-
         function handleDIClick() {
             let currentTime = new Date().getTime();
-            let tapLength = currentTime - lastTap;
-            if (tapLength < 300 && tapLength > 0) {
-                toggleLEDMode();
-            }
+            if ((currentTime - lastTap) < 300 && (currentTime - lastTap) > 0) { toggleLEDMode(); }
             lastTap = currentTime;
         }
-
-        function startLongPress() {
-            pressTimer = setTimeout(() => { toggleLEDMode(); }, 600);
-        }
+        function startLongPress() { pressTimer = setTimeout(() => { toggleLEDMode(); }, 600); }
         function endLongPress() { clearTimeout(pressTimer); }
-
         function toggleLEDMode() {
             const di = document.getElementById('dynamic-island');
             di.classList.toggle('led-glow');
@@ -639,15 +531,9 @@
             }
         }
 
-        function openNewsModal() {
-            document.getElementById('news-modal').style.display = 'flex';
-        }
-        function closeNewsModal() {
-            document.getElementById('news-modal').style.display = 'none';
-        }
-        function closeNewsModalOutside(event) {
-            if (event.target.id === 'news-modal') closeNewsModal();
-        }
+        function openNewsModal() { document.getElementById('news-modal').style.display = 'flex'; }
+        function closeNewsModal() { document.getElementById('news-modal').style.display = 'none'; }
+        function closeNewsModalOutside(event) { if (event.target.id === 'news-modal') closeNewsModal(); }
 
         function toggleLightMode() {
             const body = document.body;
