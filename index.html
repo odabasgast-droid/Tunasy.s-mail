@@ -9,7 +9,9 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init("8AklTJr_RMzBEwg7S");
+            emailjs.init({
+                publicKey: "8AklTJr_RMzBEwg7S"
+            });
         })();
     </script>
 
@@ -351,7 +353,7 @@
                 <button class="account-submit" onclick="sendCodeEmail()">Verifizierungscode senden</button>
             </div>
 
-            <!-- Bereich für Code-Eingabe (wird nach E-Mail-Versand eingeblendet) -->
+            <!-- Bereich für Code-Eingabe -->
             <div id="code-verify-box" style="display: none; flex-direction: column; gap: 12px;">
                 <p style="font-size: 13px; color: #ccc; text-align: center;">Wir haben dir einen 6-stelligen Code per E-Mail geschickt.</p>
                 <input type="text" id="entered-code" class="account-input" placeholder="6-stelliger Code" maxlength="6">
@@ -423,14 +425,13 @@
             const templateParams = {
                 to_email: email,
                 to_name: username,
-                verification_code: generatedCode
+                message: generatedCode
             };
 
             emailjs.send("service_12h70yy", "template_oxdtx19", templateParams)
                 .then(function() {
                     msgBox.style.color = "#4ade80";
                     msgBox.innerText = "E-Mail gesendet! Gib deinen Code ein.";
-                    // Verstecke die Eingabefelder und zeige das Code-Feld
                     document.getElementById('account-form-body').style.display = 'none';
                     document.getElementById('code-verify-box').style.display = 'flex';
                 }, function(error) {
@@ -446,7 +447,6 @@
             const msgBox = document.getElementById('account-status-msg');
 
             if (entered === generatedCode) {
-                // Erfolgreich eingeloggt!
                 document.getElementById('welcome-title').innerText = "Willkommen, " + pendingUsername + "! 🎉";
                 document.getElementById('account-btn').innerText = "✅ " + pendingUsername;
                 document.getElementById('account-btn').style.background = "linear-gradient(135deg, #4ade80, #00c853)";
@@ -460,7 +460,7 @@
             }
         }
 
-        // --- REST DER WEBSITE FUNKTIONEN (Animationen, Dynamic Island, etc.) ---
+        // --- REST DER WEBSITE FUNKTIONEN ---
         function toggleDynamicIslandFeature() {
             diEnabled = !diEnabled;
             const diElement = document.getElementById('dynamic-island');
