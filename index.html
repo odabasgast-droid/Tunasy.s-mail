@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tuna / Tunasy</title>
     
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6666461427128480"
+         crossorigin="anonymous"></script>
+
     <!-- EmailJS SDK laden -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
@@ -225,61 +229,6 @@
             border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer;
         }
         .account-submit:hover { opacity: 0.9; }
-
-        /* --- NEWS MODAL --- */
-        #news-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
-            z-index: 10000; display: none; justify-content: center; align-items: center; padding: 20px;
-        }
-        .news-box {
-            background: #141418; border: 1px solid rgba(255,255,255,0.15);
-            width: 100%; max-width: 440px; height: 85vh; border-radius: 24px;
-            display: flex; flex-direction: column; overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-        }
-        .news-header {
-            padding: 16px 20px; background: rgba(255,255,255,0.05);
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
-        }
-        .news-header h2 { font-size: 16px; font-weight: 700; color: #fff; }
-        .close-news { background: none; border: none; color: #aaa; font-size: 20px; cursor: pointer; }
-        .news-content {
-            padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; flex-grow: 1;
-            -webkit-overflow-scrolling: touch;
-        }
-        .news-item {
-            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-            padding: 14px 16px; border-radius: 14px;
-        }
-        .news-item.hot { border-color: rgba(255, 65, 108, 0.5); background: rgba(255, 65, 108, 0.08); }
-        .news-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: #fff; }
-        .news-desc { font-size: 12px; color: #bbb; line-height: 1.5; }
-        
-        .shorts-section { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
-        .shorts-title { font-size: 13px; font-weight: 600; color: #00c6ff; }
-        .shorts-scroller {
-            display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px;
-            scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-        }
-        .short-card {
-            min-width: 120px; height: 180px; background: #222; border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.15); display: flex; flex-direction: column; justify-content: space-between;
-            padding: 10px; text-decoration: none; color: white; background-size: cover; background-position: center;
-            position: relative; overflow: hidden; scroll-snap-align: start; flex-shrink: 0;
-        }
-        .short-card::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
-            z-index: 1;
-        }
-        .short-card span { position: relative; z-index: 2; font-size: 11px; font-weight: 600; }
-        .short-like-btn {
-            position: relative; z-index: 2; background: rgba(255,0,0,0.8); border: none; color: white;
-            padding: 5px 8px; border-radius: 8px; font-size: 10px; font-weight: 600; cursor: pointer;
-            align-self: flex-start; transition: transform 0.2s;
-        }
     </style>
 </head>
 <body>
@@ -298,7 +247,6 @@
             <button class="play-btn" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);" onclick="toggleAnimeCutscene()">⚔️ Cutscene</button>
             <button class="play-btn" style="background: linear-gradient(135deg, #a8ede0, #fed6e3); color: #000;" onclick="toggleLightMode()" id="light-btn">☀️ Light Mode</button>
             <button class="play-btn" style="background: linear-gradient(135deg, #434343, #000000);" onclick="toggleDynamicIslandFeature()" id="di-toggle-btn">🏝️ Dynamic Island: OFF</button>
-            <button class="play-btn" style="background: linear-gradient(135deg, #f7ff00, #db36a4);" onclick="openNewsModal()">🔥 Tunasy.s News</button>
             <!-- ANMELDEN BUTTON -->
             <button class="play-btn" style="background: linear-gradient(135deg, #00b09b, #96c93d);" onclick="openAccountModal()" id="account-btn">👤 Anmelden</button>
         </div>
@@ -341,7 +289,7 @@
         </div>
     </div>
 
-    <!-- ACCOUNT / CODE-VERIFIZIERUNGS MODAL -->
+    <!-- ACCOUNT / VERIFIZIERUNGS MODAL -->
     <div id="account-modal" onclick="closeAccountModalOutside(event)">
         <div class="account-box">
             <button class="account-close" onclick="closeAccountModal()">×</button>
@@ -349,62 +297,24 @@
             
             <div id="account-form-body" style="display: flex; flex-direction: column; gap: 12px;">
                 <input type="text" id="acc-username" class="account-input" placeholder="Benutzername" value="Tuna">
-                <input type="email" id="acc-email" class="account-input" placeholder="E-Mail (z.B. odabasgast@gmail.com)">
-                <button class="account-submit" onclick="sendCodeEmail()">Verifizierungscode senden</button>
-            </div>
-
-            <!-- Bereich für Code-Eingabe -->
-            <div id="code-verify-box" style="display: none; flex-direction: column; gap: 12px;">
-                <p style="font-size: 13px; color: #ccc; text-align: center;">Wir haben dir einen 6-stelligen Code per E-Mail geschickt.</p>
-                <input type="text" id="entered-code" class="account-input" placeholder="6-stelliger Code" maxlength="6">
-                <button class="account-submit" style="background: linear-gradient(135deg, #4ade80, #00c853);" onclick="verifyCode()">Code bestätigen & Einloggen</button>
+                <input type="email" id="acc-email" class="account-input" placeholder="E-Mail-Adresse">
+                <button class="account-submit" onclick="sendVerificationEmail()">E-Mail Verifizieren</button>
             </div>
 
             <div id="account-status-msg" style="font-size: 13px; text-align: center; color: #aaa; margin-top: 5px;"></div>
         </div>
     </div>
 
-    <!-- NEWS MODAL -->
-    <div id="news-modal" onclick="closeNewsModalOutside(event)">
-        <div class="news-box">
-            <div class="news-header">
-                <h2>🔥 Tunasy.s News (Viral & More)</h2>
-                <button class="close-news" onclick="closeNewsModal()">×</button>
-            </div>
-            <div class="news-content">
-                <div class="news-item hot">
-                    <div class="news-title">⚽ Freitag: Türkei gegen Frankreich (1:0)</div>
-                    <div class="news-desc">Ein absolutes Top-Spiel am Freitagabend! Die türkische Nationalmannschaft lieferte sich ein packendes Duell gegen Frankreich.</div>
-                </div>
-                <div class="news-item">
-                    <div class="news-title">🎮 Roblox Studio & Luau Scripting</div>
-                    <div class="news-desc">Die Entwickler-Community feiert aktuell massive Updates in Roblox Studio für flüssigere Custom-Cutscenes und UIs.</div>
-                </div>
-                <div class="shorts-section">
-                    <div class="shorts-title">📱 Kurze Videos</div>
-                    <div class="shorts-scroller">
-                        <div class="short-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('https://picsum.photos/120/180?random=1')">
-                            <span>Gaming Clip</span>
-                            <button class="short-like-btn" onclick="openTikTokLink()">❤️ Like / Go</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         let diEnabled = false;
-        let generatedCode = "";
-        let pendingUsername = "";
 
         // --- ACCOUNT MODAL STEUERUNG ---
         function openAccountModal() { document.getElementById('account-modal').style.display = 'flex'; }
         function closeAccountModal() { document.getElementById('account-modal').style.display = 'none'; }
         function closeAccountModalOutside(event) { if (event.target.id === 'account-modal') closeAccountModal(); }
 
-        // --- 1. CODE GENERIEREN UND AN DIE EINGEGEBENE E-MAIL SENDEN ---
-        function sendCodeEmail() {
+        // --- URSPRÜNGLICHER EMAILJS VERIFIZIERUNGS-SCRIPT ---
+        function sendVerificationEmail() {
             const username = document.getElementById('acc-username').value;
             const email = document.getElementById('acc-email').value;
             const msgBox = document.getElementById('account-status-msg');
@@ -415,49 +325,29 @@
                 return;
             }
 
-            pendingUsername = username;
-            generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
-
             msgBox.style.color = "#fbbf24";
-            msgBox.innerText = "Sende Code an " + email + "...";
+            msgBox.innerText = "Sende Benachrichtigung...";
 
-            // Wichtig: to_email übergibt die Adresse deines Bruders an das EmailJS-Template
             const templateParams = {
-                to_email: email,
                 to_name: username,
-                message: generatedCode
+                to_email: email,
+                user_email: email,
+                message: "E-Mail Verifizierung angefordert von: " + username + " (" + email + ")"
             };
 
             emailjs.send("service_12h70yy", "template_oxdtx19", templateParams)
                 .then(function() {
                     msgBox.style.color = "#4ade80";
-                    msgBox.innerText = "E-Mail gesendet! Gib deinen Code ein.";
-                    document.getElementById('account-form-body').style.display = 'none';
-                    document.getElementById('code-verify-box').style.display = 'flex';
+                    msgBox.innerText = "Anfrage erfolgreich gesendet!";
+                    document.getElementById('welcome-title').innerText = "Willkommen, " + username + "! 🎉";
+                    document.getElementById('account-btn').innerText = "✅ " + username;
+                    document.getElementById('account-btn').style.background = "linear-gradient(135deg, #4ade80, #00c853)";
+                    setTimeout(closeAccountModal, 2000);
                 }, function(error) {
                     msgBox.style.color = "#f87171";
-                    msgBox.innerText = "Fehler beim Senden. Versuche es später erneut.";
-                    console.error(error);
+                    msgBox.innerText = "Fehler beim Senden. Bitte versuche es später erneut.";
+                    console.error("EmailJS Error:", error);
                 });
-        }
-
-        // --- 2. EINGEGEBENEN CODE PRÜFEN ---
-        function verifyCode() {
-            const entered = document.getElementById('entered-code').value;
-            const msgBox = document.getElementById('account-status-msg');
-
-            if (entered === generatedCode) {
-                document.getElementById('welcome-title').innerText = "Willkommen, " + pendingUsername + "! 🎉";
-                document.getElementById('account-btn').innerText = "✅ " + pendingUsername;
-                document.getElementById('account-btn').style.background = "linear-gradient(135deg, #4ade80, #00c853)";
-                
-                document.getElementById('account-modal-title').innerText = "Erfolgreich angemeldet!";
-                document.getElementById('code-verify-box').innerHTML = '<div style="text-align: center; color: #4ade80; font-weight: bold; padding: 15px; background: rgba(74,222,128,0.1); border-radius: 12px;">🎉 Code korrekt!<br>Du bist jetzt eingeloggt.</div>';
-                msgBox.innerText = "";
-            } else {
-                msgBox.style.color = "#f87171";
-                msgBox.innerText = "Falscher Code! Bitte versuche es noch einmal.";
-            }
         }
 
         // --- REST DER WEBSITE FUNKTIONEN ---
@@ -510,8 +400,6 @@
             setTimeout(() => { di.classList.remove('expanded'); }, 2500);
         }
 
-        function openTikTokLink() { window.open(document.getElementById('link-tiktok').href, '_blank'); }
-
         let lastTap = 0;
         let pressTimer = null;
         function handleDIClick() {
@@ -530,10 +418,6 @@
                 setTimeout(() => { di.classList.remove('expanded'); }, 2500);
             }
         }
-
-        function openNewsModal() { document.getElementById('news-modal').style.display = 'flex'; }
-        function closeNewsModal() { document.getElementById('news-modal').style.display = 'none'; }
-        function closeNewsModalOutside(event) { if (event.target.id === 'news-modal') closeNewsModal(); }
 
         function toggleLightMode() {
             const body = document.body;
