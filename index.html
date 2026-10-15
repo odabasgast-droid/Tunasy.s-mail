@@ -65,7 +65,7 @@
             100% { transform: translateY(30px) translateX(-40px) scale(0.95); }
         }
 
-        /* --- HALLOWEEN ELEMENTE (Geister & Zauber) --- */
+        /* --- HALLOWEEN ELEMENTE --- */
         #halloween-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -249,16 +249,14 @@
             color: #f97316; font-size: 13px; flex-shrink: 0; margin-left: 10px;
         }
 
-        /* --- ADSTERRA SMARTLINK BANNER --- */
-        .adsterra-banner {
+        /* --- ADSTERRA WERBUNG BANNER MIT CONFIRMATION --- */
+        .ad-banner-btn {
             width: 100%;
             margin-top: 20px;
             background: linear-gradient(135deg, rgba(194, 65, 12, 0.3), rgba(249, 115, 22, 0.15));
             border: 1px solid rgba(249, 115, 22, 0.4);
             border-radius: 16px;
             padding: 14px 18px;
-            text-align: center;
-            text-decoration: none;
             color: #ffffff;
             display: flex;
             align-items: center;
@@ -267,16 +265,26 @@
             position: relative;
             z-index: 15;
             backdrop-filter: blur(10px);
+            cursor: pointer;
+            text-align: left;
         }
-        .adsterra-banner:hover {
+        .ad-banner-btn:hover {
             border-color: #f97316;
             transform: translateY(-2px);
             box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
         }
-        .adsterra-info { display: flex; flex-direction: column; text-align: left; gap: 2px; }
-        .adsterra-title { font-size: 14px; font-weight: 600; color: #f97316; }
-        .adsterra-sub { font-size: 11px; color: #b1a7bd; }
-        .adsterra-badge { background: #f97316; color: #08040c; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 8px; }
+        .ad-info { display: flex; flex-direction: column; gap: 2px; }
+        .ad-title { font-size: 14px; font-weight: 600; color: #f97316; }
+        .ad-sub { font-size: 11px; color: #b1a7bd; }
+        .ad-badge { 
+            background: #f97316; 
+            color: #08040c; 
+            font-size: 11px; 
+            font-weight: bold; 
+            padding: 6px 12px; 
+            border-radius: 20px; 
+            letter-spacing: 0.5px;
+        }
 
         footer { margin-top: 25px; text-align: center; display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 15; }
         .footer-brand { font-size: 13px; color: #f97316; font-weight: 500; }
@@ -328,7 +336,7 @@
 
     <div id="ball-container"></div>
 
-    <!-- Gruselige Halloween Hintergrund-Elemente -->
+    <!-- Halloween Hintergrund -->
     <div id="halloween-bg">
         <div class="ghost" style="top: 15%; left: 10%;">👻</div>
         <div class="ghost" style="top: 60%; right: 12%; animation-delay: 3s;">👻</div>
@@ -336,23 +344,22 @@
         <div class="witch-magic" style="top: 70%; right: 25%; animation-delay: 2s;">🪄✨</div>
     </div>
 
-    <!-- Rauch-Effekt unten am Bildschirm -->
+    <!-- Rauch unten -->
     <div id="bottom-smoke">
         <div class="smoke-bottom-puff" style="width: 120px; height: 120px; left: 10%; animation-delay: 0s;"></div>
         <div class="smoke-bottom-puff" style="width: 180px; height: 180px; left: 35%; animation-delay: 2s;"></div>
         <div class="smoke-bottom-puff" style="width: 150px; height: 150px; left: 70%; animation-delay: 4s;"></div>
     </div>
 
-    <!-- Große Kürbisse an den Seiten -->
+    <!-- Kürbisse -->
     <div class="side-pumpkin pumpkin-left"></div>
     <div class="side-pumpkin pumpkin-right"></div>
 
-    <!-- Süßigkeiten Container -->
+    <!-- Süßigkeiten -->
     <div id="candy-container"></div>
 
     <div class="container">
         <div class="logo-wrapper">
-            <!-- Rauch hinter dem T -->
             <div class="logo-smoke"></div>
             <div class="logo"><span>T</span></div>
         </div>
@@ -388,15 +395,15 @@
             </a>
         </div>
 
-        <!-- ADSTERRA SMARTLINK BANNER -->
-        <a href="https://auctionr.org/4/1af46dec74e06adc5fa30ed229dc960f" class="adsterra-banner" target="_blank" rel="noopener noreferrer">
+        <!-- ADSTERRA WERBUNGS-BANNER (MIT BESTÄTIGUNG) -->
+        <div class="ad-banner-btn" onclick="confirmAdRedirect()">
             <div class="link-icon-box" style="background: rgba(249, 115, 22, 0.2); color: #f97316;">🎃</div>
-            <div class="adsterra-info">
-                <span class="adsterra-title">Smartlink_1</span>
-                <span class="adsterra-sub">Spezielle Halloween Angebote & Partner</span>
+            <div class="ad-info">
+                <span class="ad-title">Spezielle Halloween Angebote</span>
+                <span class="ad-sub">Klicke hier für exklusive Partnerevents</span>
             </div>
-            <div class="adsterra-badge">Ad</div>
-        </a>
+            <div class="ad-badge">Werbung</div>
+        </div>
 
         <footer>
             <div class="footer-brand">@tunasys.de</div>
@@ -431,6 +438,14 @@
 
     <script>
         let diEnabled = false;
+
+        // --- ADSTERRA LINK BESTÄTIGUNGS-FUNKTION ---
+        function confirmAdRedirect() {
+            const userConfirmed = confirm("Möchtest du diese Werbung wirklich öffnen?");
+            if (userConfirmed) {
+                window.open("https://auctionr.org/4/1af46dec74e06adc5fa30ed229dc960f", "_blank");
+            }
+        }
 
         // --- SÜSSIGKEITEN VON UNTEN ---
         const candies = ["🍬", "🍫", "🍭", "🎃", "👻"];
