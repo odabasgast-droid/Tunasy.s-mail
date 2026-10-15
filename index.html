@@ -249,43 +249,6 @@
             color: #f97316; font-size: 13px; flex-shrink: 0; margin-left: 10px;
         }
 
-        /* --- ADSTERRA WERBUNG BANNER MIT CONFIRMATION --- */
-        .ad-banner-btn {
-            width: 100%;
-            margin-top: 20px;
-            background: linear-gradient(135deg, rgba(194, 65, 12, 0.3), rgba(249, 115, 22, 0.15));
-            border: 1px solid rgba(249, 115, 22, 0.4);
-            border-radius: 16px;
-            padding: 14px 18px;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 15;
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-            text-align: left;
-        }
-        .ad-banner-btn:hover {
-            border-color: #f97316;
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
-        }
-        .ad-info { display: flex; flex-direction: column; gap: 2px; }
-        .ad-title { font-size: 14px; font-weight: 600; color: #f97316; }
-        .ad-sub { font-size: 11px; color: #b1a7bd; }
-        .ad-badge { 
-            background: #f97316; 
-            color: #08040c; 
-            font-size: 11px; 
-            font-weight: bold; 
-            padding: 6px 12px; 
-            border-radius: 20px; 
-            letter-spacing: 0.5px;
-        }
-
         footer { margin-top: 25px; text-align: center; display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 15; }
         .footer-brand { font-size: 13px; color: #f97316; font-weight: 500; }
         .footer-soon { font-size: 11px; color: #8a7c98; }
@@ -395,16 +358,6 @@
             </a>
         </div>
 
-        <!-- ADSTERRA WERBUNGS-BANNER (MIT BESTÄTIGUNG) -->
-        <div class="ad-banner-btn" onclick="confirmAdRedirect()">
-            <div class="link-icon-box" style="background: rgba(249, 115, 22, 0.2); color: #f97316;">🎃</div>
-            <div class="ad-info">
-                <span class="ad-title">Spezielle Halloween Angebote</span>
-                <span class="ad-sub">Klicke hier für exklusive Partnerevents</span>
-            </div>
-            <div class="ad-badge">Werbung</div>
-        </div>
-
         <footer>
             <div class="footer-brand">@tunasys.de</div>
             <div class="footer-soon">coming soon</div>
@@ -438,14 +391,6 @@
 
     <script>
         let diEnabled = false;
-
-        // --- ADSTERRA LINK BESTÄTIGUNGS-FUNKTION ---
-        function confirmAdRedirect() {
-            const userConfirmed = confirm("Möchtest du diese Werbung wirklich öffnen?");
-            if (userConfirmed) {
-                window.open("https://auctionr.org/4/1af46dec74e06adc5fa30ed229dc960f", "_blank");
-            }
-        }
 
         // --- SÜSSIGKEITEN VON UNTEN ---
         const candies = ["🍬", "🍫", "🍭", "🎃", "👻"];
