@@ -260,89 +260,6 @@
             color: #f97316; font-size: 13px; flex-shrink: 0; margin-left: 10px;
         }
 
-        /* --- PRODUKT WIDGETS MIT BILDERN --- */
-        .product-widget {
-            background: rgba(25, 14, 38, 0.9);
-            border: 1px solid rgba(249, 115, 22, 0.35);
-            border-radius: 20px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            position: relative;
-            backdrop-filter: blur(12px);
-            transition: all 0.3s ease;
-        }
-        .product-widget:hover {
-            border-color: #f97316;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(249, 115, 22, 0.25);
-        }
-        .widget-tag {
-            align-self: flex-start;
-            background: linear-gradient(135deg, #c2410c, #f97316);
-            color: #ffffff;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        .widget-content {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .widget-img-box {
-            width: 75px;
-            height: 75px;
-            background: #ffffff;
-            border: 1px solid rgba(249, 115, 22, 0.3);
-            border-radius: 14px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 6px;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-        .widget-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .widget-details {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            flex-grow: 1;
-        }
-        .widget-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
-            line-height: 1.3;
-        }
-        .widget-buy-btn {
-            background: #f97316;
-            color: #08040c;
-            text-decoration: none;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 10px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            transition: opacity 0.2s;
-        }
-        .widget-buy-btn:hover {
-            opacity: 0.9;
-        }
-
         footer { margin-top: 25px; text-align: center; display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 15; }
         .footer-brand { font-size: 13px; color: #f97316; font-weight: 500; }
         .footer-soon { font-size: 11px; color: #8a7c98; }
@@ -451,56 +368,26 @@
                 <div class="arrow-icon">→</div>
             </a>
 
-            <!-- AMAZON PARTNER PRODUKT-WIDGETS -->
-            <div class="section-header">🛍️ Von Tunasy.s Empfohlen</div>
+            <!-- AMAZON PARTNER PRODUKTE (ALS INFO-KARTEN) -->
+            <div class="section-header">Von Tunasy.s empfohlen</div>
 
-            <!-- Widget 1: Razer Gaming Maus -->
-            <div class="product-widget">
-                <div class="widget-tag">⭐ Von Tunasy.s empfohlen</div>
-                <div class="widget-content">
-                    <div class="widget-img-box">
-                        <img src="https://m.media-amazon.com/images/I/61SUj90xfkL._AC_SL1500_.jpg" alt="Razer DeathAdder Essential">
-                    </div>
-                    <div class="widget-details">
-                        <div class="widget-title">Razer DeathAdder Essential Gaming-Maus</div>
-                    </div>
-                </div>
-                <a href="https://www.amazon.de/Razer-DeathAdder-Essential-Ergonomic-RZ01-03850100-R3M1/dp/B092R5MCB3/?tag=198273537-21" target="_blank" class="widget-buy-btn">
-                    Auf Amazon ansehen 🛒
-                </a>
-            </div>
+            <a href="https://www.amazon.de/Razer-DeathAdder-Essential-Ergonomic-RZ01-03850100-R3M1/dp/B092R5MCB3/?tag=198273537-21" class="link-card" target="_blank">
+                <div class="link-icon-box" style="color: #f97316;">🖱️</div>
+                <div class="link-info"><span class="link-title">Razer Gaming-Maus</span><span class="link-desc">DeathAdder Essential • Ergonomisch & Präzise</span></div>
+                <div class="arrow-icon">→</div>
+            </a>
 
-            <!-- Widget 2: UGREEN Powerbank -->
-            <div class="product-widget">
-                <div class="widget-tag">⭐ Von Tunasy.s empfohlen</div>
-                <div class="widget-content">
-                    <div class="widget-img-box">
-                        <img src="https://m.media-amazon.com/images/I/61t9rOQ2xRL._AC_SL1500_.jpg" alt="UGREEN Powerbank">
-                    </div>
-                    <div class="widget-details">
-                        <div class="widget-title">UGREEN Magnetische Powerbank</div>
-                    </div>
-                </div>
-                <a href="https://www.amazon.de/UGREEN-Powerbank-Magnetische-Schnellladefunktion-kompatibel/dp/B0CH33F5P2/?tag=198273537-21" target="_blank" class="widget-buy-btn">
-                    Auf Amazon ansehen 🛒
-                </a>
-            </div>
+            <a href="https://www.amazon.de/UGREEN-Powerbank-Magnetische-Schnellladefunktion-kompatibel/dp/B0CH33F5P2/?tag=198273537-21" class="link-card" target="_blank">
+                <div class="link-icon-box" style="color: #f97316;">🔋</div>
+                <div class="link-info"><span class="link-title">UGREEN Powerbank</span><span class="link-desc">Magnetisch & Schnellladen • Ideal unterwegs</span></div>
+                <div class="arrow-icon">→</div>
+            </a>
 
-            <!-- Widget 3: Nike Socken -->
-            <div class="product-widget">
-                <div class="widget-tag">⭐ Von Tunasy.s empfohlen</div>
-                <div class="widget-content">
-                    <div class="widget-img-box">
-                        <img src="https://m.media-amazon.com/images/I/81k3yWz5g8L._AC_UY1000_.jpg" alt="Nike Socken">
-                    </div>
-                    <div class="widget-details">
-                        <div class="widget-title">Nike Unisex Everyday Cushion Socken</div>
-                    </div>
-                </div>
-                <a href="https://www.amazon.de/NIKE-Unisex-Everyday-Cushion-Ankle/dp/B00K5CVO9O/?tag=198273537-21" target="_blank" class="widget-buy-btn">
-                    Auf Amazon ansehen 🛒
-                </a>
-            </div>
+            <a href="https://www.amazon.de/NIKE-Unisex-Everyday-Cushion-Ankle/dp/B00K5CVO9O/?tag=198273537-21" class="link-card" target="_blank">
+                <div class="link-icon-box" style="color: #f97316;">🧦</div>
+                <div class="link-info"><span class="link-title">Nike Everyday Socken</span><span class="link-desc">Unisex Ankle Socken • Bequem & Modern</span></div>
+                <div class="arrow-icon">→</div>
+            </a>
         </div>
 
         <footer>
