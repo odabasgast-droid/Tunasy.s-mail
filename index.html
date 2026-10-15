@@ -222,6 +222,17 @@
         }
         .play-btn:active { transform: scale(0.95); }
 
+        .section-header {
+            width: 100%;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 700;
+            color: #f97316;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 15px 0 8px 4px;
+        }
+
         .links-list { width: 100%; display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 15; }
         
         .link-card {
@@ -236,7 +247,7 @@
         .link-icon-box {
             width: 42px; height: 42px; background: rgba(255, 255, 255, 0.05);
             border-radius: 12px; display: flex; justify-content: center; align-items: center;
-            margin-right: 14px; flex-shrink: 0;
+            margin-right: 14px; flex-shrink: 0; font-size: 20px;
         }
         .link-icon-box svg { width: 22px; height: 22px; fill: currentColor; }
         .link-info { display: flex; flex-direction: column; flex-grow: 1; gap: 2px; }
@@ -354,6 +365,27 @@
             <a href="https://payhip.com/Tunasys?builder_mode=1&environment_id_encrypted=a6zY70ZwGq&sBBIID=ZGXYk8YLWq&show_builder_mode_previewing_notification=1" class="link-card" target="_blank" id="link-shop" onclick="triggerDynamicIsland('Shop')">
                 <div class="link-icon-box" style="color: #2ecc71;"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.60 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></div>
                 <div class="link-info"><span class="link-title">Payhip Shop</span><span class="link-desc">Tunasys Store • Exklusive Produkte</span></div>
+                <div class="arrow-icon">→</div>
+            </a>
+
+            <!-- AMAZON PARTNER PRODUKTE -->
+            <div class="section-header">🛒 Empfohlene Produkte</div>
+
+            <a href="https://www.amazon.de/Razer-DeathAdder-Essential-Ergonomic-RZ01-03850100-R3M1/dp/B092R5MCB3/?tag=198273537-21" class="link-card" target="_blank">
+                <div class="link-icon-box">🖱️</div>
+                <div class="link-info"><span class="link-title">Razer Gaming-Maus</span><span class="link-desc">DeathAdder Essential • Ergonomisch & Präzise</span></div>
+                <div class="arrow-icon">→</div>
+            </a>
+
+            <a href="https://www.amazon.de/UGREEN-Powerbank-Magnetische-Schnellladefunktion-kompatibel/dp/B0CH33F5P2/?tag=198273537-21" class="link-card" target="_blank">
+                <div class="link-icon-box">🔋</div>
+                <div class="link-info"><span class="link-title">UGREEN Powerbank</span><span class="link-desc">Magnetisch & Schnellladen • Ideal unterwegs</span></div>
+                <div class="arrow-icon">→</div>
+            </a>
+
+            <a href="https://www.amazon.de/NIKE-Unisex-Everyday-Cushion-Ankle/dp/B00K5CVO9O/?tag=198273537-21" class="link-card" target="_blank">
+                <div class="link-icon-box">🧦</div>
+                <div class="link-info"><span class="link-title">Nike Everyday Socken</span><span class="link-desc">Unisex Ankle Socken • Bequem & Modern</span></div>
                 <div class="arrow-icon">→</div>
             </a>
         </div>
