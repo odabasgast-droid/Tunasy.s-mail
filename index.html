@@ -19,6 +19,9 @@
         })();
     </script>
 
+    <!-- RSS App Widget Script -->
+    <script src="https://widget.rss.app/v1/wall.js" type="text/javascript" async></script>
+
     <style>
         * {
             margin: 0;
@@ -260,6 +263,19 @@
             color: #f97316; font-size: 13px; flex-shrink: 0; margin-left: 10px;
         }
 
+        /* --- NACHRICHTEN / RSS WIDGET CONTAINER --- */
+        .news-widget-wrapper {
+            width: 100%;
+            background: rgba(25, 14, 38, 0.85);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            border-radius: 20px;
+            padding: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
         footer { margin-top: 25px; text-align: center; display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 15; }
         .footer-brand { font-size: 13px; color: #f97316; font-weight: 500; }
         .footer-soon { font-size: 11px; color: #8a7c98; }
@@ -368,7 +384,7 @@
                 <div class="arrow-icon">→</div>
             </a>
 
-            <!-- AMAZON PARTNER PRODUKTE (ALS INFO-KARTEN) -->
+            <!-- AMAZON PARTNER PRODUKTE -->
             <div class="section-header">Von Tunasy.s empfohlen</div>
 
             <a href="https://www.amazon.de/Razer-DeathAdder-Essential-Ergonomic-RZ01-03850100-R3M1/dp/B092R5MCB3/?tag=198273537-21" class="link-card" target="_blank">
@@ -388,6 +404,12 @@
                 <div class="link-info"><span class="link-title">Nike Everyday Socken</span><span class="link-desc">Unisex Ankle Socken • Bequem & Modern</span></div>
                 <div class="arrow-icon">→</div>
             </a>
+
+            <!-- RSS NACHRICHTEN WIDGET STREIFEN -->
+            <div class="section-header">📰 Aktuelle News</div>
+            <div class="news-widget-wrapper">
+                <rssapp-wall id="tACiJs4EvqiKiIYq"></rssapp-wall>
+            </div>
         </div>
 
         <footer>
