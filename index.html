@@ -276,6 +276,93 @@
             margin-top: 10px;
         }
 
+        /* --- VERSCHIEBBARER GOOGLE TAB (FLOATING WINDOW) --- */
+        #google-floating-tab {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            background: rgba(18, 8, 28, 0.95);
+            border: 1px solid #f97316;
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(249, 115, 22, 0.4);
+            backdrop-filter: blur(15px);
+            z-index: 10001;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        .google-tab-header {
+            background: linear-gradient(135deg, #2a1236, #12081c);
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+            border-bottom: 1px solid rgba(249, 115, 22, 0.25);
+            user-select: none;
+        }
+
+        .google-tab-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #f97316;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .google-tab-close {
+            background: none;
+            border: none;
+            color: #b1a7bd;
+            font-size: 20px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .google-tab-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .google-search-input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(249, 115, 22, 0.4);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .google-search-input:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 10px rgba(249, 115, 22, 0.3);
+        }
+
+        .google-search-btn {
+            background: linear-gradient(135deg, #c2410c, #f97316);
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .google-search-btn:hover {
+            opacity: 0.9;
+        }
+
         footer { margin-top: 25px; text-align: center; display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 15; }
         .footer-brand { font-size: 13px; color: #f97316; font-weight: 500; }
         .footer-soon { font-size: 11px; color: #8a7c98; }
@@ -358,6 +445,7 @@
         <div class="btn-group">
             <button class="play-btn" onclick="toggleEnergyBalls()">Effekte</button>
             <button class="play-btn" style="background: linear-gradient(135deg, #a8ede0, #fed6e3); color: #000;" onclick="toggleLightMode()" id="light-btn">☀️ Light Mode</button>
+            <button class="play-btn" style="background: linear-gradient(135deg, #4285F4, #34A853);" onclick="toggleGoogleTab()">🔍 Google Search</button>
             <button class="play-btn" style="background: linear-gradient(135deg, #434343, #000000);" onclick="toggleDynamicIslandFeature()" id="di-toggle-btn">🏝️ Dynamic Island: OFF</button>
             <button class="play-btn" style="background: linear-gradient(135deg, #7c2d12, #c2410c);" onclick="openAccountModal()" id="account-btn">👤 Anmelden</button>
         </div>
@@ -418,6 +506,18 @@
         </footer>
     </div>
 
+    <!-- VERSCHIEBBARER GOOGLE SEARCH TAB -->
+    <div id="google-floating-tab">
+        <div class="google-tab-header" id="google-tab-drag-handle">
+            <div class="google-tab-title">🔍 Google Suche</div>
+            <button class="google-tab-close" onclick="toggleGoogleTab()">×</button>
+        </div>
+        <div class="google-tab-body">
+            <input type="text" id="google-search-query" class="google-search-input" placeholder="Suchbegriff eingeben..." onkeypress="handleGoogleSearchKeyPress(event)">
+            <button class="google-search-btn" onclick="executeGoogleSearch()">Suchen</button>
+        </div>
+    </div>
+
     <!-- Dynamic Island -->
     <div id="dynamic-island" onclick="handleDIClick()">
         <div class="di-content">
@@ -445,6 +545,92 @@
 
     <script>
         let diEnabled = false;
+
+        // --- GOOGLE SEARCH FLOATING TAB LOGIK ---
+        function toggleGoogleTab() {
+            const tab = document.getElementById('google-floating-tab');
+            if (tab.style.display === 'flex') {
+                tab.style.display = 'none';
+            } else {
+                tab.style.display = 'flex';
+                document.getElementById('google-search-query').focus();
+            }
+        }
+
+        function executeGoogleSearch() {
+            const query = document.getElementById('google-search-query').value.trim();
+            if (query) {
+                window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+            }
+        }
+
+        function handleGoogleSearchKeyPress(event) {
+            if (event.key === 'Enter') {
+                executeGoogleSearch();
+            }
+        }
+
+        // DRAG & DROP LOGIK FÜR DEN GOOGLE TAB
+        (function makeTabDraggable() {
+            const tab = document.getElementById("google-floating-tab");
+            const handle = document.getElementById("google-tab-drag-handle");
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+            if (handle) {
+                handle.onmousedown = dragMouseDown;
+                handle.ontouchstart = dragTouchStart;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                tab.style.top = (tab.offsetTop - pos2) + "px";
+                tab.style.left = (tab.offsetLeft - pos1) + "px";
+                tab.style.transform = "none";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+
+            function dragTouchStart(e) {
+                const touch = e.touches[0];
+                pos3 = touch.clientX;
+                pos4 = touch.clientY;
+                document.ontouchend = closeTouchElement;
+                document.ontouchmove = elementTouchMove;
+            }
+
+            function elementTouchMove(e) {
+                const touch = e.touches[0];
+                pos1 = pos3 - touch.clientX;
+                pos2 = pos4 - touch.clientY;
+                pos3 = touch.clientX;
+                pos4 = touch.clientY;
+                tab.style.top = (tab.offsetTop - pos2) + "px";
+                tab.style.left = (tab.offsetLeft - pos1) + "px";
+                tab.style.transform = "none";
+            }
+
+            function closeTouchElement() {
+                document.ontouchend = null;
+                document.ontouchmove = null;
+            }
+        })();
 
         // --- SÜSSIGKEITEN VON UNTEN ---
         const candies = ["🍬", "🍫", "🍭", "🎃", "👻"];
