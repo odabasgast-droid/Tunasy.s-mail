@@ -97,7 +97,76 @@
             box-shadow: -6px 0 25px rgba(255, 204, 0, 0.8);
         }
 
-        /* --- LITBUY STICKER / TICKET DESIGN (OHNE BILD) --- */
+        /* --- SUPPLIER CONTACT CEO WHATSAPP PROFILE CARD --- */
+        .supplier-card {
+            width: 100%;
+            background: rgba(25, 14, 38, 0.85);
+            border: 1px solid rgba(37, 211, 102, 0.4);
+            border-radius: 20px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.15);
+            text-decoration: none;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        .supplier-card:hover {
+            border-color: #25D366;
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(37, 211, 102, 0.3);
+        }
+        .supplier-avatar {
+            width: 50px;
+            height: 50px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            flex-shrink: 0;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+        }
+        .supplier-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            flex-grow: 1;
+        }
+        .supplier-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #25D366;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .supplier-name {
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .supplier-phone {
+            font-size: 13px;
+            color: #b1a7bd;
+        }
+        .supplier-action {
+            background: #25D366;
+            color: #ffffff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-shrink: 0;
+        }
+
+        /* --- LITBUY STICKER / TICKET DESIGN --- */
         .litbuy-ticket-card {
             width: 100%;
             background: #ffcc00;
@@ -723,6 +792,18 @@
             <div class="news-widget-wrapper">
                 <rssapp-wall id="tACiJs4EvqiKiIYq"></rssapp-wall>
             </div>
+
+            <!-- SUPPLIER CONTACT CEO (WHATSAPP PROFILE) -->
+            <div class="section-header">Supplier Contact</div>
+            <a href="https://wa.me/491795208934" target="_blank" class="supplier-card">
+                <div class="supplier-avatar">💬</div>
+                <div class="supplier-info">
+                    <span class="supplier-title">CEO / Supplier Chat</span>
+                    <span class="supplier-name">Tuna (Tunasy.s)</span>
+                    <span class="supplier-phone">+49 179 5208934</span>
+                </div>
+                <div class="supplier-action">Chat ↗</div>
+            </a>
         </div>
 
         <footer>
@@ -779,20 +860,17 @@
         function triggerRandomLitbuyPopup() {
             const popup = document.getElementById('litbuy-popup-ad');
             popup.style.display = 'flex';
-            // Nach 8 Sekunden automatisch wieder ausblenden
             setTimeout(() => {
                 popup.style.display = 'none';
             }, 8000);
         }
 
-        // Alle 30 Sekunden mit kleiner Zufallsabweichung das Popup anzeigen
         setInterval(() => {
             if (Math.random() > 0.3) {
                 triggerRandomLitbuyPopup();
             }
         }, 30000);
 
-        // Erstes Popup nach 5 Sekunden anzeigen
         setTimeout(triggerRandomLitbuyPopup, 5000);
 
         // --- GOOGLE SEARCH FLOATING TAB LOGIK ---
