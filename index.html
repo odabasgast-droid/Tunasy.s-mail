@@ -97,26 +97,156 @@
             box-shadow: -6px 0 25px rgba(255, 204, 0, 0.8);
         }
 
-        /* --- LITBUY CARD STYLES --- */
-        .litbuy-card-wrapper {
+        /* --- LITBUY STICKER / TICKET DESIGN (OHNE BILD) --- */
+        .litbuy-ticket-card {
             width: 100%;
-            border-radius: 24px;
+            background: #ffcc00;
+            border-radius: 28px;
             overflow: hidden;
-            border: 2px solid #ffcc00;
-            box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #000000;
             text-decoration: none;
-            display: block;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.4);
+            border: 2px solid #000000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             margin-top: 10px;
         }
-        .litbuy-card-wrapper:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 35px rgba(255, 204, 0, 0.6);
+        .litbuy-ticket-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 40px rgba(255, 204, 0, 0.7);
         }
-        .litbuy-card-img {
+        .litbuy-ticket-top {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .litbuy-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+        .litbuy-coupon-box {
+            background: #111111;
+            border-radius: 20px;
+            padding: 18px 12px;
+            text-align: center;
+            position: relative;
+        }
+        .litbuy-coupon-inner {
+            background: #ffffff;
+            border: 2px dashed #cccccc;
+            border-radius: 14px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .litbuy-coupon-val {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ff5500;
+            line-height: 1;
+        }
+        .litbuy-coupon-sub {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111111;
+            margin-top: 4px;
+        }
+        .litbuy-slogan {
+            font-size: 14px;
+            font-weight: 800;
+            color: #111111;
+        }
+        .litbuy-code-row {
+            font-size: 15px;
+            font-weight: 800;
+            color: #111111;
+        }
+        .litbuy-code-badge {
+            color: #ff5500;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+        .litbuy-ticket-bottom {
+            background: #111111;
+            color: #ffffff;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 2px solid #000000;
+        }
+        .litbuy-features {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 11px;
+            color: #ffcc00;
+            font-weight: 600;
+            max-width: 60%;
+        }
+        .litbuy-qr-box {
+            width: 70px;
+            height: 70px;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .litbuy-qr-box img {
             width: 100%;
-            height: auto;
-            display: block;
+            height: 100%;
+        }
+
+        /* --- RANDOM LITBUY POPUP WERBUNG --- */
+        #litbuy-popup-ad {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ffcc00;
+            color: #000000;
+            border: 2px solid #000000;
+            border-radius: 20px;
+            padding: 14px 18px;
+            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.6);
+            z-index: 10002;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            max-width: 310px;
+            animation: popupSlideIn 0.4s ease forwards;
+        }
+        @keyframes popupSlideIn {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .popup-close-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
         }
 
         /* --- HALLOWEEN ELEMENTE --- */
@@ -467,6 +597,17 @@
         🔥 Litbuy $500 Rabatt
     </a>
 
+    <!-- RANDOM LITBUY POPUP WERBUNG -->
+    <div id="litbuy-popup-ad">
+        <button class="popup-close-btn" onclick="closeLitbuyPopup()">×</button>
+        <span style="font-size: 28px;">🔥</span>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+            <strong style="font-size: 13px;">Litbuy $500 Coupons Pack!</strong>
+            <span style="font-size: 11px; opacity: 0.85;">Code: <b>NI35VB1B7</b> • Jetzt sparen!</span>
+        </div>
+        <a href="https://m.litbuy.com/pages/register/index?inviteCode=NI35VB1B7" target="_blank" style="background: #000; color: #ffcc00; font-size: 11px; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-decoration: none; margin-left: auto;">Holen</a>
+    </div>
+
     <div id="ball-container"></div>
 
     <!-- Halloween Hintergrund -->
@@ -528,10 +669,32 @@
                 <div class="arrow-icon">→</div>
             </a>
 
-            <!-- LITBUY EXKLUSIV DEAL CARD -->
+            <!-- REINES HTML/CSS LITBUY STICKER TICKET -->
             <div class="section-header">🔥 Exklusiver Litbuy Deal</div>
-            <a href="https://m.litbuy.com/pages/register/index?inviteCode=NI35VB1B7" target="_blank" class="litbuy-card-wrapper">
-                <img src="litbuy-card.png" alt="Litbuy $500 Coupons Pack" class="litbuy-card-img" onerror="this.onerror=null; this.src='https://i.imgur.com/8Q9Z5Xm.png';">
+            <a href="https://m.litbuy.com/pages/register/index?inviteCode=NI35VB1B7" target="_blank" class="litbuy-ticket-card">
+                <div class="litbuy-ticket-top">
+                    <div class="litbuy-brand">🔥 LITBUY</div>
+                    <div class="litbuy-coupon-box">
+                        <div class="litbuy-coupon-inner">
+                            <div class="litbuy-coupon-val">$500</div>
+                            <div class="litbuy-coupon-sub">Coupons Pack</div>
+                        </div>
+                    </div>
+                    <div class="litbuy-slogan">GO LIT. PAY LESS.</div>
+                    <div class="litbuy-code-row">
+                        Invite code: <span class="litbuy-code-badge">NI35VB1B7</span>
+                    </div>
+                </div>
+                <div class="litbuy-ticket-bottom">
+                    <div class="litbuy-features">
+                        <span>• Direct from China</span>
+                        <span>• Transparent pricing</span>
+                        <span>• Clear tracking & Fast delivery</span>
+                    </div>
+                    <div class="litbuy-qr-box">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://m.litbuy.com/pages/register/index?inviteCode=NI35VB1B7" alt="QR Code">
+                    </div>
+                </div>
             </a>
 
             <!-- AMAZON PARTNER PRODUKTE -->
@@ -607,6 +770,30 @@
 
     <script>
         let diEnabled = false;
+
+        // --- RANDOM LITBUY POPUP LOGIK ---
+        function closeLitbuyPopup() {
+            document.getElementById('litbuy-popup-ad').style.display = 'none';
+        }
+
+        function triggerRandomLitbuyPopup() {
+            const popup = document.getElementById('litbuy-popup-ad');
+            popup.style.display = 'flex';
+            // Nach 8 Sekunden automatisch wieder ausblenden
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 8000);
+        }
+
+        // Alle 30 Sekunden mit kleiner Zufallsabweichung das Popup anzeigen
+        setInterval(() => {
+            if (Math.random() > 0.3) {
+                triggerRandomLitbuyPopup();
+            }
+        }, 30000);
+
+        // Erstes Popup nach 5 Sekunden anzeigen
+        setTimeout(triggerRandomLitbuyPopup, 5000);
 
         // --- GOOGLE SEARCH FLOATING TAB LOGIK ---
         function toggleGoogleTab() {
