@@ -68,6 +68,57 @@
             100% { transform: translateY(30px) translateX(-40px) scale(0.95); }
         }
 
+        /* --- LITBUY FLOATING BUTTON (RECHTS MITTE) --- */
+        .litbuy-floating-btn {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffcc00;
+            color: #000000;
+            padding: 12px 16px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            font-weight: 800;
+            font-size: 13px;
+            text-decoration: none;
+            box-shadow: -4px 0 20px rgba(255, 204, 0, 0.5);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            border: 2px solid #000000;
+            border-right: none;
+        }
+        .litbuy-floating-btn:hover {
+            padding-right: 22px;
+            background: #ffe033;
+            box-shadow: -6px 0 25px rgba(255, 204, 0, 0.8);
+        }
+
+        /* --- LITBUY CARD STYLES --- */
+        .litbuy-card-wrapper {
+            width: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 2px solid #ffcc00;
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: block;
+            margin-top: 10px;
+        }
+        .litbuy-card-wrapper:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(255, 204, 0, 0.6);
+        }
+        .litbuy-card-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         /* --- HALLOWEEN ELEMENTE --- */
         #halloween-bg {
             position: fixed;
@@ -411,6 +462,11 @@
 </head>
 <body>
 
+    <!-- LITBUY FLOATING BUTTON (RECHTS MITTE) -->
+    <a href="https://m.litbuy.com/pages/register/index?inviteCode=NI35VB1B7" target="_blank" class="litbuy-floating-btn">
+        🔥 Litbuy $500 Rabatt
+    </a>
+
     <div id="ball-container"></div>
 
     <!-- Halloween Hintergrund -->
@@ -470,6 +526,12 @@
                 <div class="link-icon-box" style="color: #2ecc71;"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.60 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></div>
                 <div class="link-info"><span class="link-title">Payhip Shop</span><span class="link-desc">Tunasys Store • Exklusive Produkte</span></div>
                 <div class="arrow-icon">→</div>
+            </a>
+
+            <!-- LITBUY EXKLUSIV DEAL CARD -->
+            <div class="section-header">🔥 Exklusiver Litbuy Deal</div>
+            <a href="https://m.litbuy.com/pages/register/index?inviteCode=NI35VB1B7" target="_blank" class="litbuy-card-wrapper">
+                <img src="litbuy-card.png" alt="Litbuy $500 Coupons Pack" class="litbuy-card-img" onerror="this.onerror=null; this.src='https://i.imgur.com/8Q9Z5Xm.png';">
             </a>
 
             <!-- AMAZON PARTNER PRODUKTE -->
