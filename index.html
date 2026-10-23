@@ -22,9 +22,6 @@
         })();
     </script>
 
-    <!-- RSS App Widget Script -->
-    <script src="https://widget.rss.app/v1/wall.js" type="text/javascript" async></script>
-
     <style>
         * {
             margin: 0;
@@ -270,6 +267,34 @@
             height: 100%;
         }
 
+        /* --- LAUFSCHRIFT NEWS TICKER --- */
+        .news-ticker-container {
+            width: 100%;
+            background: rgba(25, 14, 38, 0.85);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            border-radius: 16px;
+            padding: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .news-ticker-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: tickerAnimation 18s linear infinite;
+            font-size: 13px;
+            font-weight: 600;
+            color: #f97316;
+        }
+
+        @keyframes tickerAnimation {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
         /* --- RANDOM LITBUY POPUP WERBUNG --- */
         #litbuy-popup-ad {
             position: fixed;
@@ -503,19 +528,6 @@
             width: 26px; height: 26px; background: rgba(255, 255, 255, 0.05);
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
             color: #f97316; font-size: 13px; flex-shrink: 0; margin-left: 10px;
-        }
-
-        /* --- NACHRICHTEN / RSS WIDGET CONTAINER --- */
-        .news-widget-wrapper {
-            width: 100%;
-            background: rgba(25, 14, 38, 0.85);
-            border: 1px solid rgba(249, 115, 22, 0.3);
-            border-radius: 20px;
-            padding: 12px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            overflow: hidden;
-            margin-top: 10px;
         }
 
         /* --- VERSCHIEBBARER GOOGLE TAB (FLOATING WINDOW) --- */
@@ -789,10 +801,12 @@
                 <div class="arrow-icon">→</div>
             </a>
 
-            <!-- RSS NACHRICHTEN WIDGET STREIFEN -->
-            <div class="section-header">📰 Aktuelle News</div>
-            <div class="news-widget-wrapper">
-                <rssapp-wall id="tACiJs4EvqiKiIYq"></rssapp-wall>
+            <!-- SAUBERE LAUFSCHRIFT NEWS -->
+            <div class="section-header">🔥 Tunasys Live Ticker</div>
+            <div class="news-ticker-container">
+                <div class="news-ticker-text">
+                    🎃 Willkommen auf Tunasys.de! • 🛒 $500 Coupons Pack mit Code NI35VB1B7 auf Litbuy sichern! • 📱 Neue Tech- & Gaming-Empfehlungen direkt oben verlinkt • 💬 WhatsApp Support für Anfragen aktiv!
+                </div>
             </div>
         </div>
 
