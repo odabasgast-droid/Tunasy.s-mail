@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tuna / Tunasy - Halloween Edition</title>
     
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="38CjjKYbZxVdminnKSrtkn7WkkkagP4izA4Qwrl74QE" />
+
     <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6666461427128480"
          crossorigin="anonymous"></script>
@@ -18,9 +21,6 @@
             });
         })();
     </script>
-
-    <!-- RSS App Widget Script -->
-    <script src="https://widget.rss.app/v1/wall.js" type="text/javascript" async></script>
 
     <style>
         * {
@@ -267,6 +267,19 @@
             height: 100%;
         }
 
+        /* --- ARINCEN AKTIEN WIDGET CONTAINER --- */
+        .stocks-widget-wrapper {
+            width: 100%;
+            background: rgba(25, 14, 38, 0.85);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            border-radius: 20px;
+            padding: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
         /* --- RANDOM LITBUY POPUP WERBUNG --- */
         #litbuy-popup-ad {
             position: fixed;
@@ -500,19 +513,6 @@
             width: 26px; height: 26px; background: rgba(255, 255, 255, 0.05);
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
             color: #f97316; font-size: 13px; flex-shrink: 0; margin-left: 10px;
-        }
-
-        /* --- NACHRICHTEN / RSS WIDGET CONTAINER --- */
-        .news-widget-wrapper {
-            width: 100%;
-            background: rgba(25, 14, 38, 0.85);
-            border: 1px solid rgba(249, 115, 22, 0.3);
-            border-radius: 20px;
-            padding: 12px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            overflow: hidden;
-            margin-top: 10px;
         }
 
         /* --- VERSCHIEBBARER GOOGLE TAB (FLOATING WINDOW) --- */
@@ -786,10 +786,46 @@
                 <div class="arrow-icon">→</div>
             </a>
 
-            <!-- RSS NACHRICHTEN WIDGET STREIFEN -->
-            <div class="section-header">📰 Aktuelle News</div>
-            <div class="news-widget-wrapper">
-                <rssapp-wall id="tACiJs4EvqiKiIYq"></rssapp-wall>
+            <!-- ARINCEN AKTIEN WIDGET (ERSETZT RSS NEWS) -->
+            <div class="section-header">📈 Live Märkte & Kurse</div>
+            <div class="stocks-widget-wrapper">
+                <!-- Arincen Widget BEGIN -->
+                <div class="arincen-widget-container">
+                  <div class="arincen-widget-container__widget"></div>
+                  <div class="arincen-widget-copyright">
+                    <a href="https://arincen.com/markets/us-stocks" rel="noopener" target="_blank">
+                      <span>Live stock prices</span>
+                    </a> by Arincen
+                  </div>
+                  <script type="text/javascript" src="https://arincen.com/widget-embed/embed.js" data-widget="ticker-tape" async>
+                {
+                  "autosize": false,
+                  "bgColorDark": "#0F0F0F",
+                  "bgColorLight": "#FFFFFF",
+                  "borderStyle": "rounded",
+                  "colorTheme": "light",
+                  "displayMode": "regular",
+                  "height": 56,
+                  "hideLogos": false,
+                  "locale": "en",
+                  "showPause": false,
+                  "speed": 60,
+                  "symbols": [
+                    "XAUUSD",
+                    "AAPL",
+                    "MSFT",
+                    "META",
+                    "NVDA",
+                    "OILUSD",
+                    "BNTUSD",
+                    "TSLA"
+                  ],
+                  "transparent": false,
+                  "width": 1100
+                }
+                  </script>
+                </div>
+                <!-- Arincen Widget END -->
             </div>
         </div>
 
