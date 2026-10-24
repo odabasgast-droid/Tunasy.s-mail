@@ -97,6 +97,126 @@
             box-shadow: -6px 0 25px rgba(255, 204, 0, 0.8);
         }
 
+        /* --- AI CHATBOT FLOATING BUTTON & WINDOW --- */
+        #ai-chatbot-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #a855f7, #f97316);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.5);
+            z-index: 9999;
+            border: 2px solid #ffffff;
+            transition: all 0.3s ease;
+        }
+        #ai-chatbot-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.8);
+        }
+
+        #ai-chat-window {
+            position: fixed;
+            bottom: 82px;
+            left: 20px;
+            width: 310px;
+            height: 380px;
+            background: rgba(18, 8, 28, 0.95);
+            border: 1px solid rgba(249, 115, 22, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            z-index: 10000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            animation: popupSlideIn 0.3s ease forwards;
+        }
+
+        .ai-chat-header {
+            background: linear-gradient(135deg, #2a1236, #12081c);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(249, 115, 22, 0.3);
+            font-size: 14px;
+            font-weight: 700;
+            color: #f97316;
+        }
+
+        .ai-chat-close {
+            background: none;
+            border: none;
+            color: #b1a7bd;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .ai-chat-body {
+            flex-grow: 1;
+            padding: 12px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .chat-msg {
+            padding: 8px 12px;
+            border-radius: 12px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .chat-msg.bot {
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            align-self: flex-start;
+            color: #e9d5ff;
+        }
+        .chat-msg.user {
+            background: linear-gradient(135deg, #c2410c, #f97316);
+            align-self: flex-end;
+            color: #ffffff;
+        }
+
+        .ai-chat-input-row {
+            padding: 10px;
+            display: flex;
+            gap: 6px;
+            background: rgba(10, 4, 16, 0.8);
+            border-top: 1px solid rgba(249, 115, 22, 0.2);
+        }
+
+        .ai-chat-input {
+            flex-grow: 1;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 12px;
+            outline: none;
+        }
+
+        .ai-chat-send {
+            background: #f97316;
+            color: #ffffff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         /* --- SUPPLIER CONTACT CEO WHATSAPP CARD --- */
         .supplier-card {
             width: 100%;
@@ -655,6 +775,23 @@
         🔥 Litbuy $500 Rabatt
     </a>
 
+    <!-- AI CHATBOT FLOATING BUTTON & CHAT FENSTER -->
+    <div id="ai-chatbot-btn" onclick="toggleAIChat()">✨</div>
+
+    <div id="ai-chat-window">
+        <div class="ai-chat-header">
+            <span>✨ Tunasy AI Assistant</span>
+            <button class="ai-chat-close" onclick="toggleAIChat()">×</button>
+        </div>
+        <div class="ai-chat-body" id="ai-chat-messages">
+            <div class="chat-msg bot">Hi! Ich bin der Tunasy AI Assistant. Wie kann ich dir helfen? 🎃</div>
+        </div>
+        <div class="ai-chat-input-row">
+            <input type="text" id="ai-chat-input" class="ai-chat-input" placeholder="Schreibe eine Nachricht..." onkeypress="handleAIChatKeyPress(event)">
+            <button class="ai-chat-send" onclick="sendAIMessage()">Send</button>
+        </div>
+    </div>
+
     <!-- RANDOM LITBUY POPUP WERBUNG -->
     <div id="litbuy-popup-ad">
         <button class="popup-close-btn" onclick="closeLitbuyPopup()">×</button>
@@ -786,7 +923,7 @@
                 <div class="arrow-icon">→</div>
             </a>
 
-            <!-- ARINCEN AKTIEN WIDGET (ERSETZT RSS NEWS) -->
+            <!-- ARINCEN AKTIEN WIDGET -->
             <div class="section-header">📈 Live Märkte & Kurse</div>
             <div class="stocks-widget-wrapper">
                 <!-- Arincen Widget BEGIN -->
@@ -874,6 +1011,58 @@
 
     <script>
         let diEnabled = false;
+
+        // --- AI CHATBOT STEUERUNG ---
+        function toggleAIChat() {
+            const chatWin = document.getElementById('ai-chat-window');
+            if (chatWin.style.display === 'flex') {
+                chatWin.style.display = 'none';
+            } else {
+                chatWin.style.display = 'flex';
+                document.getElementById('ai-chat-input').focus();
+            }
+        }
+
+        function handleAIChatKeyPress(e) {
+            if (e.key === 'Enter') sendAIMessage();
+        }
+
+        function sendAIMessage() {
+            const input = document.getElementById('ai-chat-input');
+            const txt = input.value.trim();
+            if (!txt) return;
+
+            const chatBody = document.getElementById('ai-chat-messages');
+            
+            // User Message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-msg user';
+            userMsg.innerText = txt;
+            chatBody.appendChild(userMsg);
+            input.value = '';
+
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // Simple Auto AI Reply Logic
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'chat-msg bot';
+                
+                let reply = "Danke für deine Nachricht! Schau gerne in unseren Links oder im Shop vorbei. 🎃";
+                const lower = txt.toLowerCase();
+                if (lower.includes('shop') || lower.includes('kaufen')) {
+                    reply = "Unseren Payhip Shop findest du weiter oben im Menü! 🛒";
+                } else if (lower.includes('litbuy') || lower.includes('rabatt') || lower.includes('code')) {
+                    reply = "Nutze den Code NI35VB1B7 auf Litbuy für 500$ Rabatt-Coupons! 🔥";
+                } else if (lower.includes('youtube') || lower.includes('tiktok') || lower.includes('discord')) {
+                    reply = "Klicke einfach auf die Buttons oben, um direkt zu unseren Social Media Kanälen zu gelangen! 🚀";
+                }
+
+                botMsg.innerText = reply;
+                chatBody.appendChild(botMsg);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 600);
+        }
 
         // --- RANDOM LITBUY POPUP LOGIK ---
         function closeLitbuyPopup() {
