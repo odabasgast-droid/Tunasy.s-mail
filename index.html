@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tuna / Tunasy - Halloween Edition</title>
+    <title>Tuna / Tunasy</title>
     
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="38CjjKYbZxVdminnKSrtkn7WkkkagP4izA4Qwrl74QE" />
@@ -23,44 +23,35 @@
     </script>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        :root{
+            --bg:#000; --text:#fff; --muted:#a1a1aa;
+            --card:rgba(22,22,26,0.85); --card-hover:rgba(38,38,44,0.92);
+            --panel:rgba(12,12,14,0.96); --head-bg:linear-gradient(135deg,#1b1b20,#0c0c0e);
+            --acc:#ffffff; --acc-rgb:255,255,255;
+            --btn-bg:linear-gradient(135deg,#d4d4d8,#ffffff); --btn-text:#000;
+            --icon-bg:rgba(255,255,255,0.06); --input-bg:rgba(255,255,255,0.08);
+            --shadow:rgba(255,255,255,0.12);
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body {
-            background-color: #08040c;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 16px 40px 16px;
-            overflow-x: hidden;
-            position: relative;
-            transition: background 0.6s ease, color 0.6s ease;
+            background-color: var(--bg); color: var(--text);
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+            padding: 20px 16px 40px 16px; overflow-x: hidden; position: relative;
+            transition: background-color 0.6s ease, color 0.4s ease;
         }
+        body::before{
+            content:""; position:fixed; inset:-25%; z-index:-1; pointer-events:none;
+            background:var(--bgfx,none); opacity:var(--bgfx-o,0); transition:opacity .6s;
+            animation:drift 22s ease-in-out infinite alternate;
+        }
+        @keyframes drift{from{transform:translate3d(-3%,-2%,0) rotate(0deg) scale(1)}to{transform:translate3d(3%,2%,0) rotate(8deg) scale(1.12)}}
 
-        body.light-mode {
-            background: linear-gradient(135deg, #2c1638 0%, #1a0b2e 50%, #08040c 100%);
-            color: #ffffff;
-        }
-
-        #ball-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none !important;
-            z-index: 1; opacity: 0;
-            transition: opacity 1s ease;
-        }
+        #ball-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none !important; z-index: 1; opacity: 0; transition: opacity 1s ease; }
         .energy-ball {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(249, 115, 22, 0.9) 0%, rgba(194, 65, 12, 0.4) 60%, rgba(0, 0, 0, 0) 100%);
-            box-shadow: 0 0 25px rgba(249, 115, 22, 0.8), inset 0 0 15px rgba(255, 255, 255, 0.8);
-            animation: floatBall 6s infinite ease-in-out alternate;
-            pointer-events: none !important;
+            position: absolute; border-radius: 50%;
+            background: radial-gradient(circle, rgba(var(--acc-rgb), 0.55) 0%, rgba(var(--acc-rgb), 0.2) 60%, rgba(0, 0, 0, 0) 100%);
+            box-shadow: 0 0 25px rgba(var(--acc-rgb), 0.5), inset 0 0 15px rgba(255, 255, 255, 0.5);
+            animation: floatBall 6s infinite ease-in-out alternate; pointer-events: none !important;
         }
         @keyframes floatBall {
             0% { transform: translateY(0px) translateX(0px) scale(1); }
@@ -70,471 +61,102 @@
 
         /* --- LITBUY FLOATING BUTTON (RECHTS MITTE) --- */
         .litbuy-floating-btn {
-            position: fixed;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #ffcc00;
-            color: #000000;
-            padding: 12px 16px;
-            border-top-left-radius: 20px;
-            border-bottom-left-radius: 20px;
-            font-weight: 800;
-            font-size: 13px;
-            text-decoration: none;
-            box-shadow: -4px 0 20px rgba(255, 204, 0, 0.5);
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.3s ease;
-            border: 2px solid #000000;
-            border-right: none;
+            position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+            background: #ffcc00; color: #000000; padding: 12px 16px;
+            border-top-left-radius: 20px; border-bottom-left-radius: 20px;
+            font-weight: 800; font-size: 13px; text-decoration: none;
+            box-shadow: -4px 0 20px rgba(255, 204, 0, 0.5); z-index: 999;
+            display: flex; align-items: center; gap: 6px; transition: all 0.3s ease;
+            border: 2px solid #000000; border-right: none;
         }
-        .litbuy-floating-btn:hover {
-            padding-right: 22px;
-            background: #ffe033;
-            box-shadow: -6px 0 25px rgba(255, 204, 0, 0.8);
-        }
+        .litbuy-floating-btn:hover { padding-right: 22px; background: #ffe033; box-shadow: -6px 0 25px rgba(255, 204, 0, 0.8); }
 
         /* --- AI CHATBOT FLOATING BUTTON & WINDOW --- */
         #ai-chatbot-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 52px;
-            height: 52px;
-            background: linear-gradient(135deg, #a855f7, #f97316);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.5);
-            z-index: 9999;
-            border: 2px solid #ffffff;
-            transition: all 0.3s ease;
+            position: fixed; bottom: 20px; left: 20px; width: 52px; height: 52px;
+            background: var(--btn-bg); color: var(--btn-text); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer;
+            box-shadow: 0 4px 20px var(--shadow); z-index: 9999; border: 2px solid var(--acc); transition: all 0.3s ease;
         }
-        #ai-chatbot-btn:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 0 25px rgba(249, 115, 22, 0.8);
-        }
-
+        #ai-chatbot-btn:hover { transform: scale(1.1) rotate(10deg); box-shadow: 0 0 25px rgba(var(--acc-rgb), 0.6); }
         #ai-chat-window {
-            position: fixed;
-            bottom: 82px;
-            left: 20px;
-            width: 310px;
-            height: 380px;
-            background: rgba(18, 8, 28, 0.95);
-            border: 1px solid rgba(249, 115, 22, 0.5);
-            border-radius: 20px;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(15px);
-            z-index: 10000;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
+            position: fixed; bottom: 82px; left: 20px; width: 310px; height: 380px;
+            background: var(--panel); border: 1px solid rgba(var(--acc-rgb), 0.35); border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6); backdrop-filter: blur(15px);
+            z-index: 10000; display: none; flex-direction: column; overflow: hidden;
             animation: popupSlideIn 0.3s ease forwards;
         }
-
         .ai-chat-header {
-            background: linear-gradient(135deg, #2a1236, #12081c);
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(249, 115, 22, 0.3);
-            font-size: 14px;
-            font-weight: 700;
-            color: #f97316;
+            background: var(--head-bg); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(var(--acc-rgb), 0.25); font-size: 14px; font-weight: 700; color: var(--acc);
         }
-
-        .ai-chat-close {
-            background: none;
-            border: none;
-            color: #b1a7bd;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .ai-chat-body {
-            flex-grow: 1;
-            padding: 12px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            font-size: 13px;
-        }
-
-        .chat-msg {
-            padding: 8px 12px;
-            border-radius: 12px;
-            max-width: 80%;
-            word-wrap: break-word;
-        }
-        .chat-msg.bot {
-            background: rgba(168, 85, 247, 0.2);
-            border: 1px solid rgba(168, 85, 247, 0.4);
-            align-self: flex-start;
-            color: #e9d5ff;
-        }
-        .chat-msg.user {
-            background: linear-gradient(135deg, #c2410c, #f97316);
-            align-self: flex-end;
-            color: #ffffff;
-        }
-
-        .ai-chat-input-row {
-            padding: 10px;
-            display: flex;
-            gap: 6px;
-            background: rgba(10, 4, 16, 0.8);
-            border-top: 1px solid rgba(249, 115, 22, 0.2);
-        }
-
-        .ai-chat-input {
-            flex-grow: 1;
-            padding: 8px 12px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(249, 115, 22, 0.3);
-            border-radius: 12px;
-            color: #ffffff;
-            font-size: 12px;
-            outline: none;
-        }
-
-        .ai-chat-send {
-            background: #f97316;
-            color: #ffffff;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-        }
+        .ai-chat-close { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; }
+        .ai-chat-body { flex-grow: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+        .chat-msg { padding: 8px 12px; border-radius: 12px; max-width: 80%; word-wrap: break-word; }
+        .chat-msg.bot { background: rgba(var(--acc-rgb), 0.12); border: 1px solid rgba(var(--acc-rgb), 0.3); align-self: flex-start; color: var(--text); }
+        .chat-msg.user { background: var(--btn-bg); align-self: flex-end; color: var(--btn-text); }
+        .ai-chat-input-row { padding: 10px; display: flex; gap: 6px; background: rgba(0, 0, 0, 0.12); border-top: 1px solid rgba(var(--acc-rgb), 0.2); }
+        .ai-chat-input { flex-grow: 1; padding: 8px 12px; background: var(--input-bg); border: 1px solid rgba(var(--acc-rgb), 0.3); border-radius: 12px; color: var(--text); font-size: 12px; outline: none; }
+        .ai-chat-send { background: var(--btn-bg); color: var(--btn-text); border: none; padding: 8px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer; }
 
         /* --- SUPPLIER CONTACT CEO WHATSAPP CARD --- */
         .supplier-card {
-            width: 100%;
-            background: rgba(25, 14, 38, 0.85);
-            border: 1px solid rgba(37, 211, 102, 0.4);
-            border-radius: 16px;
-            padding: 14px 18px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.15);
-            text-decoration: none;
-            color: #ffffff;
-            transition: all 0.3s ease;
+            width: 100%; background: var(--card); border: 1px solid rgba(37, 211, 102, 0.4); border-radius: 16px;
+            padding: 14px 18px; display: flex; align-items: center; gap: 14px; backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.15); text-decoration: none; color: var(--text); transition: all 0.3s ease;
         }
-        .supplier-card:hover {
-            border-color: #25D366;
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(37, 211, 102, 0.3);
-        }
-        .supplier-avatar {
-            width: 42px;
-            height: 42px;
-            background: #25D366;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            flex-shrink: 0;
-            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
-        }
-        .supplier-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            flex-grow: 1;
-        }
-        .supplier-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: #ffffff;
-        }
-        .supplier-desc {
-            font-size: 12px;
-            color: #b1a7bd;
-        }
-        .supplier-btn-text {
-            background: #25D366;
-            color: #ffffff;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 6px 10px;
-            border-radius: 10px;
-            flex-shrink: 0;
-        }
+        .supplier-card:hover { border-color: #25D366; transform: translateY(-2px); box-shadow: 0 0 25px rgba(37, 211, 102, 0.3); }
+        .supplier-avatar { width: 42px; height: 42px; background: #25D366; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
+        .supplier-info { display: flex; flex-direction: column; gap: 2px; flex-grow: 1; }
+        .supplier-title { font-size: 15px; font-weight: 600; color: var(--text); }
+        .supplier-desc { font-size: 12px; color: var(--muted); }
+        .supplier-btn-text { background: #25D366; color: #ffffff; font-size: 11px; font-weight: 700; padding: 6px 10px; border-radius: 10px; flex-shrink: 0; }
 
         /* --- LITBUY STICKER / TICKET DESIGN --- */
         .litbuy-ticket-card {
-            width: 100%;
-            background: #ffcc00;
-            border-radius: 28px;
-            overflow: hidden;
-            color: #000000;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 30px rgba(255, 204, 0, 0.4);
-            border: 2px solid #000000;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin-top: 10px;
+            width: 100%; background: #ffcc00; border-radius: 28px; overflow: hidden; color: #000000; text-decoration: none;
+            display: flex; flex-direction: column; box-shadow: 0 0 30px rgba(255, 204, 0, 0.4); border: 2px solid #000000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; margin-top: 10px;
         }
-        .litbuy-ticket-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 0 40px rgba(255, 204, 0, 0.7);
-        }
-        .litbuy-ticket-top {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        .litbuy-brand {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: -0.5px;
-        }
-        .litbuy-coupon-box {
-            background: #111111;
-            border-radius: 20px;
-            padding: 18px 12px;
-            text-align: center;
-            position: relative;
-        }
-        .litbuy-coupon-inner {
-            background: #ffffff;
-            border: 2px dashed #cccccc;
-            border-radius: 14px;
-            padding: 12px 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .litbuy-coupon-val {
-            font-size: 36px;
-            font-weight: 900;
-            color: #ff5500;
-            line-height: 1;
-        }
-        .litbuy-coupon-sub {
-            font-size: 16px;
-            font-weight: 800;
-            color: #111111;
-            margin-top: 4px;
-        }
-        .litbuy-slogan {
-            font-size: 14px;
-            font-weight: 800;
-            color: #111111;
-        }
-        .litbuy-code-row {
-            font-size: 15px;
-            font-weight: 800;
-            color: #111111;
-        }
-        .litbuy-code-badge {
-            color: #ff5500;
-            font-size: 18px;
-            font-weight: 900;
-            letter-spacing: 1px;
-        }
-        .litbuy-ticket-bottom {
-            background: #111111;
-            color: #ffffff;
-            padding: 18px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 2px solid #000000;
-        }
-        .litbuy-features {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            font-size: 11px;
-            color: #ffcc00;
-            font-weight: 600;
-            max-width: 60%;
-        }
-        .litbuy-qr-box {
-            width: 70px;
-            height: 70px;
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .litbuy-qr-box img {
-            width: 100%;
-            height: 100%;
-        }
+        .litbuy-ticket-card:hover { transform: translateY(-4px); box-shadow: 0 0 40px rgba(255, 204, 0, 0.7); }
+        .litbuy-ticket-top { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+        .litbuy-brand { display: flex; align-items: center; gap: 8px; font-size: 24px; font-weight: 900; letter-spacing: -0.5px; }
+        .litbuy-coupon-box { background: #111111; border-radius: 20px; padding: 18px 12px; text-align: center; position: relative; }
+        .litbuy-coupon-inner { background: #ffffff; border: 2px dashed #cccccc; border-radius: 14px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .litbuy-coupon-val { font-size: 36px; font-weight: 900; color: #ff5500; line-height: 1; }
+        .litbuy-coupon-sub { font-size: 16px; font-weight: 800; color: #111111; margin-top: 4px; }
+        .litbuy-slogan { font-size: 14px; font-weight: 800; color: #111111; }
+        .litbuy-code-row { font-size: 15px; font-weight: 800; color: #111111; }
+        .litbuy-code-badge { color: #ff5500; font-size: 18px; font-weight: 900; letter-spacing: 1px; }
+        .litbuy-ticket-bottom { background: #111111; color: #ffffff; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #000000; }
+        .litbuy-features { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: #ffcc00; font-weight: 600; max-width: 60%; }
+        .litbuy-qr-box { width: 70px; height: 70px; background: #ffffff; border-radius: 12px; padding: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .litbuy-qr-box img { width: 100%; height: 100%; }
 
         /* --- ARINCEN AKTIEN WIDGET CONTAINER --- */
         .stocks-widget-wrapper {
-            width: 100%;
-            background: rgba(25, 14, 38, 0.85);
-            border: 1px solid rgba(249, 115, 22, 0.3);
-            border-radius: 20px;
-            padding: 10px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            overflow: hidden;
-            margin-top: 10px;
+            width: 100%; background: var(--card); border: 1px solid rgba(var(--acc-rgb), 0.25); border-radius: 20px;
+            padding: 10px; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); overflow: hidden; margin-top: 10px;
         }
 
         /* --- RANDOM LITBUY POPUP WERBUNG --- */
         #litbuy-popup-ad {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #ffcc00;
-            color: #000000;
-            border: 2px solid #000000;
-            border-radius: 20px;
-            padding: 14px 18px;
-            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.6);
-            z-index: 10002;
-            display: none;
-            align-items: center;
-            gap: 12px;
-            max-width: 310px;
-            animation: popupSlideIn 0.4s ease forwards;
+            position: fixed; bottom: 20px; right: 20px; background: #ffcc00; color: #000000; border: 2px solid #000000;
+            border-radius: 20px; padding: 14px 18px; box-shadow: 0 10px 30px rgba(255, 204, 0, 0.6); z-index: 10002;
+            display: none; align-items: center; gap: 12px; max-width: 310px; animation: popupSlideIn 0.4s ease forwards;
         }
-        @keyframes popupSlideIn {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+        @keyframes popupSlideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .popup-close-btn {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #000000;
-            color: #ffffff;
-            border: none;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
+            position: absolute; top: -8px; right: -8px; background: #000000; color: #ffffff; border: none;
+            width: 22px; height: 22px; border-radius: 50%; font-size: 14px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-weight: bold;
         }
 
-        /* --- HALLOWEEN ELEMENTE --- */
-        #halloween-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none !important;
-            z-index: 1; overflow: hidden;
-        }
-
-        .ghost {
-            position: absolute;
-            font-size: 35px;
-            opacity: 0.25;
-            animation: floatGhost 8s infinite ease-in-out alternate;
-            filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
-        }
-        @keyframes floatGhost {
-            0% { transform: translateY(0px) translateX(0px) scale(1); }
-            50% { transform: translateY(-60px) translateX(40px) scale(1.1); }
-            100% { transform: translateY(40px) translateX(-30px) scale(0.9); }
-        }
-
-        .witch-magic {
-            position: absolute;
-            font-size: 28px;
-            opacity: 0.3;
-            animation: witchSparkle 5s infinite linear;
-        }
-        @keyframes witchSparkle {
-            0% { transform: scale(0.8) rotate(0deg); opacity: 0.1; }
-            50% { transform: scale(1.3) rotate(180deg); opacity: 0.5; }
-            100% { transform: scale(0.8) rotate(360deg); opacity: 0.1; }
-        }
-
-        /* --- GROSSE KÜRBISSE AN DEN SEITEN --- */
-        .side-pumpkin {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 90px;
-            height: 90px;
-            background-image: url('https://emojicdn.elk.sh/🎃');
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 5;
-            filter: drop-shadow(0 0 25px rgba(249, 115, 22, 0.9));
-            animation: pumpkinGlow 3s infinite ease-in-out alternate;
-            pointer-events: none;
-        }
-        .pumpkin-left { left: 20px; }
-        .pumpkin-right { right: 20px; }
-
-        @keyframes pumpkinGlow {
-            0% { transform: translateY(-50%) scale(1) rotate(-5deg); filter: drop-shadow(0 0 15px rgba(249, 115, 22, 0.6)); }
-            100% { transform: translateY(-50%) scale(1.1) rotate(5deg); filter: drop-shadow(0 0 30px rgba(249, 115, 22, 1)); }
-        }
-
-        @media(max-width: 768px) {
-            .side-pumpkin { width: 55px; height: 55px; }
-            .pumpkin-left { left: 8px; }
-            .pumpkin-right { right: 8px; }
-        }
-
-        /* --- RAUCH VON UNTEN --- */
-        #bottom-smoke {
-            position: fixed;
-            bottom: 0; left: 0; width: 100%; height: 180px;
-            pointer-events: none;
-            z-index: 2;
-            overflow: hidden;
-        }
-        .smoke-bottom-puff {
-            position: absolute;
-            bottom: -40px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 50%;
-            filter: blur(25px);
-            animation: riseBottomSmoke 6s infinite ease-in-out;
-        }
-        @keyframes riseBottomSmoke {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            50% { opacity: 0.4; }
-            100% { transform: translateY(-120px) scale(1.8); opacity: 0; }
-        }
-
-        /* --- LOGO RAUCH HINTER DEM T --- */
+        /* --- LOGO GLOW HINTER DEM T --- */
         .logo-wrapper { margin-bottom: 12px; position: relative; }
         .logo-smoke {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70px; height: 70px;
-            background: rgba(249, 115, 22, 0.35);
-            border-radius: 50%;
-            filter: blur(14px);
-            z-index: 1;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px;
+            background: rgba(var(--acc-rgb), 0.25); border-radius: 50%; filter: blur(14px); z-index: 1;
             animation: logoSmokeGlow 3s infinite alternate ease-in-out;
         }
         @keyframes logoSmokeGlow {
@@ -542,230 +164,146 @@
             100% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.7; }
         }
 
-        /* --- SÜSSIGKEITEN VON UNTEN --- */
-        .candy {
-            position: fixed;
-            bottom: -50px;
-            font-size: 28px;
-            z-index: 3;
-            animation: candyRiseUp 6s linear forwards;
-            pointer-events: none;
-        }
-        @keyframes candyRiseUp {
-            0% { bottom: -50px; transform: scale(0.3) rotate(0deg); opacity: 0; }
-            15% { transform: scale(1.4) rotate(45deg); opacity: 1; }
-            85% { opacity: 1; }
-            100% { bottom: 105vh; transform: scale(1) rotate(360deg); opacity: 0; }
-        }
-
-        .container {
-            width: 100%;
-            max-width: 480px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 10;
-        }
+        .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; align-items: center; z-index: 10; }
         .logo {
-            position: relative;
-            z-index: 2;
-            width: 85px; height: 85px;
-            border: 3px solid #f97316; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            background-color: rgba(18, 8, 28, 0.9);
-            box-shadow: 0 0 25px rgba(249, 115, 22, 0.4);
-            font-size: 36px; font-weight: bold; color: #f97316;
-            transition: all 0.5s ease;
+            position: relative; z-index: 2; width: 85px; height: 85px; border: 3px solid var(--acc); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; background-color: var(--panel);
+            box-shadow: 0 0 25px rgba(var(--acc-rgb), 0.3); font-size: 36px; font-weight: bold; color: var(--acc); transition: all 0.5s ease;
         }
-        .title { font-size: 22px; font-weight: 700; margin-bottom: 15px; color: #f97316; text-shadow: 0 0 10px rgba(249,115,22,0.5); }
+        .title { font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--acc); text-shadow: 0 0 10px rgba(var(--acc-rgb),0.35); }
 
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 25px;
-            z-index: 15;
-        }
+        .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 25px; z-index: 15; }
         .play-btn {
-            background: linear-gradient(135deg, #c2410c, #f97316);
-            color: white; border: none; padding: 9px 16px;
-            font-size: 13px; font-weight: 600; border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
-            transition: 0.2s;
+            background: var(--btn-bg); color: var(--btn-text); border: none; padding: 9px 16px; font-size: 13px; font-weight: 600;
+            border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px var(--shadow); transition: 0.2s;
         }
         .play-btn:active { transform: scale(0.95); }
+        .play-btn.on { outline: 2px solid var(--acc); outline-offset: 2px; }
 
-        .section-header {
-            width: 100%;
-            text-align: left;
-            font-size: 13px;
-            font-weight: 700;
-            color: #f97316;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 22px 0 12px 4px;
-        }
+        .section-header { width: 100%; text-align: left; font-size: 13px; font-weight: 700; color: var(--acc); text-transform: uppercase; letter-spacing: 1px; margin: 22px 0 12px 4px; }
 
         .links-list { width: 100%; display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 15; }
-        
         .link-card {
-            display: flex; align-items: center;
-            background: rgba(25, 14, 38, 0.85); border: 1px solid rgba(249, 115, 22, 0.25);
-            padding: 14px 18px; border-radius: 16px;
-            text-decoration: none; color: #ffffff; transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            display: flex; align-items: center; background: var(--card); border: 1px solid rgba(var(--acc-rgb), 0.2);
+            padding: 14px 18px; border-radius: 16px; text-decoration: none; color: var(--text); transition: all 0.3s ease; backdrop-filter: blur(10px);
         }
-        .link-card:hover { background: rgba(45, 20, 68, 0.9); border-color: #f97316; transform: translateY(-2px); box-shadow: 0 0 20px rgba(249,115,22,0.3); }
-        
-        .link-icon-box {
-            width: 42px; height: 42px; background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px; display: flex; justify-content: center; align-items: center;
-            margin-right: 14px; flex-shrink: 0; font-size: 20px;
-        }
+        .link-card:hover { background: var(--card-hover); border-color: var(--acc); transform: translateY(-2px); box-shadow: 0 0 20px rgba(var(--acc-rgb),0.25); }
+        .link-icon-box { width: 42px; height: 42px; background: var(--icon-bg); border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-right: 14px; flex-shrink: 0; font-size: 20px; }
         .link-icon-box svg { width: 22px; height: 22px; fill: currentColor; }
         .link-info { display: flex; flex-direction: column; flex-grow: 1; gap: 2px; }
         .link-title { font-size: 15px; font-weight: 600; }
-        .link-desc { font-size: 12px; color: #b1a7bd; }
-
-        .arrow-icon {
-            width: 26px; height: 26px; background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            color: #f97316; font-size: 13px; flex-shrink: 0; margin-left: 10px;
-        }
+        .link-desc { font-size: 12px; color: var(--muted); }
+        .arrow-icon { width: 26px; height: 26px; background: var(--icon-bg); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--acc); font-size: 13px; flex-shrink: 0; margin-left: 10px; }
 
         /* --- VERSCHIEBBARER GOOGLE TAB (FLOATING WINDOW) --- */
         #google-floating-tab {
-            position: fixed;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 320px;
-            background: rgba(18, 8, 28, 0.95);
-            border: 1px solid #f97316;
-            border-radius: 20px;
-            box-shadow: 0 10px 35px rgba(249, 115, 22, 0.4);
-            backdrop-filter: blur(15px);
-            z-index: 10001;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            touch-action: none;
+            position: fixed; top: 20%; left: 50%; transform: translateX(-50%); width: 320px; background: var(--panel);
+            border: 1px solid var(--acc); border-radius: 20px; box-shadow: 0 10px 35px rgba(var(--acc-rgb), 0.25);
+            backdrop-filter: blur(15px); z-index: 10001; display: none; flex-direction: column; overflow: hidden; touch-action: none;
         }
-
-        .google-tab-header {
-            background: linear-gradient(135deg, #2a1236, #12081c);
-            padding: 10px 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: move;
-            border-bottom: 1px solid rgba(249, 115, 22, 0.25);
-            user-select: none;
-        }
-
-        .google-tab-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #f97316;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .google-tab-close {
-            background: none;
-            border: none;
-            color: #b1a7bd;
-            font-size: 20px;
-            cursor: pointer;
-            line-height: 1;
-        }
-
-        .google-tab-body {
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .google-search-input {
-            width: 100%;
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(249, 115, 22, 0.4);
-            border-radius: 12px;
-            color: #ffffff;
-            font-size: 13px;
-            outline: none;
-        }
-
-        .google-search-input:focus {
-            border-color: #f97316;
-            box-shadow: 0 0 10px rgba(249, 115, 22, 0.3);
-        }
-
-        .google-search-btn {
-            background: linear-gradient(135deg, #c2410c, #f97316);
-            color: #ffffff;
-            border: none;
-            padding: 10px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .google-search-btn:hover {
-            opacity: 0.9;
-        }
+        .google-tab-header { background: var(--head-bg); padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; cursor: move; border-bottom: 1px solid rgba(var(--acc-rgb), 0.25); user-select: none; }
+        .google-tab-title { font-size: 13px; font-weight: 700; color: var(--acc); display: flex; align-items: center; gap: 6px; }
+        .google-tab-close { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; line-height: 1; }
+        .google-tab-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+        .google-search-input { width: 100%; padding: 10px 14px; background: var(--input-bg); border: 1px solid rgba(var(--acc-rgb), 0.35); border-radius: 12px; color: var(--text); font-size: 13px; outline: none; }
+        .google-search-input:focus { border-color: var(--acc); box-shadow: 0 0 10px rgba(var(--acc-rgb), 0.3); }
+        .google-search-btn { background: var(--btn-bg); color: var(--btn-text); border: none; padding: 10px; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer; transition: opacity 0.2s; }
+        .google-search-btn:hover { opacity: 0.9; }
 
         footer { margin-top: 25px; text-align: center; display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 15; }
-        .footer-brand { font-size: 13px; color: #f97316; font-weight: 500; }
-        .footer-soon { font-size: 11px; color: #8a7c98; }
+        .footer-brand { font-size: 13px; color: var(--acc); font-weight: 500; }
+        .footer-soon { font-size: 11px; color: var(--muted); }
 
         /* --- DYNAMIC ISLAND --- */
         #dynamic-island {
-            position: fixed; bottom: 20px; right: 20px; width: 38px; height: 38px;
-            background: #12081c; color: #ffffff; border-radius: 20px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 20px rgba(249,115,22,0.3); z-index: 9999; cursor: pointer;
-            overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0; pointer-events: none; border: 1px solid rgba(249,115,22,0.4);
+            position: fixed; bottom: 20px; right: 20px; width: 38px; height: 38px; background: var(--panel); color: var(--text); border-radius: 20px;
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(var(--acc-rgb),0.25); z-index: 9999; cursor: pointer;
+            overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0; pointer-events: none; border: 1px solid rgba(var(--acc-rgb),0.4);
         }
         #dynamic-island.active { opacity: 1; pointer-events: auto; }
         #dynamic-island.expanded { width: 280px; height: 52px; border-radius: 26px; padding: 0 14px; justify-content: space-between; }
         .di-content { display: flex; align-items: center; gap: 10px; width: 100%; opacity: 0; transition: opacity 0.2s ease; }
         #dynamic-island.expanded .di-content { opacity: 1; }
-        .di-dot { width: 9px; height: 9px; background: #f97316; border-radius: 50%; box-shadow: 0 0 10px #f97316; flex-shrink: 0; }
-        .di-mic { background: rgba(255,255,255,0.15); border: none; color: white; padding: 6px 10px; border-radius: 12px; font-size: 11px; cursor: pointer; }
+        .di-dot { width: 9px; height: 9px; background: var(--acc); border-radius: 50%; box-shadow: 0 0 10px var(--acc); flex-shrink: 0; }
+        .di-mic { background: rgba(128,128,128,0.25); border: none; color: var(--text); padding: 6px 10px; border-radius: 12px; font-size: 11px; cursor: pointer; }
         .di-text { font-size: 12px; font-weight: 500; flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         /* --- ACCOUNT MODAL --- */
-        #account-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
-            z-index: 10000; display: none; justify-content: center; align-items: center; padding: 20px;
-        }
+        #account-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); z-index: 10000; display: none; justify-content: center; align-items: center; padding: 20px; }
         .account-box {
-            background: #12081c; border: 1px solid rgba(249, 115, 22, 0.4);
-            width: 100%; max-width: 380px; border-radius: 24px; padding: 24px;
-            display: flex; flex-direction: column; gap: 15px; position: relative; color: white;
-            box-shadow: 0 10px 30px rgba(249,115,22,0.3);
+            background: var(--panel); border: 1px solid rgba(var(--acc-rgb), 0.35); width: 100%; max-width: 380px; border-radius: 24px; padding: 24px;
+            display: flex; flex-direction: column; gap: 15px; position: relative; color: var(--text); box-shadow: 0 10px 30px rgba(var(--acc-rgb),0.2);
         }
-        .account-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer; }
-        .account-title { font-size: 18px; font-weight: 700; text-align: center; color: #f97316; }
-        .account-input {
-            width: 100%; padding: 12px; background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(249, 115, 22, 0.3); border-radius: 12px; color: white; font-size: 14px; outline: none; text-align: center;
-        }
-        .account-submit {
-            background: linear-gradient(135deg, #c2410c, #f97316); color: white;
-            border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer;
-        }
+        .account-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; }
+        .account-title { font-size: 18px; font-weight: 700; text-align: center; color: var(--acc); }
+        .account-input { width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid rgba(var(--acc-rgb), 0.3); border-radius: 12px; color: var(--text); font-size: 14px; outline: none; text-align: center; }
+        .account-submit { background: var(--btn-bg); color: var(--btn-text); border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; }
         .account-submit:hover { opacity: 0.9; }
+
+        /* ===== STIL-PANEL & BLÄTTER ===== */
+        #stylePanel {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); width: min(340px, 92vw); z-index: 10003;
+            background: var(--panel); border: 1px solid rgba(var(--acc-rgb), 0.35); border-radius: 22px; padding: 18px;
+            box-shadow: 0 20px 60px rgba(0,0,0,.55); display: none; backdrop-filter: blur(18px); animation: stylePop .22s ease;
+        }
+        @keyframes stylePop { from { opacity:0; transform: translate(-50%,-48%) scale(.94); } to { opacity:1; transform: translate(-50%,-50%) scale(1); } }
+        #stylePanel h4 { font-size: 14px; color: var(--acc); margin-bottom: 12px; }
+        .theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .chip { display: flex; align-items: center; gap: 8px; padding: 10px; border-radius: 12px; border: 1px solid rgba(var(--acc-rgb),.25); background: var(--input-bg); color: var(--text); cursor: pointer; font-size: 13px; text-align: left; }
+        .chip[aria-checked="true"] { border-color: var(--acc); box-shadow: 0 0 0 2px rgba(var(--acc-rgb),.25); }
+        .swatch { width: 18px; height: 18px; border-radius: 50%; flex: none; border: 1px solid rgba(128,128,128,.5); }
+        #leafCanvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9990; }
+
+        /* Hell */
+        [data-theme="light"]{
+            --bg:#f2f2f7; --text:#111; --muted:#5c5c66; --card:rgba(255,255,255,0.92); --card-hover:#fff; --panel:rgba(255,255,255,0.97);
+            --head-bg:linear-gradient(135deg,#f3f3f8,#e6e6ee); --acc:#111; --acc-rgb:17,17,17;
+            --btn-bg:linear-gradient(135deg,#2a2a2e,#000); --btn-text:#fff; --icon-bg:rgba(0,0,0,0.06); --input-bg:rgba(0,0,0,0.06); --shadow:rgba(0,0,0,0.18);
+        }
+        /* Liquid Glass */
+        [data-theme="glass"]{
+            --bg:#04050c; --text:#fff; --muted:#d5dcf0; --card:rgba(255,255,255,0.09); --card-hover:rgba(255,255,255,0.16);
+            --panel:rgba(255,255,255,0.10); --head-bg:rgba(255,255,255,0.08); --acc:#fff; --acc-rgb:255,255,255;
+            --btn-bg:rgba(255,255,255,0.88); --btn-text:#0a0c18; --icon-bg:rgba(255,255,255,0.12); --input-bg:rgba(255,255,255,0.10); --shadow:rgba(120,160,255,0.35);
+            --bgfx:radial-gradient(40% 35% at 20% 25%,#5b6cff 0%,transparent 70%),radial-gradient(35% 35% at 80% 20%,#ff4fd8 0%,transparent 70%),radial-gradient(40% 40% at 70% 80%,#22e3c4 0%,transparent 70%),radial-gradient(30% 30% at 15% 85%,#ffb347 0%,transparent 70%);
+            --bgfx-o:.85;
+        }
+        [data-theme="glass"] .link-card,[data-theme="glass"] .supplier-card,[data-theme="glass"] .stocks-widget-wrapper,
+        [data-theme="glass"] #ai-chat-window,[data-theme="glass"] #google-floating-tab,[data-theme="glass"] .account-box,
+        [data-theme="glass"] #stylePanel,[data-theme="glass"] #dynamic-island {
+            -webkit-backdrop-filter: blur(26px) saturate(180%); backdrop-filter: blur(26px) saturate(180%);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -1px 0 rgba(255,255,255,.12), 0 20px 50px rgba(0,0,0,.45);
+        }
+        [data-theme="glass"] .link-card,[data-theme="glass"] .supplier-card,[data-theme="glass"] .stocks-widget-wrapper,
+        [data-theme="glass"] #ai-chat-window,[data-theme="glass"] #google-floating-tab,[data-theme="glass"] .account-box,[data-theme="glass"] #stylePanel { border-radius: 28px; }
+        [data-theme="glass"] .link-card{background-image:linear-gradient(125deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 70%,rgba(255,255,255,.1) 100%)}
+        [data-theme="glass"] .play-btn{box-shadow:0 6px 20px rgba(0,0,0,.3),inset 0 1px 0 #fff}
+        [data-theme="glass"] .logo{background:rgba(255,255,255,.1);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+        /* Neon */
+        [data-theme="neon"]{
+            --bg:#000; --text:#e8ffff; --muted:#7fe9e0; --card:rgba(7,7,13,0.88); --card-hover:rgba(0,255,255,0.1); --panel:rgba(5,5,10,0.96);
+            --head-bg:linear-gradient(135deg,#0a1a24,#05050a); --acc:#00f0ff; --acc-rgb:0,240,255;
+            --btn-bg:linear-gradient(90deg,#00f0ff,#ff2bd6); --btn-text:#000; --icon-bg:rgba(0,240,255,0.1); --input-bg:rgba(0,240,255,0.07); --shadow:rgba(0,240,255,0.55);
+            --bgfx:radial-gradient(35% 30% at 15% 20%,#ff00c855 0%,transparent 70%),radial-gradient(35% 30% at 85% 85%,#00f0ff44 0%,transparent 70%); --bgfx-o:1;
+        }
+        [data-theme="neon"] .link-card,[data-theme="neon"] .stocks-widget-wrapper{box-shadow:0 0 14px rgba(0,240,255,.3),inset 0 0 12px rgba(0,240,255,.08)}
+        [data-theme="neon"] .title,[data-theme="neon"] .logo{text-shadow:0 0 12px #0ff,0 0 28px #0ff}
+        /* Sunset */
+        [data-theme="sunset"]{
+            --bg:#14060f; --text:#fff1e6; --muted:#f3c2b0; --card:rgba(40,12,32,0.7); --card-hover:rgba(80,24,56,0.8); --panel:rgba(40,12,32,0.92);
+            --head-bg:linear-gradient(135deg,#4a1a3c,#2a0c22); --acc:#ffd2a6; --acc-rgb:255,190,140;
+            --btn-bg:linear-gradient(90deg,#ffd27a,#ff8a5c); --btn-text:#3a0f1c; --icon-bg:rgba(255,255,255,0.1); --input-bg:rgba(255,255,255,0.1); --shadow:rgba(255,120,80,0.4);
+            --bgfx:linear-gradient(160deg,#ff512f 0%,#dd2476 38%,#4a1a8c 72%,#14060f 100%); --bgfx-o:.9;
+        }
+        /* Herbst */
+        [data-theme="autumn"]{
+            --bg:#120a05; --text:#ffe9cc; --muted:#d3b08a; --card:rgba(36,21,12,0.88); --card-hover:rgba(58,36,18,0.94); --panel:rgba(30,17,9,0.96);
+            --head-bg:linear-gradient(135deg,#3a2412,#1e1109); --acc:#ffb347; --acc-rgb:255,179,71;
+            --btn-bg:linear-gradient(90deg,#ffb347,#e2682a); --btn-text:#2a1204; --icon-bg:rgba(255,179,71,0.1); --input-bg:rgba(255,179,71,0.08); --shadow:rgba(255,140,40,0.4);
+            --bgfx:radial-gradient(45% 40% at 85% 10%,#ff7a1a55 0%,transparent 70%),radial-gradient(40% 40% at 10% 90%,#b3261e44 0%,transparent 70%); --bgfx-o:1;
+        }
+        @media (prefers-reduced-motion:reduce){ body::before{ animation:none } }
     </style>
 </head>
 <body>
@@ -784,7 +322,7 @@
             <button class="ai-chat-close" onclick="toggleAIChat()">×</button>
         </div>
         <div class="ai-chat-body" id="ai-chat-messages">
-            <div class="chat-msg bot">Hi! Ich bin der Tunasy AI Assistant. Wie kann ich dir helfen? 🎃</div>
+            <div class="chat-msg bot">Hi! Ich bin der Tunasy AI Assistant. Wie kann ich dir helfen? 👋</div>
         </div>
         <div class="ai-chat-input-row">
             <input type="text" id="ai-chat-input" class="ai-chat-input" placeholder="Schreibe eine Nachricht..." onkeypress="handleAIChatKeyPress(event)">
@@ -805,27 +343,19 @@
 
     <div id="ball-container"></div>
 
-    <!-- Halloween Hintergrund -->
-    <div id="halloween-bg">
-        <div class="ghost" style="top: 15%; left: 10%;">👻</div>
-        <div class="ghost" style="top: 60%; right: 12%; animation-delay: 3s;">👻</div>
-        <div class="witch-magic" style="top: 30%; left: 20%;">✨🔮</div>
-        <div class="witch-magic" style="top: 70%; right: 25%; animation-delay: 2s;">🪄✨</div>
+    <!-- STIL-PANEL -->
+    <div id="stylePanel" role="radiogroup" aria-label="Stil wählen" onclick="event.stopPropagation()">
+        <h4>🎨 Stil wählen</h4>
+        <div class="theme-grid">
+            <button class="chip" type="button" role="radio" data-theme-pick="dark"><span class="swatch" style="background:#000"></span>Klassisch</button>
+            <button class="chip" type="button" role="radio" data-theme-pick="light"><span class="swatch" style="background:#f2f2f7"></span>Light Mode</button>
+            <button class="chip" type="button" role="radio" data-theme-pick="glass"><span class="swatch" style="background:linear-gradient(135deg,#5b6cff,#ff4fd8,#22e3c4)"></span>Liquid Glass</button>
+            <button class="chip" type="button" role="radio" data-theme-pick="neon"><span class="swatch" style="background:linear-gradient(135deg,#00f0ff,#ff2bd6)"></span>Neon</button>
+            <button class="chip" type="button" role="radio" data-theme-pick="sunset"><span class="swatch" style="background:linear-gradient(135deg,#ff512f,#dd2476)"></span>Sunset</button>
+            <button class="chip" type="button" role="radio" data-theme-pick="autumn"><span class="swatch" style="background:linear-gradient(135deg,#ffb347,#8a3b12)"></span>Herbst</button>
+        </div>
     </div>
-
-    <!-- Rauch unten -->
-    <div id="bottom-smoke">
-        <div class="smoke-bottom-puff" style="width: 120px; height: 120px; left: 10%; animation-delay: 0s;"></div>
-        <div class="smoke-bottom-puff" style="width: 180px; height: 180px; left: 35%; animation-delay: 2s;"></div>
-        <div class="smoke-bottom-puff" style="width: 150px; height: 150px; left: 70%; animation-delay: 4s;"></div>
-    </div>
-
-    <!-- Kürbisse -->
-    <div class="side-pumpkin pumpkin-left"></div>
-    <div class="side-pumpkin pumpkin-right"></div>
-
-    <!-- Süßigkeiten -->
-    <div id="candy-container"></div>
+    <canvas id="leafCanvas" aria-hidden="true"></canvas>
 
     <div class="container">
         <div class="logo-wrapper">
@@ -836,10 +366,11 @@
 
         <div class="btn-group">
             <button class="play-btn" onclick="toggleEnergyBalls()">Effekte</button>
-            <button class="play-btn" style="background: linear-gradient(135deg, #a8ede0, #fed6e3); color: #000;" onclick="toggleLightMode()" id="light-btn">☀️ Light Mode</button>
-            <button class="play-btn" style="background: linear-gradient(135deg, #4285F4, #34A853);" onclick="toggleGoogleTab()">🔍 Google Search</button>
-            <button class="play-btn" style="background: linear-gradient(135deg, #434343, #000000);" onclick="toggleDynamicIslandFeature()" id="di-toggle-btn">🏝️ Dynamic Island: OFF</button>
-            <button class="play-btn" style="background: linear-gradient(135deg, #7c2d12, #c2410c);" onclick="openAccountModal()" id="account-btn">👤 Anmelden</button>
+            <button class="play-btn" onclick="toggleStylePanel(event)" id="style-btn">🎨 Stil</button>
+            <button class="play-btn" onclick="toggleLeaves()" id="leaf-btn">🍂 Blätter</button>
+            <button class="play-btn" style="background: linear-gradient(135deg, #4285F4, #34A853); color: #fff;" onclick="toggleGoogleTab()">🔍 Google Search</button>
+            <button class="play-btn" style="background: linear-gradient(135deg, #434343, #000000); color: #fff;" onclick="toggleDynamicIslandFeature()" id="di-toggle-btn">🏝️ Dynamic Island: OFF</button>
+            <button class="play-btn" onclick="openAccountModal()" id="account-btn">👤 Anmelden</button>
         </div>
 
         <div class="links-list">
@@ -849,7 +380,7 @@
                 <div class="arrow-icon">→</div>
             </a>
             <a href="https://www.tiktok.com/@tunasytunaod" class="link-card" target="_blank" id="link-tiktok" onclick="triggerDynamicIsland('TikTok')">
-                <div class="link-icon-box" style="color: #ffffff;"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></div>
+                <div class="link-icon-box" style="color: var(--text);"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></div>
                 <div class="link-info"><span class="link-title">TikTok</span><span class="link-desc">@tunasytunaod • Kurze Clips & Vids</span></div>
                 <div class="arrow-icon">→</div>
             </a>
@@ -906,19 +437,19 @@
             <div class="section-header">Von Tunasy.s empfohlen</div>
 
             <a href="https://www.amazon.de/Razer-DeathAdder-Essential-Ergonomic-RZ01-03850100-R3M1/dp/B092R5MCB3/?tag=198273537-21" class="link-card" target="_blank">
-                <div class="link-icon-box" style="color: #f97316;">🖱️</div>
+                <div class="link-icon-box" style="color: var(--acc);">🖱️</div>
                 <div class="link-info"><span class="link-title">Razer Gaming-Maus</span><span class="link-desc">DeathAdder Essential • Ergonomisch & Präzise</span></div>
                 <div class="arrow-icon">→</div>
             </a>
 
             <a href="https://www.amazon.de/UGREEN-Powerbank-Magnetische-Schnellladefunktion-kompatibel/dp/B0CH33F5P2/?tag=198273537-21" class="link-card" target="_blank">
-                <div class="link-icon-box" style="color: #f97316;">🔋</div>
+                <div class="link-icon-box" style="color: var(--acc);">🔋</div>
                 <div class="link-info"><span class="link-title">UGREEN Powerbank</span><span class="link-desc">Magnetisch & Schnellladen • Ideal unterwegs</span></div>
                 <div class="arrow-icon">→</div>
             </a>
 
             <a href="https://www.amazon.de/NIKE-Unisex-Everyday-Cushion-Ankle/dp/B00K5CVO9O/?tag=198273537-21" class="link-card" target="_blank">
-                <div class="link-icon-box" style="color: #f97316;">🧦</div>
+                <div class="link-icon-box" style="color: var(--acc);">🧦</div>
                 <div class="link-info"><span class="link-title">Nike Everyday Socken</span><span class="link-desc">Unisex Ankle Socken • Bequem & Modern</span></div>
                 <div class="arrow-icon">→</div>
             </a>
@@ -1048,7 +579,7 @@
                 const botMsg = document.createElement('div');
                 botMsg.className = 'chat-msg bot';
                 
-                let reply = "Danke für deine Nachricht! Schau gerne in unseren Links oder im Shop vorbei. 🎃";
+                let reply = "Danke für deine Nachricht! Schau gerne in unseren Links oder im Shop vorbei. 😊";
                 const lower = txt.toLowerCase();
                 if (lower.includes('shop') || lower.includes('kaufen')) {
                     reply = "Unseren Payhip Shop findest du weiter oben im Menü! 🛒";
@@ -1171,23 +702,6 @@
             }
         })();
 
-        // --- SÜSSIGKEITEN VON UNTEN ---
-        const candies = ["🍬", "🍫", "🍭", "🎃", "👻"];
-        function spawnCandy() {
-            const container = document.getElementById('candy-container');
-            if (!container) return;
-
-            const candy = document.createElement('div');
-            candy.classList.add('candy');
-            candy.innerText = candies[Math.floor(Math.random() * candies.length)];
-            candy.style.left = Math.random() * 90 + 5 + 'vw';
-            candy.style.animationDuration = (Math.random() * 3 + 4) + 's';
-
-            container.appendChild(candy);
-            setTimeout(() => { candy.remove(); }, 7000);
-        }
-        setInterval(spawnCandy, 1200);
-
         // --- ACCOUNT MODAL STEUERUNG ---
         function openAccountModal() { document.getElementById('account-modal').style.display = 'flex'; }
         function closeAccountModal() { document.getElementById('account-modal').style.display = 'none'; }
@@ -1212,14 +726,14 @@
                 to_name: username,
                 to_email: email,
                 user_email: email,
-                message: "Halloween Verifizierung angefordert von: " + username + " (" + email + ")"
+                message: "Verifizierung angefordert von: " + username + " (" + email + ")"
             };
 
             emailjs.send("service_12h70yy", "template_oxdtx19", templateParams)
                 .then(function() {
                     msgBox.style.color = "#4ade80";
-                    msgBox.innerText = "Erfolgreich gesendet! 🎃";
-                    document.getElementById('welcome-title').innerText = "Willkommen, " + username + "! 🦇";
+                    msgBox.innerText = "Erfolgreich gesendet! ✅";
+                    document.getElementById('welcome-title').innerText = "Willkommen, " + username + "! 👋";
                     document.getElementById('account-btn').innerText = "✅ " + username;
                     setTimeout(closeAccountModal, 2000);
                 }, function(error) {
@@ -1236,11 +750,13 @@
             const toggleBtn = document.getElementById('di-toggle-btn');
             if (diEnabled) {
                 diElement.classList.add('active');
-                toggleBtn.style.background = 'linear-gradient(135deg, #c2410c, #f97316)';
+                toggleBtn.style.background = 'var(--btn-bg)';
+                toggleBtn.style.color = 'var(--btn-text)';
                 toggleBtn.innerText = '🏝️ Dynamic Island: ON';
             } else {
                 diElement.classList.remove('active', 'expanded');
                 toggleBtn.style.background = 'linear-gradient(135deg, #434343, #000000)';
+                toggleBtn.style.color = '#fff';
                 toggleBtn.innerText = '🏝️ Dynamic Island: OFF';
             }
         }
@@ -1282,19 +798,30 @@
         function handleDIClick() {
             const di = document.getElementById('dynamic-island');
             di.classList.toggle('expanded');
-            document.getElementById('di-text').innerText = 'Halloween Modus Aktiv! 🎃';
+            document.getElementById('di-text').innerText = 'Modus aktiv! ✨';
         }
 
-        function toggleLightMode() {
-            const body = document.body;
-            const btn = document.getElementById('light-btn');
-            body.classList.toggle('light-mode');
-            if (body.classList.contains('light-mode')) {
-                btn.style.background = '#000000'; btn.style.color = '#ffffff'; btn.innerText = '🌙 Dark Mode';
-            } else {
-                btn.style.background = 'linear-gradient(135deg, #a8ede0, #fed6e3)'; btn.style.color = '#000000'; btn.innerText = '☀️ Light Mode';
-            }
+        // --- STIL / THEMES (Light Mode ist jetzt Teil davon) ---
+        const lsGet = k => { try { return localStorage.getItem(k); } catch(e) { return null; } };
+        const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch(e) {} };
+        let currentTheme = 'dark';
+
+        function setTheme(t) {
+            currentTheme = t;
+            if (t === 'dark') document.documentElement.removeAttribute('data-theme');
+            else document.documentElement.setAttribute('data-theme', t);
+            document.querySelectorAll('[data-theme-pick]').forEach(c => c.setAttribute('aria-checked', String(c.dataset.themePick === t)));
+            lsSet('tunasy_theme', t);
         }
+        function toggleLightMode() { setTheme(currentTheme === 'light' ? 'dark' : 'light'); }
+        function toggleStylePanel(e) {
+            if (e) e.stopPropagation();
+            const p = document.getElementById('stylePanel');
+            p.style.display = (p.style.display === 'block') ? 'none' : 'block';
+        }
+        document.addEventListener('click', () => { document.getElementById('stylePanel').style.display = 'none'; });
+        document.querySelectorAll('[data-theme-pick]').forEach(c => c.addEventListener('click', () => setTheme(c.dataset.themePick)));
+        setTheme(lsGet('tunasy_theme') || 'dark');
 
         let ballsActive = false;
         function toggleEnergyBalls() {
@@ -1316,6 +843,65 @@
                 container.appendChild(ball);
             }
         }
+
+        // --- FALLENDE HERBSTBLÄTTER ---
+        (function(){
+            const cv = document.getElementById('leafCanvas'), ctx = cv.getContext('2d'), btn = document.getElementById('leaf-btn');
+            const palette = [['#e8452a','#8e1b10'],['#f28c28','#a1480d'],['#f5c542','#b0780f'],['#c0392b','#6b150d'],['#b9692a','#5e3012'],['#d9a441','#7d5314'],['#9b3d12','#4b1a08']];
+            const sprites = [];
+            function makeSprite(shape, c){
+                const s = document.createElement('canvas'); s.width = s.height = 96;
+                const g = s.getContext('2d'); g.scale(1.5,1.5);
+                const grad = g.createLinearGradient(14,6,52,58); grad.addColorStop(0,c[0]); grad.addColorStop(1,c[1]);
+                g.fillStyle = grad; g.strokeStyle = 'rgba(0,0,0,.35)'; g.lineWidth = .8; g.lineJoin = 'round';
+                g.beginPath();
+                if(shape === 0){ g.moveTo(32,3); g.bezierCurveTo(56,14,58,42,32,58); g.bezierCurveTo(6,42,8,14,32,3); }
+                else {
+                    const R = [[32,2],[37,15],[48,8],[45,24],[60,26],[49,37],[55,50],[37,45],[33,58]];
+                    g.moveTo(R[0][0],R[0][1]); R.slice(1).forEach(p => g.lineTo(p[0],p[1]));
+                    R.slice(0,-1).reverse().forEach(p => g.lineTo(64-p[0],p[1]));
+                }
+                g.closePath(); g.fill(); g.stroke();
+                g.strokeStyle = 'rgba(40,10,0,.55)'; g.lineWidth = 1; g.beginPath(); g.moveTo(32,6); g.lineTo(32,60); g.stroke();
+                g.lineWidth = .7; g.strokeStyle = 'rgba(40,10,0,.4)';
+                for(let i=0;i<5;i++){ const y = 52 - i*9; g.beginPath(); g.moveTo(32,y); g.lineTo(45-i,y-10); g.moveTo(32,y); g.lineTo(19+i,y-10); g.stroke(); }
+                g.strokeStyle = c[1]; g.lineWidth = 2; g.beginPath(); g.moveTo(32,58); g.lineTo(32,64); g.stroke();
+                const hl = g.createRadialGradient(24,20,1,24,20,26); hl.addColorStop(0,'rgba(255,255,255,.25)'); hl.addColorStop(1,'rgba(255,255,255,0)');
+                g.globalCompositeOperation = 'source-atop'; g.fillStyle = hl; g.fillRect(0,0,64,64);
+                return s;
+            }
+            palette.forEach(c => { sprites.push(makeSprite(0,c)); sprites.push(makeSprite(1,c)); });
+            let W = 0, H = 0, leaves = [], active = false, raf = 0, t = 0;
+            function resize(){ const d = Math.min(window.devicePixelRatio||1,2); W = innerWidth; H = innerHeight; cv.width = W*d; cv.height = H*d; ctx.setTransform(d,0,0,d,0,0); }
+            addEventListener('resize', resize); resize();
+            function spawn(fresh){
+                const size = 20 + Math.random()*30;
+                return { img: sprites[Math.floor(Math.random()*sprites.length)], x: Math.random()*W, y: fresh ? -60 - Math.random()*H*0.6 : Math.random()*H,
+                    size, vy: 0.7 + Math.random()*1.3 + size/60, vx: (Math.random()-.3)*0.6, sway: 0.6 + Math.random()*1.6, swaySpeed: 0.012 + Math.random()*0.02,
+                    rot: Math.random()*Math.PI*2, vr: (Math.random()-.5)*0.04, flipSpeed: 0.02 + Math.random()*0.035, phase: Math.random()*Math.PI*2, alpha: 0.82 + Math.random()*0.18 };
+            }
+            function frame(){
+                t++; ctx.clearRect(0,0,W,H);
+                for(let i = leaves.length-1; i >= 0; i--){
+                    const l = leaves[i];
+                    l.y += l.vy; l.x += l.vx + Math.sin(t*l.swaySpeed + l.phase)*l.sway; l.rot += l.vr + Math.cos(t*l.swaySpeed + l.phase)*0.012;
+                    if(l.y > H + 60){ if(active){ leaves[i] = spawn(true); } else { leaves.splice(i,1); continue; } }
+                    if(l.x < -60) l.x = W + 40; else if(l.x > W + 60) l.x = -40;
+                    const flip = Math.cos(t*l.flipSpeed + l.phase);
+                    ctx.save(); ctx.translate(l.x,l.y); ctx.rotate(l.rot); ctx.scale(Math.max(Math.abs(flip),0.12),1);
+                    ctx.globalAlpha = l.alpha*(0.75 + 0.25*Math.abs(flip));
+                    ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 6; ctx.shadowOffsetY = 3;
+                    ctx.drawImage(l.img,-l.size/2,-l.size/2,l.size,l.size); ctx.restore();
+                }
+                if(active || leaves.length){ raf = requestAnimationFrame(frame); } else { raf = 0; ctx.clearRect(0,0,W,H); }
+            }
+            function setLeaves(on){
+                active = on; btn.classList.toggle('on', on); lsSet('tunasy_leaves', on ? '1' : '0');
+                if(on){ const n = Math.round(Math.min(70, Math.max(28, W/22))); leaves = Array.from({length:n}, () => spawn(true)); if(!raf) raf = requestAnimationFrame(frame); }
+            }
+            window.toggleLeaves = () => setLeaves(!active);
+            if(lsGet('tunasy_leaves') === '1') setLeaves(true);
+        })();
     </script>
 </body>
 </html>
